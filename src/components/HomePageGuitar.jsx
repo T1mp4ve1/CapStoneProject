@@ -8,24 +8,24 @@ function HomePageGuitar() {
       <div
         style={{
           backgroundImage: `url(${bgImg})`,
-          minHeight: "100vh",
+          // minHeight: "100vh",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <Container fluid className="hpTop text-light">
           <h2 style={{ fontSize: "5rem" }}>
-            <span className="fade-in" style={{ animationDelay: "0.2s" }}>Creeremo la chitarra</span>
+            <span className="fade-in" style={{ animationDelay: "0.3s" }}>Scelto da te.</span>
             <br />
-            <span className="fade-in" style={{ animationDelay: "0.3s" }}>del tuo sogno</span>
+            <span className="fade-in" style={{ animationDelay: "0.4s" }}>Fatto da noi.</span>
           </h2>
           <p
             className="fs-3 hero-subtitle fade-in"
-            style={{ animationDelay: "0.4s" }}
+            style={{ animationDelay: "0.5s" }}
           >
             Artigianato, passione e suoni che ispirano
           </p>
-          <button className="btn fs-5 homeButton text-light fade-in" style={{ animationDelay: "0.5s" }}>
+          <button className="btn fs-5 homeButton text-light fade-in" style={{ animationDelay: "0.6s" }}>
             Scopri la nostra gamma
           </button>
         </Container>

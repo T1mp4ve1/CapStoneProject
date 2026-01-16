@@ -1,4 +1,8 @@
 .navbar {
-    background-color: rgba(28, 17, 13, 0.942);
-    border-bottom: 2px solid rgb(42, 33, 28);
+    background-color: rgba(255, 247, 236, 0.942);
+}
+
+.logoFont {
+    font-family: "Quintessential", serif;
+    font-size: 3rem;
 }

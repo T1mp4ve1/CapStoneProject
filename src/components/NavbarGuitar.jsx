@@ -9,9 +9,9 @@ import "./css/NavbarGuitar.css"
 
 function NavbarGuitar() {
   return (
-    <Navbar expand="lg" variant="dark" className="fixed-top shadow">
+    <Navbar expand="lg" variant="light" className="fixed-top shadow">
       <Container fluid>
-        <Navbar.Brand className="fs-1 logoFont" as={Link} to="/">ChitCraft</Navbar.Brand>
+        <Navbar.Brand className="logoFont" as={Link} to="/">ChitCraft</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
