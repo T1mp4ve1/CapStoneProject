@@ -1,20 +1,18 @@
-import { useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap-icons/font/bootstrap-icons.css'
-import './App.css'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NavbarGuitar from "./components/NavbarGuitar";
+import HomePageGuitar from "./components/HomePageGuitar";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div className="d-flex justify-content-center">
-        <button className='btn btn-outline-primary' onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <BrowserRouter>
+        <NavbarGuitar />
+        <Routes>
+          <Route path="/" element={<HomePageGuitar />}/>
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

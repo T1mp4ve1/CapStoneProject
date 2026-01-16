@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quintessential&family=Rubik+Burned&display=swap');
+
+body {
+    background-color: rgb(23, 23, 23);
+    font-family: "Outfit", sans-serif;
+}
+
+.container-fluid {
+    width: 90%;
+}
+
+.logoFont {
+    font-family: "Quintessential", serif;
+}

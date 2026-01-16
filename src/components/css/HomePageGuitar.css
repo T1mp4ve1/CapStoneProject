@@ -1,0 +1,24 @@
+.hpTop {
+    padding-top: 9rem;
+}
+
+.homeButton {
+    background-color: #013b5ee4;
+    transition: all 0.3s;
+}
+
+.homeButton:hover {
+    background-color: #013a5eaa;
+}
+
+/* Animazione*/
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
