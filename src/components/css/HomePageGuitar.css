@@ -10,24 +10,26 @@
     transform: translateX(-50%);
 }
 
-h2 {
-    font-family: "Outfit", sans-serif;
-}
-
-
-/* TOP_LEFT */
-
-.homeTopLeft {
+.glassContainer {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(5px);
     border-radius: 20px;
     padding: 2rem;
     transition: all 0.5s;
+    border: 2px solid rgba(255, 250, 242, 0);
 }
 
-.homeTopLeft:hover {
+.glassContainer:hover {
     backdrop-filter: blur(50px);
+    border: 2px solid rgba(255, 250, 242, 0.525);
 }
+
+.glassContainer h2,
+p {
+    font-family: "Poiret One", sans-serif;
+}
+
+/* TOP_LEFT */
 
 .homeButtonLeft {
     background-color: #013b5ee4;
@@ -35,23 +37,11 @@ h2 {
 }
 
 .homeButtonLeft:hover {
-    background-color: #013a5e86;
+    background-color: #013a5e57;
 }
 
 
 /* TOP_RIGHT */
-
-.homeTopRight {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-    padding: 2rem;
-    transition: all 0.5s;
-}
-
-.homeTopRight:hover {
-    backdrop-filter: blur(50px);
-}
 
 .homeButtonRight {
     background-color: rgb(122, 30, 20);
@@ -59,7 +49,7 @@ h2 {
 }
 
 .homeButtonRight:hover {
-    background-color: rgba(122, 30, 20, 0.541);
+    background-color: rgba(122, 30, 20, 0.332);
 }
 
 

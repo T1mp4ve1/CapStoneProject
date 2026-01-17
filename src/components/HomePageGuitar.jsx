@@ -1,6 +1,7 @@
 import { Button, Container } from "react-bootstrap";
 import bgImg from "../img/img11.jpg";
 import "./css/HomePageGuitar.css";
+import { Link } from "react-router-dom";
 
 function HomePageGuitar() {
   return (
@@ -18,27 +19,25 @@ function HomePageGuitar() {
 
         <div className="hpTop d-flex justify-content-between text-light">
           <div
-            className="homeTopLeft slowOpacity shadow text-center"
-            style={{ animationDelay: "0.4s" }}
+            className="glassContainer slowOpacity shadow text-center"
+            style={{ animationDelay: "0.2s" }}
           >
-            <div className="homeTopLeftIn">
-              <h2 style={{ fontSize: "5rem" }}>
-                <span className="slowOpacity">Scelto da te</span>
-                <br />
-                <span className="slowOpacity">Fatto da noi</span>
-              </h2>
-              <p className="fs-3 hero-subtitle slowOpacity">
-                La tua idea diventa nostra passione
-              </p>
-              <button className="btn fs-5 homeButtonLeft text-light slowOpacity">
-                Configura
-              </button>
-            </div>
+            <h2 style={{ fontSize: "5rem" }}>
+              <span className="slowOpacity">Scelto da te</span>
+              <br />
+              <span className="slowOpacity">Fatto da noi</span>
+            </h2>
+            <p className="fs-3 hero-subtitle slowOpacity">
+              La tua idea diventa nostra passione
+            </p>
+            <Link as={Link} to="/#" className="btn fs-5 homeButtonLeft text-light slowOpacity">
+              Configura
+            </Link>
           </div>
 
           <div
-            className="homeTopRight slowOpacity shadow text-center"
-            style={{ animationDelay: "0.4s" }}
+            className="glassContainer slowOpacity shadow text-center"
+            style={{ animationDelay: "0.2s" }}
           >
             <h2 style={{ fontSize: "5rem" }}>
               <span className="slowOpacity">Nostra</span>

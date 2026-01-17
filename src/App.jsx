@@ -8,7 +8,7 @@ function App() {
       <BrowserRouter>
         <NavbarGuitar />
         <Routes>
-          <Route path="/" element={<HomePageGuitar />}/>
+          <Route path="/" element={<HomePageGuitar />} />
         </Routes>
       </BrowserRouter>
     </>
