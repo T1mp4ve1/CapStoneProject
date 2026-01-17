@@ -1,5 +1,14 @@
 .navbar {
     background-color: rgba(255, 247, 236, 0.942);
+    transition: all 0.4s;
+    animation: slideDown 1s ease forwards;
+    transform: translateY(-100%);
+}
+
+@keyframes slideDown {
+    to {
+        transform: translate(0);
+    }
 }
 
 .logoFont {

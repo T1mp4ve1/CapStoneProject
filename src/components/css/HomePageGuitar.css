@@ -1,18 +1,42 @@
-.hpTop {
-    padding-top: 9rem;
-    padding-bottom: 4rem;
+.generalHomeDiv {
+    overflow: hidden;
 }
 
-.homeButton {
+.hpTop {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+}
+
+.homeButtonLeft {
     background-color: #013b5ee4;
     transition: all 0.3s;
 }
 
-.homeButton:hover {
+.homeButtonLeft:hover {
     background-color: #013a5eaa;
 }
 
-/* Animazione*/
+.homeButtonRight {
+    background-color: #F9F0E5;
+    transition: all 0.3s;
+}
+
+.homeButtonRight:hover {
+    background-color: #f9f0e5c6;
+}
+
+.bgZoom {
+    animation: zoomOut 1s ease-out forwards;
+    transform: scale(1.1);
+}
+
+@keyframes zoomOut {
+    to {
+        transform: scale(1);
+    }
+}
+
 .fade-in {
     opacity: 0;
     animation: fadeIn 1s ease forwards;

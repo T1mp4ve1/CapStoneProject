@@ -11,7 +11,7 @@ function NavbarGuitar() {
   return (
     <Navbar expand="lg" variant="light" className="fixed-top shadow">
       <Container fluid>
-        <Navbar.Brand className="logoFont" as={Link} to="/">ChitCraft</Navbar.Brand>
+        <Navbar.Brand className="logoFont" as={Link} to="/">ChitArt</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
