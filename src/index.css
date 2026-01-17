@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Quintessential&family=Rubik+Burned&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Delius&family=Fascinate&family=Limelight&family=Londrina+Shadow&family=Macondo&family=Oi&family=Outfit:wght@100..900&family=Pacifico&family=Quintessential&family=Rouge+Script&family=Sigmar&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Story+Script&display=swap');
 
 body {
-    background-color: #F1E9DF;
+    background-color: rgb(255, 250, 242);
     font-family: "Outfit", sans-serif;
 }
 
-.container-fluid {
+.container90 {
     width: 90%;
 }

@@ -1,40 +1,28 @@
-import {
-  Container,
-  Navbar,
-  NavDropdown,
-  Nav,
-} from "react-bootstrap";
+import { Container, Navbar, NavDropdown, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./css/NavbarGuitar.css"
+import "./css/NavbarGuitar.css";
 
 function NavbarGuitar() {
   return (
-    <Navbar expand="lg" variant="light" className="fixed-top shadow">
-      <Container fluid>
-        <Navbar.Brand className="logoFont" as={Link} to="/">ChitArt</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0 generalFont"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/products">Gamma</Nav.Link>
-            <NavDropdown title="Prodotti" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="navbarCustom fixed-top shadow d-flex justify-content-around align-items-center">
+      <div className="navbarSide d-flex justify-content-around align-items-center">
+        <Link as={Link} to="/products">Prodotti</Link>
+        <i className="bi bi-dot"></i>
+        <Link as={Link} to="/products">Di noi</Link>
+        <i className="bi bi-dot"></i>
+        <Link as={Link} to="/products">Media</Link>
+      </div>
+      <Navbar.Brand className="logoFont" as={Link} to="/">
+        Chitart
+      </Navbar.Brand>
+      <div className="navbarSide d-flex justify-content-around align-items-center">
+        <Link as={Link} to="/products" className="ms-3">Prodotti</Link>
+        <i className="bi bi-dot"></i>
+        <Link as={Link} to="/products" className="ms-3">Di noi</Link>
+        <i className="bi bi-dot"></i>
+        <Link as={Link} to="/products" className="ms-3">Media</Link>
+      </div>
+    </nav>
   );
 }
 

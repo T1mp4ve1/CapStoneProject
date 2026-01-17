@@ -3,9 +3,30 @@
 }
 
 .hpTop {
+    width: 90%;
     position: absolute;
     top: 35%;
-    left: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+h2 {
+    font-family: "Outfit", sans-serif;
+}
+
+
+/* TOP_LEFT */
+
+.homeTopLeft {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.5s;
+}
+
+.homeTopLeft:hover {
+    backdrop-filter: blur(50px);
 }
 
 .homeButtonLeft {
@@ -14,17 +35,35 @@
 }
 
 .homeButtonLeft:hover {
-    background-color: #013a5eaa;
+    background-color: #013a5e86;
+}
+
+
+/* TOP_RIGHT */
+
+.homeTopRight {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.5s;
+}
+
+.homeTopRight:hover {
+    backdrop-filter: blur(50px);
 }
 
 .homeButtonRight {
-    background-color: #F9F0E5;
+    background-color: rgb(122, 30, 20);
     transition: all 0.3s;
 }
 
 .homeButtonRight:hover {
-    background-color: #f9f0e5c6;
+    background-color: rgba(122, 30, 20, 0.541);
 }
+
+
+/* ANIMATIONS */
 
 .bgZoom {
     animation: zoomOut 1s ease-out forwards;
@@ -37,7 +76,7 @@
     }
 }
 
-.fade-in {
+.slowOpacity {
     opacity: 0;
     animation: fadeIn 1s ease forwards;
 }

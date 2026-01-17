@@ -1,5 +1,9 @@
-.navbar {
-    background-color: rgba(255, 247, 236, 0.942);
+.navbarCustom {
+    background: rgba(255, 250, 242, 0.899);
+    /* backdrop-filter: blur(10px); */
+    width: 95%;
+    margin: 0 auto;
+    border-radius: 0 0 50px 50px;
     transition: all 0.4s;
     animation: slideDown 1s ease forwards;
     transform: translateY(-100%);
@@ -11,7 +15,25 @@
     }
 }
 
+.navbarSide {
+    width: 30%;
+}
+
+.navbarSide a {
+    font-family: "Outfit", sans-serif;
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: rgb(21, 21, 21);
+    border-top: 2px solid rgba(122, 30, 20, 0);
+    transition: all 0.3s;
+}
+
+.navbarSide a:hover {
+    color: rgb(122, 30, 20);
+    border-top: 2px solid rgba(122, 30, 20, 0.825);
+}
+
 .logoFont {
-    font-family: "Quintessential", serif;
-    font-size: 3rem;
+    font-family: "Limelight", sans-serif;
+    font-size: 3.5rem;
 }
