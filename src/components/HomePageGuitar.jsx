@@ -30,7 +30,7 @@ function HomePageGuitar() {
             <p className="fs-3 hero-subtitle slowOpacity">
               La tua idea diventa nostra passione
             </p>
-            <Link as={Link} to="/#" className="btn fs-5 homeButtonLeft text-light slowOpacity">
+            <Link as={Link} to="/#" className="fs-5 homeButton slowOpacity">
               Configura
             </Link>
           </div>
@@ -47,9 +47,9 @@ function HomePageGuitar() {
             <p className="fs-3 hero-subtitle slowOpacity">
               Artigianato, passione e suoni che ispirano
             </p>
-            <button className="btn fs-5 homeButtonRight text-light slowOpacity">
+            <Link as={Link} to="/#" className="fs-5 homeButton slowOpacity">
               Scopri la gamma
-            </button>
+            </Link>
           </div>
         </div>
 
