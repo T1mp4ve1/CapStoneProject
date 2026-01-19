@@ -33,6 +33,7 @@
 /* LOGO */
 
 .logoFont {
+    margin: -10px;
     font-family: "Limelight", sans-serif;
     font-size: 3.5rem;
 }

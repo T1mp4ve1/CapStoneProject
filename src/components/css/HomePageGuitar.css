@@ -3,7 +3,6 @@
 }
 
 .hpTop {
-    width: 90%;
     position: absolute;
     top: 35%;
     left: 50%;
@@ -29,7 +28,7 @@ p {
     font-family: "Poiret One", sans-serif;
 }
 
-/* BUTTONS */
+/* buttons */
 
 .homeButton {
     color: #F6F6F7;
@@ -52,7 +51,7 @@ p {
     background: rgba(255, 250, 242, 0);
 }
 
-/* ANIMATIONS */
+/* animations */
 
 .bgZoom {
     animation: zoomOut 1s ease-out forwards;
@@ -74,4 +73,25 @@ p {
     to {
         opacity: 1;
     }
+}
+
+
+/* SECTION 2 */
+
+.fontArtists {
+    color: rgba(113, 111, 107, 0.707);
+    font-size: 4rem;
+}
+
+.cardArtist {
+    transition: all 0.3s;
+}
+
+.cardArtist:hover {
+opacity: 0.8;
+}
+
+.artistName {
+    width: 100%;
+    background: rgba(255, 250, 242, 0.899);
 }
