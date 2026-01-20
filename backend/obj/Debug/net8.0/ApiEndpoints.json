@@ -1,5 +1,47 @@
 [
   {
+    "ContainingType": "backend.Controllers.AppUserController",
+    "Method": "Registration",
+    "RelativePath": "api/AppUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "backend.Model.DTO.AppUserDTO.AppUser_Create",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.AppUserController",
+    "Method": "Read",
+    "RelativePath": "api/AppUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.AppUserController",
+    "Method": "Login",
+    "RelativePath": "api/AppUser/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "backend.Model.DTO.AppUserDTO.Login_DTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "backend.Controllers.GuitarController",
     "Method": "Create",
     "RelativePath": "api/Guitar",
