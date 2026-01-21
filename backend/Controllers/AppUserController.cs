@@ -1,5 +1,6 @@
 ﻿using backend.Model.DTO.AppUserDTO;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -32,25 +33,19 @@ namespace backend.Controllers
 
         //LOGIN
         // user@example.com Guitar2025@
+        // admin@chitart.com SoulReaper2026@
         [HttpPost("login")]
         public async Task<IActionResult> Login(Login_DTO dto)
         {
             try
             {
-                var result = await _service.LoginAsync(dto);
-                if (result.IsLockedOut)
+                var token = await _service.LoginAsync(dto);
+                if (token == null)
                 {
-                    return BadRequest("Account locked due to too many failed attempts");
+                    return BadRequest("Email or password incorrect");
                 }
-                if (result.IsNotAllowed)
-                {
-                    return BadRequest("Email not confirmed");
-                }
-                if (!result.Succeeded)
-                {
-                    return BadRequest("Email or password is incorrect");
-                }
-                return Ok("Login success");
+
+                return Ok(new { token });
             }
             catch (Exception ex)
             {
@@ -60,6 +55,7 @@ namespace backend.Controllers
 
         //R
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Read()
         {
             try

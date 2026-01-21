@@ -11,16 +11,19 @@ namespace backend.Services
         private readonly AppDbContext _db;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly TokenService _tokenService;
         public AppUserService
             (
             AppDbContext db,
             UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager
+            SignInManager<AppUser> signInManager,
+            TokenService tokenService
             )
         {
             _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
         //C
@@ -43,8 +46,8 @@ namespace backend.Services
                 FirstName = dto.FirstName,
                 EmailConfirmed = false,
                 PhoneNumberConfirmed = false,
-                TwoFactorEnabled = false, //
-                LockoutEnabled = true //
+                TwoFactorEnabled = false,
+                LockoutEnabled = true
             };
 
             var result = await _userManager.CreateAsync(newUser, dto.Password);
@@ -56,15 +59,23 @@ namespace backend.Services
         }
 
         //LOGIN
-        public async Task<SignInResult> LoginAsync(Login_DTO dto)
+        public async Task<string?> LoginAsync(Login_DTO dto)
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
             {
-                return SignInResult.Failed;
+                return null;
             }
+
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, lockoutOnFailure: true);
-            return result;
+            if (!result.Succeeded)
+            {
+                return null;
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            return _tokenService.CreateToken(user, roles);
         }
 
         //R
