@@ -38,7 +38,7 @@ namespace backend.Controllers
 
         //R
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Read()
         {
             try

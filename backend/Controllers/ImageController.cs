@@ -1,6 +1,7 @@
 ﻿using backend.Model;
 using backend.Model.DTO.ImageDTO;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -19,7 +20,7 @@ namespace backend.Controllers
 
         //C
         [HttpPost("upload")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upload(
             IFormFile file,
             [FromForm] ImageTypes entityType,

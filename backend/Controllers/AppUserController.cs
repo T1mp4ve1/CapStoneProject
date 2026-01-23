@@ -14,6 +14,7 @@ namespace backend.Controllers
 
         //C
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Registration(AppUser_Create dto)
         {
             try
@@ -32,8 +33,7 @@ namespace backend.Controllers
         }
 
         //LOGIN
-        // user@example.com Guitar2025@
-        // admin@chitart.com SoulReaper2026@
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(Login_DTO dto)
         {
