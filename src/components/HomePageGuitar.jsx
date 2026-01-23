@@ -31,6 +31,7 @@ function HomePageGuitar() {
       name: "PGM",
     },
   ];
+  
   return (
     <>
       {/* GUITAR */}
