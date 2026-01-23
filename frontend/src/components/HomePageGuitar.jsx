@@ -1,37 +1,19 @@
-import { Button, Container } from "react-bootstrap";
 import bgImg from "../img/img11.jpg";
-import a1 from "../img/a1.jpg";
-import a2 from "../img/a2.jpg";
-import a3 from "../img/a3.jpg";
-import a4 from "../img/a4.jpg";
-import a5 from "../img/a5.jpg";
 import "./css/HomePageGuitar.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getArtists } from "../services/artistService";
 
 function HomePageGuitar() {
-  let artist = [
-    {
-      img: a1,
-      name: "BER",
-    },
-    {
-      img: a2,
-      name: "LB",
-    },
-    {
-      img: a3,
-      name: "TOD",
-    },
-    {
-      img: a4,
-      name: "JBM",
-    },
-    {
-      img: a5,
-      name: "PGM",
-    },
-  ];
-  
+  const [artists, setArtist] = useState([]);
+
+  useEffect(() => {
+    getArtists()
+      .then((data) => setArtist(data))
+      .catch((err) => console.error("Fetch artist error:", err));
+  }, []);
+
   return (
     <>
       {/* GUITAR */}
@@ -86,11 +68,11 @@ function HomePageGuitar() {
         </section>
 
         {/* ARTISTS */}
-        <section2>
+        <section>
           <div className="container90 text-center my-5">
             <h2 className="fontArtists">Hanno scelto noi</h2>
             <div className="row row-cols-5 g-1">
-              {artist.map((a, index) => (
+              {artists.map((a, index) => (
                 <div className="col" key={index}>
                   <div className="card rounded-0 position-relative cardArtist">
                     <img src={a.img} alt={`artist-${index}`} />
@@ -102,7 +84,7 @@ function HomePageGuitar() {
               ))}
             </div>
           </div>
-        </section2>
+        </section>
       </div>
     </>
   );
