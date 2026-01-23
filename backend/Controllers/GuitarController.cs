@@ -1,5 +1,6 @@
 ﻿using backend.Model.DTO.GuitarDTO;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -17,6 +18,7 @@ namespace backend.Controllers
 
         //C
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(Guitar_Create dto)
         {
             try
@@ -36,6 +38,7 @@ namespace backend.Controllers
 
         //R
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Read()
         {
             try
@@ -51,6 +54,7 @@ namespace backend.Controllers
 
         //U
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(Guitar_Update dto, Guid id)
         {
             try
@@ -78,6 +82,7 @@ namespace backend.Controllers
 
         //D
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

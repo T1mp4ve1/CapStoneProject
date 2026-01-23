@@ -13,7 +13,7 @@ namespace backend.Model
         [Required]
         public ImageTypes EntityType { get; set; }
 
-        public string EntityId { get; set; }
+        public string? EntityId { get; set; }
 
         [Required]
         public bool IsMain { get; set; }

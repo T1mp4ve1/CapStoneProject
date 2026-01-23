@@ -17,6 +17,9 @@ builder.Services.AddScoped<GuitarCategoryService>();
 builder.Services.AddScoped<GuitarService>();
 builder.Services.AddScoped<AppUserService>();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<ArtistService>();
+builder.Services.AddScoped<ImageService>();
+builder.Services.AddSingleton<BlobService>(); // storage
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -55,7 +58,12 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters
+        .Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -83,6 +91,8 @@ builder.Services.AddSwaggerGen(options =>
             Array.Empty<string>()
         }
     });
+
+    options.UseInlineDefinitionsForEnums();
 });
 
 var app = builder.Build();
@@ -100,33 +110,9 @@ using (var scope = app.Services.CreateScope())
             await roleManager.CreateAsync(new IdentityRole(r));
         }
     }
-
-    string adminEmail = "admin@chitart.com";
-    string adminPassword = "SoulReaper2026@";
-
-    var admin = await userManager.FindByEmailAsync(adminEmail);
-    if (admin == null)
-    {
-        var newAdmin = new AppUser
-        {
-            CreatedAt = DateTime.UtcNow,
-            UserName = adminEmail,
-            Email = adminEmail,
-            FirstName = "superAdmin",
-            EmailConfirmed = true,
-            PhoneNumberConfirmed = true,
-            TwoFactorEnabled = false,
-            LockoutEnabled = true
-        };
-        var result = await userManager.CreateAsync(newAdmin, adminPassword);
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(newAdmin, "Admin");
-        }
-    }
 }
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -135,6 +121,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/", () => "Chitart API is running");
 
 app.MapControllers();
 

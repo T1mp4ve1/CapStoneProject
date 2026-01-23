@@ -2,9 +2,10 @@
 {
     public enum ImageTypes
     {
-        None = 0,
+        Generic = 0,
         Guitar = 1,
         User = 2,
-        Category = 3
+        Category = 3,
+        Artist = 4
     }
 }

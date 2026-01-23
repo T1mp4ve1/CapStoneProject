@@ -11,5 +11,6 @@ namespace backend.Data
         public DbSet<Guitar> Guitars { get; set; }
         public DbSet<GuitarCategory> GuitarCategories { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Artist> Artists { get; set; }
     }
 }
