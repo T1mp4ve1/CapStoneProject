@@ -26,8 +26,8 @@
 }
 
 .navbarSide a:hover {
-    color: rgb(122, 30, 20);
-    border-top: 2px solid rgba(122, 30, 20, 0.825);
+    color: rgba(70, 68, 66, 0.707);
+    border-top: 2px solid rgba(113, 111, 107, 0.707);
 }
 
 /* LOGO */

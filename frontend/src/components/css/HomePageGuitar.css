@@ -2,6 +2,7 @@
     overflow: hidden;
 }
 
+/* TOP */
 .hpTop {
     position: absolute;
     top: 35%;
@@ -54,7 +55,7 @@ p {
 /* animations */
 
 .bgZoom {
-    animation: zoomOut 1s ease-out forwards;
+    animation: zoomOut 2s ease-out forwards;
     transform: scale(1.1);
 }
 
@@ -64,31 +65,78 @@ p {
     }
 }
 
-.slowOpacity {
+/* POPULAR */
+.guitarCard {
+    background-color: var(--colorBeige);
+    padding: 4rem;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.guitarCard img {
+    height: 400px;
+    object-fit: contain;
+    transition: all 0.3s;
+}
+
+.guitarCard:hover {
+    background-color: var(--colorBeigeSelected);
+}
+
+.guitarCard p {
+    font-family: "Outfit", sans-serif;
+    color: var(--colorDarkBeige);
+    font-size: 1.2rem;
+    position: absolute;
+    top: 90%;
+    left: 10%;
+}
+
+/* CUSTOM SHOP */
+.customShopContainer {
+    position: relative;
+}
+
+.customShopContainer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.714);
     opacity: 0;
-    animation: fadeIn 1s ease forwards;
+    transition: opacity 1s ease;
+    transition-delay: 0.7s;
+    z-index: 1;
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
+.customShopContainer.fade-in.visible::before{
+    opacity: 1;
+}
+
+.knockoutText {
+    font-size: 10rem;
+    width: 100%;
+    color: transparent;
+    line-height: 1;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    -webkit-background-clip: text;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
 
-/* SECTION 2 */
-
-.fontArtists {
-    color: rgba(113, 111, 107, 0.707);
-    font-size: 4rem;
-}
+/* ARTISTS */
 
 .cardArtist {
     transition: all 0.3s;
 }
 
 .cardArtist:hover {
-opacity: 0.8;
+    opacity: 0.8;
 }
 
 .artistName {

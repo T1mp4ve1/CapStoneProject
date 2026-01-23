@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Limelight&family=Outfit:wght@100..900&family=Poiret+One&display=swap');
 
+/* COLORS */
+:root {
+    --colorDarkBeige: rgba(113, 111, 107, 0.707);
+    --colorBeige: rgba(255, 250, 242, 0.899);
+    --colorBeigeSelected: rgba(245, 240, 232, 0.899);
+}
+
+.fontTitle {
+    color: var(--colorDarkBeige);
+    font-size: 4rem;
+}
+
 body {
     background-color: rgba(255, 250, 242, 0.899);
     font-family: "Outfit", sans-serif;
@@ -14,6 +26,34 @@ p {
     margin: 0 auto;
 }
 
+.container80 {
+    width: 80%;
+    margin: 0 auto;
+}
+
 a {
     text-decoration: none;
+}
+
+/* ANIMATIONS */
+.slowOpacity {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(10%);
+    transition: all 0.5s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
