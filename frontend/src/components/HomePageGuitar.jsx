@@ -77,7 +77,7 @@ function HomePageGuitar() {
                   <div className="card rounded-0 position-relative cardArtist">
                     <img src={a.img} alt={`artist-${index}`} />
                     <div className="position-absolute bottom-0 artistName">
-                      <p className="fs-1">{a.name}</p>
+                      <p className="fs-2">{a.name}</p>
                     </div>
                   </div>
                 </div>
