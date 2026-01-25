@@ -5,6 +5,7 @@
     --colorDarkBeige: rgba(113, 111, 107, 0.707);
     --colorBeige: rgba(255, 250, 242, 0.899);
     --colorBeigeSelected: rgba(245, 240, 232, 0.899);
+    --iconColor: rgba(57, 45, 26, 0.899);
 }
 
 .fontTitle {
@@ -19,6 +20,11 @@ body {
 
 p {
     margin: 0;
+}
+
+.containerAfterNavbar{
+    width: 90%;
+    margin: 5rem auto 0 auto;
 }
 
 .container90 {
