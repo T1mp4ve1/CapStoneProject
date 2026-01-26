@@ -7,9 +7,10 @@ import { loginFunc, logoutFunc } from "../services/authService";
 function NavbarGuitar() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLogged, setIsLogged] = useState(!!localStorage.getItem("token"));
   const userRoles = JSON.parse(localStorage.getItem("userRoles") || "[]"); //
   const isAdmin = userRoles.includes("Admin");
-  const isLogged = !!localStorage.getItem("token");
+  const [showDropdown, setshowDropdown] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,9 +19,10 @@ function NavbarGuitar() {
       const data = await loginFunc(email, password);
       console.log("Login OK:", data);
       console.log(isAdmin);
+      setIsLogged(true);
       setEmail("");
       setPassword("");
-      window.location.reload();
+      setshowDropdown(false);
     } catch (err) {
       alert("Credenziali errate", err);
     }
@@ -28,7 +30,8 @@ function NavbarGuitar() {
 
   const handleLogout = () => {
     logoutFunc();
-    window.location.reload();
+    setIsLogged(false);
+    setshowDropdown(false);
   };
 
   return (
@@ -61,7 +64,7 @@ function NavbarGuitar() {
         <div className="d-flex justify-content-around align-items-center iconsProfileContainer shadow-sm">
           <i className="bi bi-bag-fill fs-3 ms-3"></i>
           <i className="bi bi-bell-fill fs-4"></i>
-          <Dropdown align="end">
+          <Dropdown align="end" show={showDropdown} onToggle={()=> setshowDropdown(!showDropdown)}>
             <Dropdown.Toggle
               as="div"
               className="profileDropdownToggle"
@@ -74,15 +77,24 @@ function NavbarGuitar() {
               {isLogged ? (
                 <>
                   <div className="m-3 d-flex flex-column">
-                    <Link to="/Customshop" className="flexContainer dropdownItem">
+                    <Link
+                      to="/Customshop"
+                      className="flexContainer dropdownItem"
+                    >
                       <i className="bi bi-floppy-fill"></i>
                       <p>Ordini</p>
                     </Link>
-                    <Link to="/Customshop" className="flexContainer dropdownItem">
+                    <Link
+                      to="/Customshop"
+                      className="flexContainer dropdownItem"
+                    >
                       <i className="bi bi-bandaid-fill"></i>
                       <p>Supporto</p>
                     </Link>
-                    <Link to="/Customshop" className="flexContainer dropdownItem">
+                    <Link
+                      to="/Customshop"
+                      className="flexContainer dropdownItem"
+                    >
                       <i className="bi bi-gear-fill"></i>
                       <p>Impostazioni</p>
                     </Link>
