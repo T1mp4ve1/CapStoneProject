@@ -75,7 +75,7 @@ function HomePageGuitar() {
               <p className="fs-3 mb-3 hero-subtitle slowOpacity">
                 La tua idea diventa nostra passione
               </p>
-              <Link as={Link} to="/#" className="fs-5 homeButton slowOpacity">
+              <Link as={Link} to="/#" className="fs-5 beatyButton slowOpacity">
                 Configura
               </Link>
             </div>
@@ -92,7 +92,7 @@ function HomePageGuitar() {
               <p className="fs-3 mb-3 hero-subtitle slowOpacity">
                 Artigianato, passione e suoni che ispirano
               </p>
-              <Link as={Link} to="/#" className="fs-5 homeButton slowOpacity">
+              <Link as={Link} to="/#" className="fs-5 beatyButton slowOpacity">
                 Scopri la gamma
               </Link>
             </div>
@@ -108,7 +108,7 @@ function HomePageGuitar() {
                 <div className="col" key={index}>
                   <div
                     className="card border-0 position-relative shadow guitarCard"
-                    style={{ width: "18rem;" }}
+                    // style={{ width: "18rem;" }}
                   >
                     <img src={g.img} alt="img" />
                     <p>{g.price}€</p>

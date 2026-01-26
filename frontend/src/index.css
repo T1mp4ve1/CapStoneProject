@@ -5,7 +5,9 @@
     --colorDarkBeige: rgba(113, 111, 107, 0.707);
     --colorBeige: rgba(255, 250, 242, 0.899);
     --colorBeigeSelected: rgba(245, 240, 232, 0.899);
-    --iconColor: rgba(57, 45, 26, 0.899);
+    --colorBrown: rgba(57, 45, 26, 0.899);
+    --colorMediumBeige: rgba(200, 187, 165, 0.899);
+
 }
 
 .fontTitle {
@@ -22,7 +24,7 @@ p {
     margin: 0;
 }
 
-.containerAfterNavbar{
+.containerAfterNavbar {
     width: 90%;
     margin: 5rem auto 0 auto;
 }
@@ -44,14 +46,15 @@ a {
 /* ANIMATIONS */
 .slowOpacity {
     opacity: 0;
-    animation: fadeIn 1s ease forwards;
+    animation: slowOpacity 1s ease forwards;
 }
 
-@keyframes fadeIn {
+@keyframes slowOpacity {
     to {
         opacity: 1;
     }
 }
+
 
 .fade-in {
     opacity: 0;
@@ -62,4 +65,21 @@ a {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+
+.slideDown {
+    animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -39,13 +39,13 @@ namespace backend.Controllers
         {
             try
             {
-                var token = await _service.LoginAsync(dto);
-                if (token == null)
+                var result = await _service.LoginAsync(dto);
+                if (result == null)
                 {
                     return BadRequest("Email or password incorrect");
                 }
 
-                return Ok(new { token });
+                return Ok(result);
             }
             catch (Exception ex)
             {

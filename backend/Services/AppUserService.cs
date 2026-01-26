@@ -59,7 +59,7 @@ namespace backend.Services
         }
 
         //LOGIN
-        public async Task<string?> LoginAsync(Login_DTO dto)
+        public async Task<Login_Response?> LoginAsync(Login_DTO dto)
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
@@ -74,8 +74,16 @@ namespace backend.Services
             }
 
             var roles = await _userManager.GetRolesAsync(user);
+            var token = _tokenService.CreateToken(user, roles);
 
-            return _tokenService.CreateToken(user, roles);
+            var newLoginRes = new Login_Response
+            {
+                Token = token,
+                Email = user.Email,
+                Roles = roles
+            };
+
+            return newLoginRes;
         }
 
         //R

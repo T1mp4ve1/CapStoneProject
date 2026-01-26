@@ -31,7 +31,7 @@ p {
 
 /* buttons */
 
-.homeButton {
+.beatyButton {
     color: #F6F6F7;
     border-radius: 50px;
     padding: 0.5rem 1.5rem;
@@ -41,14 +41,14 @@ p {
     transition: all 0.3s;
 }
 
-.homeButton:hover {
+.beatyButton:hover {
     background: rgba(255, 250, 242, 0.199);
     box-shadow:
         5px 1px 10px -1px rgba(255, 250, 242, 0.707),
         -5px -1px 10px -1px rgba(255, 250, 242, 0.707);
 }
 
-.homeButton:active {
+.beatyButton:active {
     background: rgba(255, 250, 242, 0);
 }
 

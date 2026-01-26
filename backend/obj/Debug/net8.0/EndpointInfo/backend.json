@@ -424,7 +424,14 @@
                     "format": "binary"
                   },
                   "entityType": {
-                    "$ref": "#/components/schemas/ImageTypes"
+                    "enum": [
+                      "Generic",
+                      "Guitar",
+                      "User",
+                      "Category",
+                      "Artist"
+                    ],
+                    "type": "string"
                   },
                   "entityId": {
                     "type": "string"
@@ -593,16 +600,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "ImageTypes": {
-        "enum": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "type": "integer",
-        "format": "int32"
       },
       "Login_DTO": {
         "required": [
