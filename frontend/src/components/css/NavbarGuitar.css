@@ -40,7 +40,7 @@
 
 /* PROFILE */
 .iconsProfileContainer {
-    width: 30%;
+    max-width: 30%;
     border-radius: 30px;
     background-color: var(--colorBeige);
 }
@@ -48,16 +48,11 @@
 .iconsProfileContainer i {
     cursor: pointer;
     color: var(--colorDarkBeige);
+    margin: 0 0.4rem;
 }
 
-.profileDropdownMenu {
-    background: var(--colorBeige);
-    border-radius: 20px;
-    padding: 1rem 0;
-}
-
-.profileDropdownToggle::after {
-    display: none;
+.iconsProfileContainer i:active {
+    color: var(--colorBrown);
 }
 
 .loginBtn {
@@ -67,10 +62,25 @@
     background-color: var(--colorMediumBeige);
     transition: all 0.2s;
 }
-.loginBtn:hover{
+
+.loginBtn:hover {
     background-color: var(--colorBeige);
 }
 
-.profileDropdownMenu a {
-    color: var(--colorBrown);
+/* ADMIN */
+.adminButton {
+    transition: all 1s;
+}
+
+.adminButton:hover {
+    animation: spin 2s ease infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

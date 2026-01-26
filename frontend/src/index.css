@@ -39,8 +39,43 @@ p {
     margin: 0 auto;
 }
 
+.flexContainer {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 0 0.6rem;
+    transition: all 0.2s;
+}
+
 a {
     text-decoration: none;
+}
+
+/* dropdownMenu */
+.profileDropdownMenu {
+    background: var(--colorBeige);
+    border-radius: 20px;
+}
+
+.profileDropdownMenu a {
+    color: var(--colorBrown);
+}
+.profileDropdownMenu p {
+    font-size: 1.2rem;
+    font-family: "Outfit", sans-serif;
+}
+
+.profileDropdownToggle::after {
+    display: none;
+}
+
+.dropdownItem{
+    border-radius: 20px;
+    border-bottom: 2px solid transparent;
+}
+.dropdownItem:hover {
+    transform: translateX(2px);
+    border-bottom: 2px solid var(--colorMediumBeige);
 }
 
 /* ANIMATIONS */

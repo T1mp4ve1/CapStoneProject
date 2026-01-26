@@ -6,6 +6,7 @@ import AccessoriesPage from "./components/AccessoriesPage";
 import CustomshopPage from "./components/CustomshopPage";
 import OpinionPage from "./components/OpinionPage";
 import SupportPage from "./components/SupportPage";
+import AdminPage from "./components/AdminPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Customshop" element={<CustomshopPage />} />
           <Route path="/OpinionPage" element={<OpinionPage />} />
           <Route path="/SupportPage" element={<SupportPage />} />
+          <Route path="/AdminPage" element={<AdminPage />} />
         </Routes>
       </BrowserRouter>
     </>

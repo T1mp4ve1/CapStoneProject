@@ -16,6 +16,7 @@ export const loginFunc = async (email, password) => {
 
     localStorage.setItem("token", data.token);
     localStorage.setItem("userEmail", data.email);
+    localStorage.setItem("userRoles", JSON.stringify(data.roles));
 
     return data;
   } catch (err) {
@@ -24,9 +25,10 @@ export const loginFunc = async (email, password) => {
   }
 };
 
-export const logout = async () => {
+export const logoutFunc = async () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userEmail");
+  localStorage.removeItem("userRoles");
 };
 
 export const getToken = () => localStorage.getItem("token");
