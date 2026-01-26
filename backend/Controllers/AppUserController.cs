@@ -22,7 +22,7 @@ namespace backend.Controllers
                 var result = await _service.CreateAsync(dto);
                 if (!result.Succeeded)
                 {
-                    return BadRequest(result.Errors);
+                    return BadRequest(result.Errors.ToArray());
                 }
                 return Ok(new { message = "Registration success" });
             }

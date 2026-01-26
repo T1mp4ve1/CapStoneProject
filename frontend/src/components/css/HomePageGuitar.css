@@ -25,7 +25,7 @@
 }
 
 .glassContainer h2,
-p {
+.glassContainer p {
     font-family: "Poiret One", sans-serif;
 }
 
@@ -108,7 +108,7 @@ p {
     z-index: 1;
 }
 
-.customShopContainer.fade-in.visible::before{
+.customShopContainer.fade-in.visible::before {
     opacity: 1;
 }
 

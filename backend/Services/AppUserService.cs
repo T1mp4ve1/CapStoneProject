@@ -3,6 +3,7 @@ using backend.Model;
 using backend.Model.DTO.AppUserDTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.Services
 {
@@ -29,14 +30,60 @@ namespace backend.Services
         //C
         public async Task<IdentityResult> CreateAsync(AppUser_Create dto)
         {
+
+            var errors = new List<IdentityError>();
+
+            if (string.IsNullOrWhiteSpace(dto.Email))
+            {
+                errors.Add(new IdentityError
+                {
+                    Code = "EmailRequired",
+                    Description = "Insert your email"
+                });
+            }
+
+            if (!new EmailAddressAttribute().IsValid(dto.Email))
+            {
+                errors.Add(new IdentityError
+                {
+                    Code = "InvalidEmail",
+                    Description = "Email format is not valid"
+                });
+            }
+
             var existing = await _userManager.FindByEmailAsync(dto.Email);
             if (existing != null)
             {
-                return IdentityResult.Failed(new IdentityError
+                errors.Add(new IdentityError
                 {
+                    Code = "DuplicateEmail",
                     Description = "Email already exist"
                 });
             }
+
+            if (string.IsNullOrWhiteSpace(dto.Password))
+            {
+                errors.Add(new IdentityError
+                {
+                    Code = "PasswordRequired",
+                    Description = "Insert your password"
+                });
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.FirstName))
+            {
+                errors.Add(new IdentityError
+                {
+                    Code = "FirstNameRequired",
+                    Description = "Insert your name"
+                });
+            }
+
+            if (errors.Any())
+            {
+                return IdentityResult.Failed(errors.ToArray());
+            }
+
 
             var newUser = new AppUser
             {

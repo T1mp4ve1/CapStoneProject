@@ -7,7 +7,11 @@
     --colorBeigeSelected: rgba(245, 240, 232, 0.899);
     --colorBrown: rgba(57, 45, 26, 0.899);
     --colorMediumBeige: rgba(200, 187, 165, 0.899);
+    --colorTrasparent: rgba(200, 187, 165, 0);
+}
 
+.textTrasparent {
+    color: var(--colorTrasparent);
 }
 
 .fontTitle {
@@ -60,6 +64,7 @@ a {
 .profileDropdownMenu a {
     color: var(--colorBrown);
 }
+
 .profileDropdownMenu p {
     font-size: 1.2rem;
     font-family: "Outfit", sans-serif;
@@ -69,10 +74,11 @@ a {
     display: none;
 }
 
-.dropdownItem{
+.dropdownItem {
     border-radius: 20px;
     border-bottom: 2px solid transparent;
 }
+
 .dropdownItem:hover {
     transform: translateX(2px);
     border-bottom: 2px solid var(--colorMediumBeige);
