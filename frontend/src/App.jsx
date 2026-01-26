@@ -7,6 +7,7 @@ import CustomshopPage from "./components/CustomshopPage";
 import OpinionPage from "./components/OpinionPage";
 import SupportPage from "./components/SupportPage";
 import AdminPage from "./components/AdminPage";
+import RegistrationPage from "./components/RegistrationPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/OpinionPage" element={<OpinionPage />} />
           <Route path="/SupportPage" element={<SupportPage />} />
           <Route path="/AdminPage" element={<AdminPage />} />
+          <Route path="/RegistrationPage" element={<RegistrationPage />} />
         </Routes>
       </BrowserRouter>
     </>

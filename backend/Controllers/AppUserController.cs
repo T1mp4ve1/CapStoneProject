@@ -24,7 +24,7 @@ namespace backend.Controllers
                 {
                     return BadRequest(result.Errors);
                 }
-                return Ok("Registration success");
+                return Ok(new { message = "Registration success" });
             }
             catch (Exception ex)
             {

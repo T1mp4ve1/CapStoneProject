@@ -14,7 +14,6 @@ function NavbarGuitar() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const data = await loginFunc(email, password);
       console.log("Login OK:", data);
@@ -64,7 +63,11 @@ function NavbarGuitar() {
         <div className="d-flex justify-content-around align-items-center iconsProfileContainer shadow-sm">
           <i className="bi bi-bag-fill fs-3 ms-3"></i>
           <i className="bi bi-bell-fill fs-4"></i>
-          <Dropdown align="end" show={showDropdown} onToggle={()=> setshowDropdown(!showDropdown)}>
+          <Dropdown
+            align="end"
+            show={showDropdown}
+            onToggle={() => setshowDropdown(!showDropdown)}
+          >
             <Dropdown.Toggle
               as="div"
               className="profileDropdownToggle"
@@ -143,7 +146,7 @@ function NavbarGuitar() {
               ) : (
                 <>
                   <div className="text-center">
-                    <Link to="/Logout">Registrati</Link>
+                    <Link to="/RegistrationPage">Registrati</Link>
                   </div>
                 </>
               )}
