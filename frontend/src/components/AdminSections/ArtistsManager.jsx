@@ -3,13 +3,16 @@ import {
   createArtist,
   deleteArtist,
   getArtists,
+  updateArtist,
 } from "../../services/artistService";
+import "../css/ArtistManager.css"
 
 function ArtistsManager() {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searched, setSearched] = useState("");
   const [filtered, setFiltered] = useState([]);
+  const [editArtist, setEditArtist] = useState(null);
   const [newArtist, setNewArtist] = useState({
     name: "",
     img: "",
@@ -43,6 +46,15 @@ function ArtistsManager() {
   }, []);
 
   // U
+  const handleUpdate = async () => {
+    try {
+      const edited = await updateArtist(editArtist.id, editArtist);
+      setArtists((prev) => prev.map((a) => (a.id === edited.id ? edited : a)));
+      setEditArtist(null);
+    } catch (err) {
+      console.error("Update artist error", err);
+    }
+  };
 
   // D
   const handleDelete = async (id) => {
@@ -69,44 +81,92 @@ function ArtistsManager() {
       </div>
     );
   }
-  // https://chitartstorage.blob.core.windows.net/images/d47cb81a-f244-4f88-9e60-728001017e25.jpg
-  return (
-    <>
-      <div className="container80 manageContaner">
-        <div className="createArtistContainer">
-          <h3>Aggiungi artista</h3>
-          <p>ciao</p>
-          <input
-            type="text"
-            className="form-control mb-2"
-            placeholder="Nome..."
-            value={newArtist.name}
-            onChange={(e) =>
-              setNewArtist({ ...newArtist, name: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            className="form-control mb-2"
-            placeholder="URL immagine..."
-            value={newArtist.img}
-            onChange={(e) =>
-              setNewArtist({ ...newArtist, img: e.target.value })
-            }
-          />
-          <textarea
-            className="w-100"
-            placeholder="Descrizione..."
-            value={newArtist.about}
-            onChange={(e) =>
-              setNewArtist({ ...newArtist, about: e.target.value })
-            }
-          />
-          <button className="mb-4 w-100" onClick={() => handleCreateArtist()}>
-            Aggiungi
-          </button>
-        </div>
 
+  return (
+    <div className="container80 manageContaner">
+      {/* CREATE FORM */}
+      <div className="createArtistContainer">
+        <h3>Aggiungi artista</h3>
+        <input
+          type="text"
+          className="form-control mb-2"
+          placeholder="Nome..."
+          value={newArtist.name}
+          onChange={(e) => setNewArtist({ ...newArtist, name: e.target.value })}
+        />
+        <input
+          type="text"
+          className="form-control mb-2"
+          placeholder="URL immagine..."
+          value={newArtist.img}
+          onChange={(e) => setNewArtist({ ...newArtist, img: e.target.value })}
+        />
+        <textarea
+          className="w-100"
+          placeholder="Descrizione..."
+          value={newArtist.about}
+          onChange={(e) =>
+            setNewArtist({ ...newArtist, about: e.target.value })
+          }
+        />
+        <button className="mb-4 w-100" onClick={() => handleCreateArtist()}>
+          Aggiungi
+        </button>
+      </div>
+
+      {/* UPDATE FORM */}
+      {editArtist && (
+        <div className="modalOverlay" onClick={() => setEditArtist(null)}>
+          <div className="modalContent fastOpacity" onClick={(e) => e.stopPropagation()}>
+            <h3>Modifica artista</h3>
+
+            <input
+              type="text"
+              className="form-control mb-2"
+              placeholder="Nome..."
+              value={editArtist.name}
+              onChange={(e) =>
+                setEditArtist({ ...editArtist, name: e.target.value })
+              }
+            />
+
+            <input
+              type="text"
+              className="form-control mb-2"
+              placeholder="URL immagine..."
+              value={editArtist.img}
+              onChange={(e) =>
+                setEditArtist({ ...editArtist, img: e.target.value })
+              }
+            />
+
+            <textarea
+              className="form-control mb-2"
+              placeholder="Descrizione..."
+              value={editArtist.about}
+              onChange={(e) =>
+                setEditArtist({ ...editArtist, about: e.target.value })
+              }
+            />
+
+            <div className="d-flex gap-2 mt-3">
+              <button className="btn btn-success w-100" onClick={handleUpdate}>
+                Salva
+              </button>
+
+              <button
+                className="btn btn-secondary w-100"
+                onClick={() => setEditArtist(null)}
+              >
+                Annulla
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* LIST */}
+      <div className="artistListContainer">
         <h2>Lista artisti</h2>
         <input
           type="text"
@@ -135,7 +195,10 @@ function ArtistsManager() {
                 </td>
                 <td>{a.about}</td>
                 <td>
-                  <button className="btn btn-outline-warning mb-2">
+                  <button
+                    className="btn btn-outline-warning mb-2"
+                    onClick={() => setEditArtist(a)}
+                  >
                     <i className="bi bi-pencil-fill"></i>
                   </button>
                   <button
@@ -150,7 +213,7 @@ function ArtistsManager() {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 }
 

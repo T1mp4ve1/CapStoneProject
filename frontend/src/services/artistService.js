@@ -41,6 +41,27 @@ export const getArtists = async () => {
 };
 
 // U
+export const updateArtist = async (id, artist) => {
+  try {
+    const token = getToken();
+    const res = await fetch(`${api}/Artist/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(artist),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error update! Status: ${res.status}`);
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("Update artist error:", err);
+  }
+};
 
 // D
 export const deleteArtist = async (id) => {
@@ -54,8 +75,8 @@ export const deleteArtist = async (id) => {
       },
     });
 
-    if(!res.ok){
-      throw new Error(`Error delete! Status: ${res.status}`)
+    if (!res.ok) {
+      throw new Error(`Error delete! Status: ${res.status}`);
     }
   } catch (err) {
     console.error("Delete artist error:", err);
