@@ -72,7 +72,7 @@ namespace backend.Controllers
                     }
                 }
 
-                return Ok(result);
+                return Ok(result.Data);
             }
             catch (Exception ex)
             {

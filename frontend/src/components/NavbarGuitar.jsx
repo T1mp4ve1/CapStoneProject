@@ -17,7 +17,6 @@ function NavbarGuitar() {
     try {
       const data = await loginFunc(email, password);
       console.log("Login OK:", data);
-      console.log(isAdmin);
       setIsLogged(true);
       setEmail("");
       setPassword("");

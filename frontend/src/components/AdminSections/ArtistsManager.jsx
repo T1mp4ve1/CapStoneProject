@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { createArtist, getArtists } from "../../services/artistService";
+import {
+  createArtist,
+  deleteArtist,
+  getArtists,
+} from "../../services/artistService";
 
 function ArtistsManager() {
   const [artists, setArtists] = useState([]);
@@ -11,7 +15,6 @@ function ArtistsManager() {
     img: "",
     about: "",
   });
-
 
   // C
   const handleCreateArtist = async () => {
@@ -42,6 +45,14 @@ function ArtistsManager() {
   // U
 
   // D
+  const handleDelete = async (id) => {
+    try {
+      await deleteArtist(id);
+      setArtists((prev) => prev.filter((a) => a.id !== id));
+    } catch (err) {
+      console.error("Artist delete error:", err);
+    }
+  };
 
   // SEARCH
   useEffect(() => {
@@ -111,10 +122,11 @@ function ArtistsManager() {
               <th scope="col">Name</th>
               <th scope="col">Img</th>
               <th scope="col">About</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filtered.map((a) => (
+            {[...filtered].reverse().map((a) => (
               <tr key={a.id}>
                 <th scope="row">{a.id}</th>
                 <td>{a.name}</td>
@@ -122,6 +134,17 @@ function ArtistsManager() {
                   <img src={a.img} alt="img" width={60} />{" "}
                 </td>
                 <td>{a.about}</td>
+                <td>
+                  <button className="btn btn-outline-warning mb-2">
+                    <i className="bi bi-pencil-fill"></i>
+                  </button>
+                  <button
+                    className="btn btn-outline-danger"
+                    onClick={() => handleDelete(a.id)}
+                  >
+                    <i className="bi bi-x-lg"></i>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

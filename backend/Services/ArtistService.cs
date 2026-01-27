@@ -58,7 +58,7 @@ namespace backend.Services
             {
                 return new RequestResult_DTO { Success = false, Error = "NoChanges" };
             }
-            return new RequestResult_DTO { Success = true };
+            return new RequestResult_DTO { Success = true, Data = exist };
         }
 
         //D

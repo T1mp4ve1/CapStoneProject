@@ -14,9 +14,11 @@ export const createArtist = async (artist) => {
       },
       body: JSON.stringify(artist),
     });
+
     if (!res.ok) {
       throw new Error(`Error create! Status: ${res.status}`);
     }
+    return await res.json();
   } catch (err) {
     console.error("Create artist error", err);
     throw err;
@@ -33,7 +35,7 @@ export const getArtists = async () => {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.error("Read artists error:", err);
+    console.error("Read artist error:", err);
     throw err;
   }
 };
@@ -41,3 +43,21 @@ export const getArtists = async () => {
 // U
 
 // D
+export const deleteArtist = async (id) => {
+  try {
+    const token = getToken();
+    const res = await fetch(`${api}/Artist/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if(!res.ok){
+      throw new Error(`Error delete! Status: ${res.status}`)
+    }
+  } catch (err) {
+    console.error("Delete artist error:", err);
+  }
+};
