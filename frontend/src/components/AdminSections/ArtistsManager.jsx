@@ -12,6 +12,7 @@ function ArtistsManager() {
     about: "",
   });
 
+
   // C
   const handleCreateArtist = async () => {
     try {
@@ -63,6 +64,7 @@ function ArtistsManager() {
       <div className="container80 manageContaner">
         <div className="createArtistContainer">
           <h3>Aggiungi artista</h3>
+          <p>ciao</p>
           <input
             type="text"
             className="form-control mb-2"
