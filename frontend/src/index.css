@@ -43,12 +43,18 @@ p {
     margin: 0 auto;
 }
 
-.flexContainer {
+.flexContainerLeft {
     display: flex;
     justify-content: left;
     align-items: center;
     padding: 0 0.6rem;
     transition: all 0.2s;
+}
+
+.flexContainerCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 a {

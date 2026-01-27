@@ -12,7 +12,7 @@ namespace backend.Services
         public ArtistService(AppDbContext db) { _db = db; }
 
         //C
-        public async Task<bool> CreateAsync(Artist_Create dto)
+        public async Task<Artist> CreateAsync(Artist_Create dto)
         {
             var entity = new Artist
             {
@@ -24,7 +24,7 @@ namespace backend.Services
             _db.Artists.Add(entity);
             var result = await _db.SaveChangesAsync();
 
-            return result > 0;
+            return entity;
         }
 
         //R

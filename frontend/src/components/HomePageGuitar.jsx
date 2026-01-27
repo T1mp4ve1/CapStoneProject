@@ -12,12 +12,21 @@ import { useEffect } from "react";
 import { getArtists } from "../services/artistService";
 
 function HomePageGuitar() {
-  const [artists, setArtist] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getArtists()
-      .then((data) => setArtist(data))
-      .catch((err) => console.error("Fetch artist error:", err));
+    const fetchArtists = async () => {
+      try {
+        const data = await getArtists();
+        setArtists(data);
+      } catch (err) {
+        console.error("Artists fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArtists();
   }, []);
 
   useEffect(() => {
@@ -140,18 +149,32 @@ function HomePageGuitar() {
         <section>
           <div className="container90 my-5 fade-in">
             <h2 className="fontTitle">Hanno scelto noi</h2>
-            <div className="row row-cols-5 g-1">
-              {artists.map((a, index) => (
-                <div className="col" key={a.id}>
-                  <div className="card rounded-0 position-relative cardArtist">
-                    <img src={a.img} alt={`artist-${index}`} />
-                    <div className="position-absolute bottom-0 artistName text-center">
-                      <p className="fs-2">{a.name}</p>
-                    </div>
-                  </div>
+
+            {loading ? (
+              <>
+                <div
+                  className="spinner-border flexContainerCenter"
+                  role="status"
+                >
+                  <span className="visually-hidden">Loading...</span>
                 </div>
-              ))}
-            </div>
+              </>
+            ) : (
+              <>
+                <div className="row row-cols-5 g-1">
+                  {artists.map((a, index) => (
+                    <div className="col" key={a.id}>
+                      <div className="card rounded-0 position-relative cardArtist">
+                        <img src={a.img} alt={`artist-${index}`} />
+                        <div className="position-absolute bottom-0 artistName text-center">
+                          <p className="fs-2">{a.name}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </section>
       </div>

@@ -82,21 +82,21 @@ function NavbarGuitar() {
                   <div className="m-3 d-flex flex-column">
                     <Link
                       to="/Customshop"
-                      className="flexContainer dropdownItem"
+                      className="flexContainerLeft dropdownItem"
                     >
                       <i className="bi bi-floppy-fill"></i>
                       <p>Ordini</p>
                     </Link>
                     <Link
                       to="/Customshop"
-                      className="flexContainer dropdownItem"
+                      className="flexContainerLeft dropdownItem"
                     >
                       <i className="bi bi-bandaid-fill"></i>
                       <p>Supporto</p>
                     </Link>
                     <Link
                       to="/Customshop"
-                      className="flexContainer dropdownItem"
+                      className="flexContainerLeft dropdownItem"
                     >
                       <i className="bi bi-gear-fill"></i>
                       <p>Impostazioni</p>

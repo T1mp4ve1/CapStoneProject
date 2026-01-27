@@ -24,11 +24,11 @@ namespace backend.Controllers
             try
             {
                 var result = await _service.CreateAsync(dto);
-                if (!result)
+                if (result == null)
                 {
                     return BadRequest("Something went wrong");
                 }
-                return Ok("Successfully created");
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace backend.Controllers
                     }
                 }
 
-                return Ok("Successfully updated");
+                return Ok(result);
             }
             catch (Exception ex)
             {
