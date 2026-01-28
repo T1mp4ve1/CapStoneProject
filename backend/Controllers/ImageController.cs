@@ -65,6 +65,20 @@ namespace backend.Controllers
         }
 
         //R
+        [HttpGet("{entityId}")]
+        public async Task<IActionResult> GetByEntityId(string entityId)
+        {
+            try
+            {
+                var result = await _imageService.GetByEntityIdAsync(entityId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         //U
         //D
     }

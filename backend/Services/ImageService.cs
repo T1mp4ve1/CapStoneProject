@@ -1,6 +1,7 @@
 ﻿using backend.Data;
 using backend.Model;
 using backend.Model.DTO.ImageDTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
 {
@@ -27,6 +28,22 @@ namespace backend.Services
         }
 
         //R
+        public async Task<List<Image_Read>> GetByEntityIdAsync(string id)
+        {
+            var images = await _db.Images
+                .Where(i => i.EntityId == id)
+                .Select(i => new Image_Read
+                {
+                    Id = i.Id,
+                    Url = i.Url,
+                    EntityType = i.EntityType,
+                    EntityId = i.EntityId,
+                    IsMain = i.IsMain
+                })
+                .ToListAsync();
+            return images;
+        }
+
         //U
         //D
     }

@@ -12,7 +12,7 @@ namespace backend.Services
         public GuitarService(AppDbContext db) { _db = db; }
 
         //C
-        public async Task<bool> CreateAsync(Guitar_Create dto)
+        public async Task<Guitar_Read> CreateAsync(Guitar_Create dto)
         {
             var entity = new Guitar
             {
@@ -25,7 +25,16 @@ namespace backend.Services
             _db.Guitars.Add(entity);
             var result = await _db.SaveChangesAsync();
 
-            return result > 0;
+            await _db.Entry(entity).Reference(g => g.Category).LoadAsync();
+
+            return new Guitar_Read
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Category = entity.Category.CategoryName,
+                CategoryId = entity.CategoryId,
+                Description = entity.Description
+            };
         }
 
         //R
@@ -39,6 +48,7 @@ namespace backend.Services
                     Id = g.Id,
                     Name = g.Name,
                     Category = g.Category.CategoryName,
+                    CategoryId = g.CategoryId,
                     Description = g.Description
                 })
                 .ToListAsync();
@@ -60,7 +70,18 @@ namespace backend.Services
             {
                 return new RequestResult_DTO { Success = false, Error = "NoChanges" };
             }
-            return new RequestResult_DTO { Success = true };
+
+            await _db.Entry(exist).Reference(g => g.Category).LoadAsync();
+            var modifiedEntity = new Guitar_Read
+            {
+                Id = exist.Id,
+                Name = exist.Name,
+                Category = exist.Category.CategoryName,
+                CategoryId = exist.CategoryId,
+                Description = exist.Description
+            };
+
+            return new RequestResult_DTO { Success = true, Data = modifiedEntity };
         }
 
         //D

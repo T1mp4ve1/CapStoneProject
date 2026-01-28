@@ -1,4 +1,4 @@
-function GuitarsPage() {
+function AccessoriesPage() {
   return (
     <>
       <div className="containerAfterNavbar slowOpacity">
@@ -8,4 +8,4 @@ function GuitarsPage() {
   );
 }
 
-export default GuitarsPage;
+export default AccessoriesPage;
