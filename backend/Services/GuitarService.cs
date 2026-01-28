@@ -19,6 +19,7 @@ namespace backend.Services
                 Id = Guid.NewGuid(),
                 Name = dto.Name,
                 Description = dto.Description,
+                Price = dto.Price,
                 CategoryId = dto.CategoryId
             };
 
@@ -31,9 +32,10 @@ namespace backend.Services
             {
                 Id = entity.Id,
                 Name = entity.Name,
+                Description = entity.Description,
+                Price = dto.Price,
                 Category = entity.Category.CategoryName,
                 CategoryId = entity.CategoryId,
-                Description = entity.Description
             };
         }
 
@@ -47,9 +49,10 @@ namespace backend.Services
                 {
                     Id = g.Id,
                     Name = g.Name,
+                    Price = g.Price,
+                    Description = g.Description,
                     Category = g.Category.CategoryName,
                     CategoryId = g.CategoryId,
-                    Description = g.Description
                 })
                 .ToListAsync();
         }
@@ -64,6 +67,7 @@ namespace backend.Services
             }
             exist.Name = dto.Name;
             exist.CategoryId = dto.CategoryId;
+            exist.Price = dto.Price;
             exist.Description = dto.Description;
             var result = await _db.SaveChangesAsync();
             if (result == 0)
@@ -76,9 +80,10 @@ namespace backend.Services
             {
                 Id = exist.Id,
                 Name = exist.Name,
+                Description = exist.Description,
+                Price = exist.Price,
                 Category = exist.Category.CategoryName,
                 CategoryId = exist.CategoryId,
-                Description = exist.Description
             };
 
             return new RequestResult_DTO { Success = true, Data = modifiedEntity };

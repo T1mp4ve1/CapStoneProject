@@ -250,6 +250,22 @@
   },
   {
     "ContainingType": "backend.Controllers.ImageController",
+    "Method": "GetByEntityId",
+    "RelativePath": "api/Image/{entityId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entityId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.ImageController",
     "Method": "Upload",
     "RelativePath": "api/Image/upload",
     "HttpMethod": "POST",

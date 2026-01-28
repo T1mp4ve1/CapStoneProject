@@ -11,18 +11,21 @@ function GuitarsManager() {
   const api = import.meta.env.VITE_API_URL;
   const [guitars, setGuitars] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingOnCreate, setLoadingOnCreate] = useState(false);
   const [searched, setSearched] = useState("");
   const [filtered, setFiltered] = useState([]);
   const [editGuitar, setEditGuitar] = useState(null);
   const [newGuitar, setNewGuitar] = useState({
     name: "",
     description: "",
+    price: 0,
     categoryId: 1,
     images: [],
   });
 
   // C
   const handleCreateGuitar = async () => {
+    setLoadingOnCreate(true);
     try {
       const created = await createGuitar(newGuitar);
 
@@ -51,9 +54,17 @@ function GuitarsManager() {
       }
 
       setGuitars((prev) => [...prev, created]);
-      setNewGuitar({ name: "", description: "", categoryId: 1, images: [] });
+      setNewGuitar({
+        name: "",
+        description: "",
+        price: 0,
+        categoryId: 1,
+        images: [],
+      });
     } catch (err) {
       console.error("Create guitar page error:", err);
+    } finally {
+      setLoadingOnCreate(false);
     }
   };
 
@@ -110,7 +121,7 @@ function GuitarsManager() {
   return (
     <div className="container80 manageContaner">
       {/* CREATE FORM */}
-      <div className="createGuitarContainer">
+      <div className="createGuitarContainer position-relative">
         <h3>Aggiungi chitarra</h3>
         <input
           type="text"
@@ -118,6 +129,16 @@ function GuitarsManager() {
           placeholder="Nome..."
           value={newGuitar.name}
           onChange={(e) => setNewGuitar({ ...newGuitar, name: e.target.value })}
+        />
+        <input
+          type="number"
+          step={0.01}
+          className="form-control mb-2"
+          placeholder="Prezzo..."
+          value={newGuitar.price}
+          onChange={(e) =>
+            setNewGuitar({ ...newGuitar, price: parseFloat(e.target.value) })
+          }
         />
         <textarea
           type="text"
@@ -152,6 +173,15 @@ function GuitarsManager() {
         <button className="mb-4 w-100" onClick={() => handleCreateGuitar()}>
           Aggiungi
         </button>
+        {loadingOnCreate && (
+          <>
+            <div className="loadingOverlay">
+              <div className="spinner-grow" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* UPDATE FORM */}
@@ -170,6 +200,17 @@ function GuitarsManager() {
               value={editGuitar.name}
               onChange={(e) =>
                 setEditGuitar({ ...editGuitar, name: e.target.value })
+              }
+            />
+
+            <input
+              type="number"
+              step={0.01}
+              className="form-control mb-2"
+              placeholder="Prezzo..."
+              value={editGuitar.price}
+              onChange={(e) =>
+                setEditGuitar({ ...editGuitar, price: e.target.value })
               }
             />
 
@@ -231,6 +272,7 @@ function GuitarsManager() {
             <tr>
               <th scope="col">Id</th>
               <th scope="col">Name</th>
+              <th scope="col">Price</th>
               <th scope="col">Tipo</th>
               <th scope="col">TipoId</th>
               <th scope="col">About</th>
@@ -242,6 +284,7 @@ function GuitarsManager() {
               <tr key={g.id}>
                 <th scope="row">{g.id}</th>
                 <td>{g.name}</td>
+                <td>{g.price}</td>
                 <td>{g.category}</td>
                 <td>{g.categoryId}</td>
                 <td>{g.description}</td>

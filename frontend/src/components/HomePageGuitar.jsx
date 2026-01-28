@@ -1,19 +1,46 @@
 import bgImg from "../img/img11.jpg";
 import shopImg from "../img/img15.png";
-import g1 from "../img/g1.png";
-import g2 from "../img/g2.png";
-import g3 from "../img/g3.png";
-import g4 from "../img/g4.png";
-import g5 from "../img/g5.png";
 import "./css/HomePageGuitar.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getArtists } from "../services/artistService";
+import { getGuitars } from "../services/guitarService";
 
 function HomePageGuitar() {
+  const api = import.meta.env.VITE_API_URL;
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [guitars, setGuitars] = useState([]);
+
+  useEffect(() => {
+    const loadGuitars = async () => {
+      try {
+        const guitars = await getGuitars();
+
+        const guitarsWithImages = await Promise.all(
+          guitars.map(async (g) => {
+            const imgRes = await fetch(`${api}/Image/${g.id}`);
+            const images = await imgRes.json();
+
+            return {
+              ...g,
+              images: images,
+              mainImage: images.find((i) => i.isMain)?.url || null,
+            };
+          }),
+        );
+
+        setGuitars(guitarsWithImages);
+      } catch (err) {
+        console.error("Error guitars page:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadGuitars();
+  }, []);
 
   useEffect(() => {
     const fetchArtists = async () => {
@@ -22,8 +49,6 @@ function HomePageGuitar() {
         setArtists(data);
       } catch (err) {
         console.error("Artists fetch error:", err);
-      } finally {
-        setLoading(false);
       }
     };
     fetchArtists();
@@ -46,15 +71,17 @@ function HomePageGuitar() {
       { threshold: 0.1 }, //
     );
     elements.forEach((e) => observer.observe(e)); //
-  }, []);
+  }, [guitars, artists]);
 
-  const guitArray = [
-    { img: g1, price: 240 },
-    { img: g2, price: 350 },
-    { img: g3, price: 670 },
-    { img: g4, price: 210 },
-    { img: g5, price: 1670 },
-  ];
+  if (loading) {
+    return (
+      <div className="containerAfterNavbar flexContainerCenter slowOpacity">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -112,14 +139,11 @@ function HomePageGuitar() {
         <section>
           <div className="container80 my-5 fade-in">
             <h2 className="fontTitle">Piu popolari</h2>
-            <div className="row row-cols-5">
-              {guitArray.map((g, index) => (
-                <div className="col" key={index}>
-                  <div
-                    className="card border-0 position-relative shadow guitarCard"
-                    // style={{ width: "18rem;" }}
-                  >
-                    <img src={g.img} alt="img" />
+            <div className="row row-cols-4 g-2">
+              {guitars.slice(7, 11).map((g) => (
+                <div className="col" key={g.id}>
+                  <div className="card border-0 position-relative shadow guitarCard">
+                    <img src={g.mainImage} alt="img" />
                     <p>{g.price}€</p>
                   </div>
                 </div>

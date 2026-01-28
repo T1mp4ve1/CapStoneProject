@@ -12,6 +12,7 @@ namespace backend.Model
 
         [Required]
         public string Description { get; set; }
+        public decimal? Price { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
