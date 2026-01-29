@@ -72,5 +72,19 @@ namespace backend.Controllers
         //U
 
         //D
+        [HttpDelete("{email}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string email)
+        {
+            var result = await _service.DeleteAsync(email);
+
+            if (!result.Success)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok(result);
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using backend.Data;
 using backend.Model;
 using backend.Model.DTO.AppUserDTO;
+using backend.Model.DTO.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -156,5 +157,35 @@ namespace backend.Services
         //U
 
         //D
+        public async Task<RequestResult_DTO> DeleteAsync(string email)
+        {
+            var exist = await _userManager.FindByEmailAsync(email);
+            if (exist == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+
+            var role = await _userManager.GetRolesAsync(exist);
+            if (role.Contains("Admin"))
+            {
+                return new RequestResult_DTO
+                {
+                    Success = false,
+                    Error = "CannotDeleteAdmin"
+                };
+            }
+
+            var result = await _userManager.DeleteAsync(exist);
+            if (!result.Succeeded)
+            {
+                return new RequestResult_DTO
+                {
+                    Success = false,
+                    Error = string.Join(", ", result.Errors.Select(e => e.Description))
+                };
+            }
+
+            return new RequestResult_DTO { Success = true, Data = new { exist.Id, exist.Email } };
+        }
     }
 }
