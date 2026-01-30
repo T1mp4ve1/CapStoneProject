@@ -52,6 +52,24 @@ namespace backend.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ReadId(Guid id)
+        {
+            try
+            {
+                var result = await _service.GetByIdAsync(id);
+                if (!result.Success)
+                {
+                    return NotFound(result);
+                }
+                return Ok(result.Data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         //U
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]

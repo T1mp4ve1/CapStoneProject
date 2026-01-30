@@ -57,6 +57,28 @@ namespace backend.Services
                 .ToListAsync();
         }
 
+        public async Task<RequestResult_DTO> GetByIdAsync(Guid id)
+        {
+            var guitar = await _db.Guitars
+                .AsNoTracking()
+                .Include(g => g.Category)
+                .Where(g => g.Id == id)
+                .Select(g => new Guitar_Read
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                    Price = g.Price,
+                    Description = g.Description,
+                    Category = g.Category.CategoryName,
+                    CategoryId = g.CategoryId,
+                }).FirstOrDefaultAsync();
+            if (guitar == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+            return new RequestResult_DTO { Success = true, Data = guitar };
+        }
+
         //U
         public async Task<RequestResult_DTO> UpdateAsync(Guitar_Update dto, Guid id)
         {

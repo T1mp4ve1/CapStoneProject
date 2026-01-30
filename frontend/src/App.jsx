@@ -8,6 +8,7 @@ import OpinionPage from "./components/OpinionPage";
 import SupportPage from "./components/SupportPage";
 import AdminPage from "./components/AdminPage";
 import RegistrationPage from "./components/RegistrationPage";
+import DetailsPage from "./components/DetailsPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePageGuitar />} />
           <Route path="/Guitars" element={<GuitarsPage />} />
+          <Route path="/Product/:id" element={<DetailsPage />} />
           <Route path="/Accessories" element={<AccessoriesPage />} />
           <Route path="/Customshop" element={<CustomshopPage />} />
           <Route path="/OpinionPage" element={<OpinionPage />} />

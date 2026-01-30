@@ -1,0 +1,31 @@
+.detailsImageContainer {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.guitarMainImg {
+    max-height: 300%;
+    max-width: 100%;
+    transform: rotate(90deg);
+    object-fit: contain;
+}
+
+.alternativeImg {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+}
+
+.gridDetails {
+    padding-top: 5rem;
+}
+
+.cardDetails {
+    padding: 2rem;
+    border-radius: 10px;
+    color: var(--colorBrown);
+}

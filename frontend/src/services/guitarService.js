@@ -38,6 +38,27 @@ export const getGuitars = async () => {
   }
 };
 
+export const getGuitar = async (id) => {
+  try {
+    const guitarRes = await fetch(`${api}/Guitar/${id}`);
+    if (!guitarRes.ok) {
+      throw new Error(`Error guitar! Status: ${guitar.status}`);
+    }
+    const guitar = await guitarRes.json();
+
+    const imgsRes = await fetch(`${api}/Image/${id}`);
+    if (!imgsRes.ok) {
+      throw new Error(`Error imgs! Status: ${imgs.status}`);
+    }
+    const imgs = await imgsRes.json();
+
+    return { ...guitar, imgs, mainImg: imgs.find((i) => i.isMain)?.url };
+  } catch (err) {
+    console.error("Read guitar error:", err);
+    throw err;
+  }
+};
+
 // U
 export const updateGuitar = async (id, guitar) => {
   try {

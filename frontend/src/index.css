@@ -8,6 +8,12 @@
     --colorBrown: rgba(57, 45, 26, 0.899);
     --colorMediumBeige: rgba(200, 187, 165, 0.899);
     --colorTrasparent: rgba(200, 187, 165, 0);
+    --colorBeigeRuby: rgb(209, 115, 100);
+    --colorTurquoise: rgb(139, 213, 213);
+}
+
+.card {
+    cursor: pointer;
 }
 
 .textTrasparent {
@@ -22,6 +28,26 @@
 body {
     background-color: rgba(255, 250, 242, 0.899);
     font-family: "Outfit", sans-serif;
+}
+
+.beautyButton {
+    border: 2px solid var(--colorBeige);
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: var(--colorBeigeRuby);
+    color: var(--colorBeige);
+    transition: all 0.2s;
+}
+
+.beautyButton:hover {
+    color: var(--colorBrown);
+    background-color: var(--colorTrasparent);
+    border: 2px solid var(--colorBeigeRuby);
+}
+
+.beautyButton:active {
+    background-color: var(--colorBeigeSelected);
+    box-shadow: 0px 0px 5px 1px var(--colorBeigeRuby);
 }
 
 p {
