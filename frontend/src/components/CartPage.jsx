@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { getGuitar } from "../services/guitarService";
-import "./css/CartPage.css"
+import "./css/CartPage.css";
+import imgEmptyCart from "../img/imgEmptyCart.png";
 
 const CartPage = () => {
   const { removeFromCart, cart, increaseQty, decreaseQty } =
@@ -51,10 +52,21 @@ const CartPage = () => {
       <div className="containerAfterNavbar">
         <div className="row flexContainerCenter">
           <div className="col-6">
-            {products.length === 0 && <p>Il carrello è vuoto.</p>}
+            <div></div>
+            {products.length === 0 && (
+              <div className="text-center">
+                <img src={imgEmptyCart} />
+                <h4>
+                  Ci puoi sempre aggiungere qualcosa...
+                </h4>
+              </div>
+            )}
 
             {products.map((p) => (
-              <div key={p.id} className="my-2 rounded-3 shadow-sm position-relative">
+              <div
+                key={p.id}
+                className="my-2 rounded-3 shadow-sm position-relative"
+              >
                 <div className="d-flex align-items-center">
                   <img
                     src={p.mainImg}

@@ -34,6 +34,7 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<ArtistService>();
 builder.Services.AddScoped<ImageService>();
 builder.Services.AddSingleton<BlobService>(); // storage
+builder.Services.AddScoped<OrderService>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
