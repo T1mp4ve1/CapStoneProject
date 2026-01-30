@@ -1,0 +1,18 @@
+.closeButton {
+    position: absolute;
+    top: 5%;
+    left: 95%;
+}
+
+.qntButton {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--colorBeigeSelected);
+    transition: all 0.2s;
+}
+
+.qntButton:active {
+    filter: brightness(0.8);
+}

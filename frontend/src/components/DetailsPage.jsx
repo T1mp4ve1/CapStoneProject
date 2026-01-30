@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getGuitar } from "../services/guitarService";
 import "./css/DetailsPage.css";
+import { CartContext } from "../context/CartContext";
 
 function DetailsPage() {
   const { id } = useParams();
   const [guitar, setGuitar] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useContext(CartContext); // in questo caso usiamo funzione addToCart da CartContext?
 
   useEffect(() => {
     const loadData = async () => {
@@ -44,15 +46,12 @@ function DetailsPage() {
                   <div className="col-12 detailsImageContainer">
                     <img src={guitar.mainImg} className="guitarMainImg" />
                   </div>
-
-                  {guitar.imgs.map((i, index) => (
-                    <div className="col-3 border rounded-3 p-0 m-2 alternativeImgContainer">
-                      <img
-                        key={index}
-                        src={i.url}
-                        alt="img"
-                        className="alternativeImg"
-                      />
+                  {guitar.imgs.map((i) => (
+                    <div
+                      className="col-3 border rounded-3 p-0 m-2 alternativeImgContainer"
+                      key={i.id}
+                    >
+                      <img src={i.url} alt="img" className="alternativeImg" />
                     </div>
                   ))}
                 </div>
@@ -69,7 +68,10 @@ function DetailsPage() {
                   <div className="col cardDetails shadow-sm">
                     <div className="d-flex justify-content-around align-items-center">
                       <h2 className="my-2">{guitar.price} €</h2>
-                      <button className="beautyButton">
+                      <button
+                        className="beatyButton2"
+                        onClick={() => addToCart(guitar.id)}
+                      >
                         Aggiungi al carello
                       </button>
                     </div>
@@ -103,54 +105,6 @@ function DetailsPage() {
                 </div>
               </div>
             </div>
-
-            {/* <div className="row g-3 gridDetails">
-              <div className="col-8">
-                <div className="detailsImageContainer">
-                  <img src={guitar.mainImg} className="guitarMainImg" />
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="cardDetails shadow">
-                  <h2>{guitar.name}</h2>
-                  <p>{guitar.category}</p>
-
-                  <hr className="mb-1" />
-
-                  <div className="d-flex justify-content-around align-items-center">
-                    <h2 className="my-4">{guitar.price} €</h2>
-                    <button className="beautyButton">
-                      Aggiungi al carello
-                    </button>
-                  </div>
-                  <hr className="mb-1" />
-                  <h4>Descrizione</h4>
-                  <p>{guitar.description}</p>
-
-                  <hr />
-
-                  <div className="row row-cols-2">
-                    <div className="col flexContainerLeft">
-                      <i className="bi bi-shield-check fs-3 me-1"></i>
-                      <p>Garanzia a vita</p>
-                    </div>
-                    <div className="col flexContainerLeft">
-                      <i className="bi bi-award fs-3 me-1"></i>
-                      <p>Materiali di alta qualita'</p>
-                    </div>
-                    <div className="col flexContainerLeft">
-                      <i className="bi bi-globe fs-3 me-1"></i>
-                      <p>Spedizione ovunque</p>
-                    </div>
-                    <div className="col flexContainerLeft">
-                      <i className="bi bi-tree fs-3 me-1"></i>
-                      <p>Legni stagionati di prima scelta</p>
-                    </div>
-                  </div>
-                  <hr />
-                </div>
-              </div>
-            </div> */}
           </>
         )}
       </div>

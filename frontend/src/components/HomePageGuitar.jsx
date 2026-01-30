@@ -128,7 +128,7 @@ function HomePageGuitar() {
               <p className="fs-3 mb-3 hero-subtitle slowOpacity">
                 Artigianato, passione e suoni che ispirano
               </p>
-              <Link as={Link} to="/#" className="fs-5 beatyButton slowOpacity">
+              <Link as={Link} to="/Guitars" className="fs-5 beatyButton slowOpacity">
                 Scopri la gamma
               </Link>
             </div>

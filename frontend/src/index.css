@@ -9,7 +9,7 @@
     --colorMediumBeige: rgba(200, 187, 165, 0.899);
     --colorTrasparent: rgba(200, 187, 165, 0);
     --colorBeigeRuby: rgb(209, 115, 100);
-    --colorTurquoise: rgb(139, 213, 213);
+    --colorTurquoise: rgb(142, 201, 201);
 }
 
 .card {
@@ -30,30 +30,54 @@ body {
     font-family: "Outfit", sans-serif;
 }
 
-.beautyButton {
+/* BUTTONS */
+.beatyButton2 {
     border: 2px solid var(--colorBeige);
     border-radius: 10px;
     padding: 1rem;
+    background-color: var(--colorTurquoise);
+    color: var(--colorBeige);
+    transition: all 0.2s;
+}
+
+.beatyButton2:hover {
+    color: var(--colorBrown);
+    background-color: var(--colorTrasparent);
+    border: 2px solid var(--colorTurquoise);
+}
+
+.beatyButton2:active {
+    background-color: var(--colorBeigeSelected);
+    box-shadow: 0px 0px 5px 1px var(--colorTurquoise);
+}
+
+.beatyButtonSm {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--colorBeige);
+    border-radius: 10px;
     background-color: var(--colorBeigeRuby);
     color: var(--colorBeige);
     transition: all 0.2s;
 }
 
-.beautyButton:hover {
+.beatyButtonSm:hover {
     color: var(--colorBrown);
     background-color: var(--colorTrasparent);
     border: 2px solid var(--colorBeigeRuby);
 }
 
-.beautyButton:active {
+.beatyButtonSm:active {
     background-color: var(--colorBeigeSelected);
     box-shadow: 0px 0px 5px 1px var(--colorBeigeRuby);
 }
+
 
 p {
     margin: 0;
 }
 
+/* CONTAINERS */
 .containerAfterNavbar {
     width: 90%;
     margin: 5rem auto 0 auto;
@@ -69,18 +93,24 @@ p {
     margin: 0 auto;
 }
 
+.flexContainerCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexContainerBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .flexContainerLeft {
     display: flex;
     justify-content: left;
     align-items: center;
     padding: 0 0.6rem;
     transition: all 0.2s;
-}
-
-.flexContainerCenter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 a {

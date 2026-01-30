@@ -1,8 +1,9 @@
 import { Dropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./css/NavbarGuitar.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { loginFunc, logoutFunc } from "../services/authService";
+import { CartContext } from "../context/CartContext";
 
 function NavbarGuitar() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ function NavbarGuitar() {
   const userRoles = JSON.parse(localStorage.getItem("userRoles") || "[]"); //
   const isAdmin = userRoles.includes("Admin");
   const [showDropdown, setshowDropdown] = useState(false);
+  const { cartCount } = useContext(CartContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -60,8 +62,17 @@ function NavbarGuitar() {
         </Link>
         <i className="bi bi-dot fs-4"></i>
         <div className="d-flex justify-content-around align-items-center iconsProfileContainer shadow-sm">
-          <i className="bi bi-bag-fill fs-3 ms-3"></i>
+          <Link to="/CartPage" className="position-relative">
+            <i className="bi bi-bag-fill fs-3 ms-3"></i>
+            {cartCount > 0 && (
+              <span className="badge cartBadge rounded-pill bg-danger">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+
           <i className="bi bi-bell-fill fs-4"></i>
+
           <Dropdown
             align="end"
             show={showDropdown}
