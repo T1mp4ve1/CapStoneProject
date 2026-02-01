@@ -3,14 +3,31 @@ import { CartContext } from "../context/CartContext";
 import { getGuitar } from "../services/guitarService";
 import "./css/CartPage.css";
 import imgEmptyCart from "../img/imgEmptyCart.png";
+import { createOrder } from "../services/ordersService";
+import MenuLogin from "../components/MenuLogin.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
+import MenuRegistration from "./MenuRegistration.jsx";
 
 const CartPage = () => {
-  const { removeFromCart, cart, increaseQty, decreaseQty } =
+  const { isLogged, token } = useContext(AuthContext);
+  const { removeFromCart, clearCart, cart, increaseQty, decreaseQty } =
     useContext(CartContext);
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
+  const [userAddress, setUserAddress] = useState("");
+  const orderToSend = { address: userAddress, products: cart };
+  const [showModal, setShowModal] = useState(false);
+  const [activeWindow, setActiveWindow] = useState("login");
 
-  // localStorage.removeItem("cart");
+  const handleCheckout = async () => {
+    try {
+      await createOrder(orderToSend, token);
+      clearCart();
+      setShowModal(false);
+    } catch (err) {
+      console.error("Register order error:", err);
+    }
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -22,7 +39,6 @@ const CartPage = () => {
           }),
         );
         setProducts(results);
-        console.log(results);
       } catch (err) {
         console.error("Page cart error", err);
       } finally {
@@ -52,13 +68,96 @@ const CartPage = () => {
       <div className="containerAfterNavbar">
         <div className="row flexContainerCenter">
           <div className="col-6">
-            <div></div>
+            {showModal && (
+              <>
+                <div className="checkOutModal flexContainerCenter shadow">
+                  <div className="relativeContainer flexContainerCenter">
+                    <div className="modalContainer flexContainerCenter">
+                      <div className="me-5">
+                        <ul className="fs-5">
+                          {products.map((p, index) => (
+                            <>
+                              <li
+                                key={index}
+                                className="flexContainerBetween list-group-item"
+                              >
+                                <p className="me-2">{p.name} </p>
+                                <p>
+                                  {p.price}€
+                                  <span className="ms-1">x{p.quantity}</span>
+                                </p>
+                              </li>
+                            </>
+                          ))}
+                        </ul>
+                        <hr />
+                        <div className="flexContainerBetween">
+                          <h4>Totale:</h4>
+                          <h4>{total}€</h4>
+                        </div>
+                      </div>
+
+                      <div className="ms-5">
+                        {isLogged ? (
+                          <>
+                            <textarea
+                              className="form-control"
+                              type="text"
+                              placeholder="Indirizzo di spedizione..."
+                              value={userAddress}
+                              onChange={(e) => setUserAddress(e.target.value)}
+                            ></textarea>
+                            <button
+                              className="beatyButton2 w-100 mt-3"
+                              onClick={handleCheckout}
+                            >
+                              Conferma l'ordine
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            {activeWindow === "login" && (
+                              <>
+                                <div className="text-center">
+                                  <MenuLogin />
+                                  <i className="bi bi-dot fs-4"></i>
+                                  <p
+                                    onClick={() => setActiveWindow("register")}
+                                  >
+                                    Registrati
+                                  </p>
+                                </div>
+                              </>
+                            )}
+
+                            {activeWindow === "register" && (
+                              <>
+                                <div className="text-center">
+                                  <MenuRegistration />
+                                  <i className="bi bi-dot fs-4"></i>
+                                  <p onClick={() => setActiveWindow("login")}>
+                                    Loggati
+                                  </p>
+                                </div>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <i
+                      className="bi bi-x-circle-fill closeModalButton"
+                      onClick={() => setShowModal(false)}
+                    ></i>
+                  </div>
+                </div>
+              </>
+            )}
+
             {products.length === 0 && (
               <div className="text-center">
                 <img src={imgEmptyCart} />
-                <h4>
-                  Ci puoi sempre aggiungere qualcosa...
-                </h4>
+                <h4>Ci puoi sempre aggiungere qualcosa...</h4>
               </div>
             )}
 
@@ -125,7 +224,10 @@ const CartPage = () => {
             {products.length > 0 && (
               <div className="mt-4 p-3 border rounded shadow-sm">
                 <h4>Totale: {total} €</h4>
-                <button className="beatyButton2 w-100 mt-3">
+                <button
+                  className="beatyButton2 w-100 mt-3"
+                  onClick={() => setShowModal(true)}
+                >
                   Procedi al checkout
                 </button>
               </div>

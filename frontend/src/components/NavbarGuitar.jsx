@@ -2,24 +2,23 @@ import { Dropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./css/NavbarGuitar.css";
 import { useContext, useState } from "react";
-import { loginFunc, logoutFunc } from "../services/authService";
+import { loginFunc } from "../services/authService";
 import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
 
 function NavbarGuitar() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogged, setIsLogged] = useState(!!localStorage.getItem("token"));
-  const userRoles = JSON.parse(localStorage.getItem("userRoles") || "[]"); //
-  const isAdmin = userRoles.includes("Admin");
   const [showDropdown, setshowDropdown] = useState(false);
   const { cartCount } = useContext(CartContext);
+  const { userRoles, isLogged, login, logout } = useContext(AuthContext);
+  const isAdmin = userRoles.includes("Admin");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const data = await loginFunc(email, password);
-      console.log("Login OK:", data);
-      setIsLogged(true);
+      login(data);
       setEmail("");
       setPassword("");
       setshowDropdown(false);
@@ -29,8 +28,7 @@ function NavbarGuitar() {
   };
 
   const handleLogout = () => {
-    logoutFunc();
-    setIsLogged(false);
+    logout();
     setshowDropdown(false);
   };
 

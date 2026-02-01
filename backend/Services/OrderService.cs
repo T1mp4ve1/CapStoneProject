@@ -12,7 +12,7 @@ namespace backend.Services
         public OrderService(AppDbContext db) { _db = db; }
 
         //C
-        public async Task<RequestResult_DTO> CreateAsync(Order_Create dto)
+        public async Task<RequestResult_DTO> CreateAsync(Order_Create dto, string userId)
         {
             var order = new Order
             {
@@ -21,7 +21,7 @@ namespace backend.Services
                 Address = dto.Address,
                 State = OrderStates.Pending,
                 Products = new List<OrderItem>(),
-                UserId = dto.UserId
+                UserId = userId
             };
 
             decimal total = 0;

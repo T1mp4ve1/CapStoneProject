@@ -46,6 +46,10 @@ export function CartProvider({ children }) {
     setCart((prev) => prev.filter((i) => i.productId !== productId));
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -56,6 +60,7 @@ export function CartProvider({ children }) {
         increaseQty,
         decreaseQty,
         removeFromCart,
+        clearCart,
         cartCount,
       }}
     >

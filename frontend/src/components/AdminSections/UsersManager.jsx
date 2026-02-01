@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { deleteUser, getUsers } from "../../services/userService";
+import { AuthContext } from "../../context/AuthContext";
 
 function UsersManager() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searched, setSearched] = useState("");
   const [filtered, setFiltered] = useState([]);
-  // const [editArtist, setEditArtist] = useState(null);
+  const { token } = useContext(AuthContext);
 
   // R
   useEffect(() => {
-    const fetchArtists = async () => {
+    const fetchUsers = async () => {
       try {
-        const data = await getUsers();
+        const data = await getUsers(token);
         setUsers(data);
       } catch (err) {
         console.error("Artists fetch error:", err);
@@ -20,7 +21,7 @@ function UsersManager() {
         setLoading(false);
       }
     };
-    fetchArtists();
+    fetchUsers();
   }, []);
 
   // U
@@ -37,7 +38,7 @@ function UsersManager() {
   // D
   const handleDelete = async (email) => {
     try {
-      await deleteUser(email);
+      await deleteUser(email, token);
       setUsers((prev) => prev.filter((u) => u.email !== email));
     } catch (err) {
       console.error("User delete error:", err);

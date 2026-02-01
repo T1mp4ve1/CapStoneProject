@@ -16,6 +16,7 @@ namespace backend.Services
         {
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("fisrtName", user.FirstName)

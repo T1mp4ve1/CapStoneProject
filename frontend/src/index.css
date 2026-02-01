@@ -113,6 +113,12 @@ p {
     transition: all 0.2s;
 }
 
+.beigeContainer {
+    padding: 2rem;
+    background-color: var(--colorBeige);
+    border-radius: 20px;
+}
+
 a {
     text-decoration: none;
 }
@@ -129,6 +135,13 @@ a {
     align-items: center;
     z-index: 20;
     border-radius: 10px;
+}
+
+.absoluteContainerCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* dropdownMenu */

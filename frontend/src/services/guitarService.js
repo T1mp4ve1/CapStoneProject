@@ -1,11 +1,8 @@
-import { getToken } from "./authService";
-
 const api = import.meta.env.VITE_API_URL;
 
 // C
-export const createGuitar = async (guitar) => {
+export const createGuitar = async (guitar, token) => {
   try {
-    const token = getToken();
     const res = await fetch(`${api}/Guitar`, {
       method: "POST",
       headers: {
@@ -60,9 +57,8 @@ export const getGuitar = async (id) => {
 };
 
 // U
-export const updateGuitar = async (id, guitar) => {
+export const updateGuitar = async (id, guitar, token) => {
   try {
-    const token = getToken();
     const res = await fetch(`${api}/Guitar/${id}`, {
       method: "PUT",
       headers: {
@@ -81,9 +77,8 @@ export const updateGuitar = async (id, guitar) => {
 };
 
 // D
-export const deleteGuitar = async (id) => {
+export const deleteGuitar = async (id, token) => {
   try {
-    const token = getToken();
     const res = await fetch(`${api}/Guitar/${id}`, {
       method: "DELETE",
       headers: {

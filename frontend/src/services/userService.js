@@ -1,10 +1,24 @@
-import { getToken } from "./authService";
-
 const api = import.meta.env.VITE_API_URL;
+
+export const registrationFunc = async (email, password, firstName) => {
+    const res = await fetch(`${api}/AppUser`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, firstName }),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json();
+      throw errData;
+    }
+
+    const data = await res.json();
+    return data;
+};
+
 // C
 // export const createArtist = async (artist) => {
 //   try {
-//     const token = getToken();
 //     const res = await fetch(`${api}/Artist`, {
 //       method: "POST",
 //       headers: {
@@ -25,8 +39,7 @@ const api = import.meta.env.VITE_API_URL;
 // };
 
 // R
-export const getUsers = async () => {
-  const token = getToken();
+export const getUsers = async (token) => {
   try {
     const res = await fetch(`${api}/AppUser`, {
       method: "GET",
@@ -45,7 +58,6 @@ export const getUsers = async () => {
 // U
 // export const updateArtist = async (id, artist) => {
 //   try {
-//     const token = getToken();
 //     const res = await fetch(`${api}/Artist/${id}`, {
 //       method: "PUT",
 //       headers: {
@@ -66,9 +78,8 @@ export const getUsers = async () => {
 // };
 
 // D
-export const deleteUser = async (email) => {
+export const deleteUser = async (email, token) => {
   try {
-    const token = getToken();
     const res = await fetch(`${api}/AppUser/${email}`, {
       method: "DELETE",
       headers: {

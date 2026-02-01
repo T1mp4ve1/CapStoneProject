@@ -16,3 +16,36 @@
 .qntButton:active {
     filter: brightness(0.8);
 }
+
+.checkOutModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--colorTrasparent);
+    backdrop-filter: blur(50px);
+    border-radius: 50px;
+    width: 80%;
+    height: 80%;
+    z-index: 99;
+}
+
+.modalContainer {
+    z-index: 100;
+}
+
+.relativeContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.closeModalButton {
+    cursor: pointer;
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    transform: translate(-260%, 60%);
+    font-size: 3rem;
+    color: var(--colorBeigeRuby);
+}

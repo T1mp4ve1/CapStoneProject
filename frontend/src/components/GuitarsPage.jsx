@@ -56,7 +56,7 @@ function GuitarsPage() {
             {guitars.map((g) => (
               <div className="col" key={g.id}>
                 <div
-                  className="card border-0 position-relative shadow guitarCard"
+                  className="card border-0 shadow guitarCard"
                   onClick={() => navigate(`/Product/${g.id}`)}
                 >
                   <img src={g.mainImage} alt="img" />

@@ -1,6 +1,7 @@
 ﻿using backend.Model.DTO.OrderDTO;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace backend.Controllers
 {
@@ -11,12 +12,14 @@ namespace backend.Controllers
         private readonly OrderService _service;
         public OrderController(OrderService service) { _service = service; }
 
+        //C
         [HttpPost]
         public async Task<IActionResult> Create(Order_Create dto)
         {
             try
             {
-                var result = await _service.CreateAsync(dto);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var result = await _service.CreateAsync(dto, userId);
                 if (!result.Success)
                 {
                     return BadRequest(result);
@@ -31,6 +34,7 @@ namespace backend.Controllers
 
         }
 
+        //R
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

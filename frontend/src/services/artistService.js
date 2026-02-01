@@ -1,11 +1,7 @@
-import { getToken } from "./authService";
-
 const api = import.meta.env.VITE_API_URL;
-
 // C
-export const createArtist = async (artist) => {
+export const createArtist = async (artist, token) => {
   try {
-    const token = getToken();
     const res = await fetch(`${api}/Artist`, {
       method: "POST",
       headers: {
@@ -41,9 +37,8 @@ export const getArtists = async () => {
 };
 
 // U
-export const updateArtist = async (id, artist) => {
+export const updateArtist = async (id, artist, token) => {
   try {
-    const token = getToken();
     const res = await fetch(`${api}/Artist/${id}`, {
       method: "PUT",
       headers: {
@@ -64,9 +59,8 @@ export const updateArtist = async (id, artist) => {
 };
 
 // D
-export const deleteArtist = async (id) => {
+export const deleteArtist = async (id, token) => {
   try {
-    const token = getToken();
     const res = await fetch(`${api}/Artist/${id}`, {
       method: "DELETE",
       headers: {

@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   createGuitar,
   deleteGuitar,
   getGuitars,
   updateGuitar,
 } from "../../services/guitarService";
-import { getToken } from "../../services/authService";
+import { AuthContext } from "../../context/AuthContext";
 
 function GuitarsManager() {
+  const { token } = useContext(AuthContext);
   const api = import.meta.env.VITE_API_URL;
   const [guitars, setGuitars] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,10 +29,7 @@ function GuitarsManager() {
     setLoadingOnCreate(true);
     try {
       const created = await createGuitar(newGuitar);
-
       if (newGuitar.images.length > 0) {
-        const token = getToken();
-
         for (let i = 0; i < newGuitar.images.length; i++) {
           const formData = new FormData();
           formData.append("file", newGuitar.images[i]);

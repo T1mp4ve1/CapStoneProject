@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { registrationFunc } from "../services/registrationService";
+import { registrationFunc } from "../services/userService";
 
 const RegistrationPage = () => {
   
