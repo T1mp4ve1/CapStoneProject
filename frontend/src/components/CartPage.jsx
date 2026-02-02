@@ -76,18 +76,16 @@ const CartPage = () => {
                       <div className="me-5">
                         <ul className="fs-5">
                           {products.map((p, index) => (
-                            <>
-                              <li
-                                key={index}
-                                className="flexContainerBetween list-group-item"
-                              >
-                                <p className="me-2">{p.name} </p>
-                                <p>
-                                  {p.price}€
-                                  <span className="ms-1">x{p.quantity}</span>
-                                </p>
-                              </li>
-                            </>
+                            <li
+                              key={index}
+                              className="flexContainerBetween list-group-item"
+                            >
+                              <p className="me-2">{p.name} </p>
+                              <p>
+                                {p.price}€
+                                <span className="ms-1">x{p.quantity}</span>
+                              </p>
+                            </li>
                           ))}
                         </ul>
                         <hr />

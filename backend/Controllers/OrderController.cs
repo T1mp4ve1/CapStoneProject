@@ -1,5 +1,6 @@
 ﻿using backend.Model.DTO.OrderDTO;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -36,11 +37,73 @@ namespace backend.Controllers
 
         //R
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _service.GetAllAsync();
             return Ok(result);
         }
 
+        //U
+        [HttpPut("update/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update(Guid id, Order_Update dto)
+        {
+            try
+            {
+                var result = await _service.UpdateAsync(id, dto);
+                if (result.Error == "NotFound")
+                {
+                    return NotFound(result);
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}/state")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateState(Guid id, Order_Update_State dto)
+        {
+            try
+            {
+                var result = await _service.UpdateStateAsync(id, dto);
+                if (result.Error == "NotFound")
+                {
+                    return NotFound(result);
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        //D
+        [HttpDelete("delete/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                var result = await _service.DeleteAsync(id);
+                if (result.Error == "NotFound")
+                {
+                    return NotFound(result);
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

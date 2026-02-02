@@ -352,5 +352,42 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.OrderController",
+    "Method": "Delete",
+    "RelativePath": "api/Order/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.OrderController",
+    "Method": "Update",
+    "RelativePath": "api/Order/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "backend.Model.DTO.OrderDTO.Order_Update",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

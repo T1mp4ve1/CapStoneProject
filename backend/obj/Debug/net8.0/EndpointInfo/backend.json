@@ -570,6 +570,71 @@
           }
         }
       }
+    },
+    "/api/Order/update/{id}": {
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order_Update"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order_Update"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order_Update"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Order/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -761,10 +826,26 @@
               "$ref": "#/components/schemas/OrderItem_Create"
             },
             "nullable": true
-          },
-          "userId": {
+          }
+        },
+        "additionalProperties": false
+      },
+      "Order_Update": {
+        "type": "object",
+        "properties": {
+          "address": {
             "type": "string",
             "nullable": true
+          },
+          "state": {
+            "enum": [
+              "Pending",
+              "Accepted",
+              "Shipped",
+              "Completed",
+              "Canceled"
+            ],
+            "type": "string"
           }
         },
         "additionalProperties": false

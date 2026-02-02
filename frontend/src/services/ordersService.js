@@ -22,9 +22,11 @@ export const createOrder = async (order, token) => {
 };
 
 // R
-export const getOrders = async () => {
+export const getOrders = async (token) => {
   try {
-    const res = await fetch(`${api}/Order`);
+    const res = await fetch(`${api}/Order`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     if (!res.ok) {
       throw new Error(`Error read! Status: ${res.status}`);
     }
@@ -57,40 +59,41 @@ export const getOrders = async () => {
 // };
 
 // U
-// export const updateGuitar = async (id, guitar) => {
-//   try {
-//     const res = await fetch(`${api}/Guitar/${id}`, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(guitar),
-//     });
-//     if (!res.ok) {
-//       throw new Error(`Error update! Status: ${res.status}`);
-//     }
-//     return await res.json();
-//   } catch (err) {
-//     console.error("Update guitar error:", err);
-//   }
-// };
+export const updateOrderState = async (id, newState, token) => {
+  try {
+    const res = await fetch(`${api}/Order/${id}/state`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ state: newState }),
+    });
+    if (!res.ok) {
+      throw new Error(`Error state update! Status: ${res.status}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.error("Update state error:", err);
+  }
+};
 
 // D
-// export const deleteGuitar = async (id) => {
-//   try {
-//     const res = await fetch(`${api}/Guitar/${id}`, {
-//       method: "DELETE",
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
+export const deleteOrder = async (id, token) => {
+  try {
+    const request = await fetch(`${api}/Order/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-//     if (!res.ok) {
-//       throw new Error(`Error delete! Status: ${res.status}`);
-//     }
-//     return true;
-//   } catch (err) {
-//     console.error("Delete guitar error:", err);
-//   }
-// };
+    if (!request.ok) {
+      throw new Error(`Error delete! Status: ${request.status}`);
+    }
+    const result = request.json();
+    return result;
+  } catch (err) {
+    console.error("Delete order error:", err);
+  }
+};

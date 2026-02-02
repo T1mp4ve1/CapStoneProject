@@ -98,7 +98,127 @@ namespace backend.Services
         }
 
         //U
+        public async Task<RequestResult_DTO> UpdateAsync(Guid id, Order_Update dto)
+        {
+            var exist = await _db.Orders
+                .Include(o => o.Products)
+                .FirstOrDefaultAsync(o => o.Id == id);
+            if (exist == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+
+            exist.Address = dto.Address;
+            exist.State = dto.State;
+            var res = await _db.SaveChangesAsync();
+
+            var updated = new Order_Read
+            {
+                Id = exist.Id,
+                CreatedAt = exist.CreatedAt,
+                Total = exist.Total,
+                Address = exist.Address,
+                State = exist.State,
+                Products = exist.Products
+                .Select(p => new OrderItem_Read
+                {
+                    Id = p.Id,
+                    OrderId = p.OrderId,
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Quantity = p.Quantity,
+                    UnitPrice = p.UnitPrice
+                }).ToList(),
+                UserId = exist.UserId
+            };
+
+            if (res == 0)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NoChanges" };
+            }
+
+            return new RequestResult_DTO { Success = true, Data = updated };
+        }
+
+        public async Task<RequestResult_DTO> UpdateStateAsync(Guid id, Order_Update_State dto)
+        {
+            var exist = await _db.Orders
+                .Include(o => o.Products)
+                .FirstOrDefaultAsync(o => o.Id == id);
+            if (exist == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+            exist.State = dto.State;
+            var res = await _db.SaveChangesAsync();
+
+            var updated = new Order_Read
+            {
+                Id = exist.Id,
+                CreatedAt = exist.CreatedAt,
+                Total = exist.Total,
+                Address = exist.Address,
+                State = exist.State,
+                Products = exist.Products
+                .Select(p => new OrderItem_Read
+                {
+                    Id = p.Id,
+                    OrderId = p.OrderId,
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Quantity = p.Quantity,
+                    UnitPrice = p.UnitPrice
+                }).ToList(),
+                UserId = exist.UserId
+            };
+
+            if (res == 0)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NoChanges" };
+            }
+
+            return new RequestResult_DTO { Success = true, Data = updated };
+        }
 
         //D
+        public async Task<RequestResult_DTO> DeleteAsync(Guid id)
+        {
+            var exist = await _db.Orders
+                .Include(o => o.Products)
+                .FirstOrDefaultAsync(o => o.Id == id);
+            if (exist == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+
+            var dto = new Order_Read
+            {
+                Id = exist.Id,
+                CreatedAt = exist.CreatedAt,
+                Total = exist.Total,
+                Address = exist.Address,
+                State = OrderStates.Canceled,
+                Products = exist.Products
+                .Select(p => new OrderItem_Read
+                {
+                    Id = p.Id,
+                    OrderId = p.OrderId,
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Quantity = p.Quantity,
+                    UnitPrice = p.UnitPrice
+                }).ToList(),
+                UserId = exist.UserId
+            };
+
+            _db.Orders.Remove(exist);
+            var res = await _db.SaveChangesAsync();
+            if (res == 0)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NoChanges" };
+            }
+
+            return new RequestResult_DTO { Success = true, Data = dto };
+        }
     }
 }
