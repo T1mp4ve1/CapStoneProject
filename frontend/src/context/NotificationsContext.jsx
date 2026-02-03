@@ -17,6 +17,9 @@ export function NotificationsProvider({ children }) {
         {
           accessTokenFactory: () => token,
           transport: signalR.HttpTransportType.WebSockets,
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         },
       )
       .withAutomaticReconnect()
@@ -34,15 +37,19 @@ export function NotificationsProvider({ children }) {
       ]);
     });
 
+    connection.onreconnected(() => {
+      console.log("SignalR fully connected");
+      connection
+        .invoke("DebugPing", "hello from client")
+        .catch((err) => console.error("Invoke error:", err));
+    });
+
     connection
       .start()
       .then(() => {
         console.log("SignalR connected");
-        return connection.invoke("DebugPing", "hello from client");
       })
       .catch((err) => console.error("SignalR error:", err));
-
-      
   }, [isLogged, token]);
 
   const markAllAsRead = () => {

@@ -38,7 +38,7 @@ namespace backend.Controllers
 
         //R
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll([FromQuery] OrderStates? state)
         {
             Console.WriteLine("VEDERE GLI ORDINI");

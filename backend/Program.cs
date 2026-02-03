@@ -81,13 +81,16 @@ builder.Services.AddAuthentication(options =>
         {
             OnMessageReceived = context =>
             {
-                var accessToken = context.Request.Query["access_token"];
-                var path = context.HttpContext.Request.Path;
-                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs/notifications"))
+                if (context.Request.Headers.ContainsKey("Authorization"))
                 {
-                    context.Token = accessToken;
+                    var header = context.Request.Headers["Authorization"].ToString();
+                    if (header.StartsWith("Bearer "))
+                    {
+                        context.Token = header.Substring("Bearer ".Length);
+                    }
                 }
                 return Task.CompletedTask;
+
             }
         };
     });
