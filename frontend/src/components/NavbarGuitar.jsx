@@ -83,7 +83,9 @@ function NavbarGuitar() {
               <div className="position-relative">
                 <i className="bi bi-bell-fill fs-4"></i>
                 {hasUnread && (
-                  <span className="badge bg-danger rounded-pill bellBadge"></span>
+                  <span className="badge cartBadge rounded-pill bg-danger">
+                    {notifications.length}
+                  </span>
                 )}
               </div>
             </Dropdown.Toggle>
@@ -91,14 +93,14 @@ function NavbarGuitar() {
             <Dropdown.Menu className="profileDropdownMenu border-0 slowOpacity shadow-lg">
               <div className="d-flex justify-content-between align-items-center px-3 pt-2">
                 <span className="fw-bold">Notifiche</span>
-                {notifications.length > 0 && (
+                {/* {notifications.length > 0 && (
                   <button
                     className="btn btn-link btn-sm p-0"
                     onClick={markAllAsRead}
                   >
                     Segna tutte come lette
                   </button>
-                )}
+                )} */}
               </div>
 
               <Dropdown.Divider />
@@ -112,7 +114,7 @@ function NavbarGuitar() {
                   key={i}
                   className={`px-3 py-2 ${n.read ? "text-muted" : ""}`}
                 >
-                  Ordine <b>{String(n.orderId).slice(0, 8)}...</b> è ora{" "}
+                  Ordine <b>{String(n.orderId)}</b> è ora{" "}
                   <b>{n.newState}</b>
                 </div>
               ))}

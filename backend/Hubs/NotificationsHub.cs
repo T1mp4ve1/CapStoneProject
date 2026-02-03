@@ -8,7 +8,6 @@ namespace backend.Hubs
         {
             await Clients.Caller.SendAsync("ConnectionReady", Context.ConnectionId);
             await base.OnConnectedAsync();
-
         }
 
         public async Task DebugPing(string message)

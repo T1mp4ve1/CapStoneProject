@@ -134,8 +134,6 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-Console.WriteLine("BACKEND AVVIATO - VERSIONE TEST MERDA");
-
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
