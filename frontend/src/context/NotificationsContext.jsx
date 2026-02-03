@@ -10,6 +10,7 @@ export function NotificationsProvider({ children }) {
 
   useEffect(() => {
     if (!isLogged || !token) return;
+
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(
         "https://chitart-encwbed2fygxddb7.westeurope-01.azurewebsites.net/hubs/notifications",
@@ -21,20 +22,26 @@ export function NotificationsProvider({ children }) {
       .withAutomaticReconnect()
       .build();
 
+    connection.on("OrderUpdate", (orderId, newState) => {
+      setNotifications((prev) => [
+        ...prev,
+        {
+          orderId,
+          newState,
+          date: new Date().toISOString(),
+          read: false,
+        },
+      ]);
+    });
+
     connection
       .start()
-      .then(() => {
-        console.log("SignalR connected");
-      })
+      .then(() => console.log("SignalR connected"))
       .catch((err) => console.error("SignalR error:", err));
 
     connection.onclose((err) => {
       console.log("SignalR closed:", err);
     });
-
-    return () => {
-      connection.stop();
-    };
   }, [isLogged, token]);
 
   const markAllAsRead = () => {
