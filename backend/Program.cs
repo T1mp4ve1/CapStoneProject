@@ -1,4 +1,5 @@
 using backend.Data;
+using backend.Hubs;
 using backend.Model;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,7 +21,8 @@ builder.Services.AddCors(options =>
                 "https://proud-coast-0fc73eb03.1.azurestaticapps.net"
                 )
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
         });
 });
 
@@ -35,6 +37,7 @@ builder.Services.AddScoped<ArtistService>();
 builder.Services.AddScoped<ImageService>();
 builder.Services.AddSingleton<BlobService>(); // storage
 builder.Services.AddScoped<OrderService>();
+builder.Services.AddSignalR();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -70,6 +73,20 @@ builder.Services.AddAuthentication(options =>
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs/notifications"))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
         };
     });
 
@@ -141,5 +158,6 @@ app.UseAuthorization();
 app.MapGet("/", () => "Chitart API is running");
 
 app.MapControllers();
+app.MapHub<NotificationsHub>("/hubs/notifications");
 
 app.Run();

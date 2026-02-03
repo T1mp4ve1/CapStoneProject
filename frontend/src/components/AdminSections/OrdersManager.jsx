@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   deleteOrder,
   getOrders,
@@ -8,8 +8,9 @@ import { useAuth } from "../../context/UseAuth";
 
 function OrdersManager() {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { token } = useAuth();
+  const [filter, setFilter] = useState("");
 
   const stateIcons = {
     Pending: <i className="bi bi-exclamation-circle-fill text-warning"></i>,
@@ -30,36 +31,33 @@ function OrdersManager() {
   //C
 
   // R
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const data = await getOrders(token);
-        setOrders(data.data);
-        console.log(data.data);
-      } catch (err) {
-        console.error("Guitar page fetch error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchOrders();
-  }, []);
+  const handleFilter = async (state) => {
+    try {
+      setLoading(true);
+      setFilter(state);
+      const res = await getOrders(state, token);
+      setOrders(res.data);
+    } catch (err) {
+      console.error("Fetch page error", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   //U
   const handleChangeState = async (id, newState) => {
     try {
-      const res = await updateOrderState(id, newState, token);
+      await updateOrderState(id, newState, token);
       setOrders((prev) =>
         prev.map((o) => (o.id === id ? { ...o, state: newState } : o)),
       );
-      console.log(res);
     } catch (err) {
       console.error("Update errore:", err);
     }
   };
 
   //D
-  const handleCancel = async (id) => {
+  const handleDelete = async (id) => {
     try {
       const res = await deleteOrder(id, token);
       console.log(res.data);
@@ -69,19 +67,30 @@ function OrdersManager() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="spinner-border flexContainerCenter" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="container80 manageContaner">
         <h2>Ordini</h2>
 
+        {loading && (
+          <div className="spinner-border flexContainerCenter" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        )}
+
+        <div className="d-flex gap-1 mb-1">
+          {["All", ...orderStates].map((s) => (
+            <button
+              key={s}
+              className={
+                filter === s ? "btn btn-primary" : "btn btn-outline-primary"
+              }
+              onClick={() => handleFilter(s)}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
         <table className="table table-striped">
           <thead>
             <tr>
@@ -130,10 +139,10 @@ function OrdersManager() {
                   <td>{o.products.length}</td>
                   <td>
                     <button
-                      className="btn btn-danger"
-                      onClick={() => handleCancel(o.id)}
+                      className="beatyButtonSm"
+                      onClick={() => handleDelete(o.id)}
                     >
-                      X
+                      <i className="bi bi-trash"></i>
                     </button>
                   </td>
                 </tr>

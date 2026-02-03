@@ -564,6 +564,34 @@
         "tags": [
           "Order"
         ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "Pending",
+                "Accepted",
+                "Shipped",
+                "Completed",
+                "Canceled"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Order/my": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -602,6 +630,48 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/Order_Update"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Order/{id}/state": {
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order_Update_State"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order_Update_State"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order_Update_State"
               }
             }
           }
@@ -837,6 +907,22 @@
             "type": "string",
             "nullable": true
           },
+          "state": {
+            "enum": [
+              "Pending",
+              "Accepted",
+              "Shipped",
+              "Completed",
+              "Canceled"
+            ],
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Order_Update_State": {
+        "type": "object",
+        "properties": {
           "state": {
             "enum": [
               "Pending",

@@ -456,3 +456,5 @@ C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\backend.pdb
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\backend.genruntimeconfig.cache
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\ref\backend.dll
+C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x64\Newtonsoft.Json.dll
+C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x64\System.Net.WebSockets.WebSocketProtocol.dll

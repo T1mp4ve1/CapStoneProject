@@ -6,11 +6,14 @@ import App from "./App.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { NotificationsProvider } from "./context/NotificationsContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <CartProvider>
-      <App />
-    </CartProvider>
+    <NotificationsProvider>
+      <CartProvider>
+        <App />
+      </CartProvider>
+    </NotificationsProvider>
   </AuthProvider>,
 );

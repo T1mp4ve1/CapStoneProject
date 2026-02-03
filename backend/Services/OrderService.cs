@@ -1,7 +1,9 @@
 ﻿using backend.Data;
+using backend.Hubs;
 using backend.Model;
 using backend.Model.DTO.Common;
 using backend.Model.DTO.OrderDTO;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
@@ -9,7 +11,16 @@ namespace backend.Services
     public class OrderService
     {
         private readonly AppDbContext _db;
-        public OrderService(AppDbContext db) { _db = db; }
+        private readonly IHubContext<NotificationsHub> _hub;
+        public OrderService
+            (
+            AppDbContext db,
+            IHubContext<NotificationsHub> hub
+            )
+        {
+            _db = db;
+            _hub = hub;
+        }
 
         //C
         public async Task<RequestResult_DTO> CreateAsync(Order_Create dto, string userId)
@@ -69,12 +80,49 @@ namespace backend.Services
         }
 
         //R
-        public async Task<RequestResult_DTO> GetAllAsync()
+        public async Task<RequestResult_DTO> GetAllAsync(OrderStates? state)
+        {
+            var query = _db.Orders
+                .AsNoTracking()
+                .Include(o => o.Products)
+                .Include(o => o.User)
+                .AsQueryable();
+
+            if (state.HasValue)
+            {
+                query = query.Where(o => o.State == state.Value);
+            }
+
+            var data = await query
+                .Select(o => new Order_Read
+                {
+                    Id = o.Id,
+                    CreatedAt = o.CreatedAt,
+                    Total = o.Total,
+                    Address = o.Address,
+                    State = o.State,
+                    Products = o.Products.Select(p => new OrderItem_Read
+                    {
+                        Id = p.Id,
+                        OrderId = p.OrderId,
+                        ProductId = p.ProductId,
+                        ProductName = p.ProductName,
+                        Quantity = p.Quantity,
+                        UnitPrice = p.UnitPrice
+                    }).ToList(),
+                    UserId = o.UserId
+                }).ToListAsync();
+
+            return new RequestResult_DTO { Success = true, Data = data };
+        }
+
+        public async Task<RequestResult_DTO> GetByUserAsync(string userId)
         {
             var data = await _db.Orders
                 .AsNoTracking()
-                .Include(o => o.User)
                 .Include(o => o.Products)
+                .Include(o => o.User)
+                .Where(o => o.UserId == userId)
                 .Select(o => new Order_Read
                 {
                     Id = o.Id,
@@ -151,6 +199,8 @@ namespace backend.Services
             }
             exist.State = dto.State;
             var res = await _db.SaveChangesAsync();
+            await _hub.Clients.User(exist.UserId)
+                .SendAsync("OrderUpdate", exist.Id, exist.State.ToString());
 
             var updated = new Order_Read
             {

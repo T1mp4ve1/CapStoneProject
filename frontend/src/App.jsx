@@ -10,6 +10,8 @@ import AdminPage from "./components/AdminPage";
 import RegistrationPage from "./components/RegistrationPage";
 import DetailsPage from "./components/DetailsPage";
 import CartPage from "./components/CartPage";
+import ProfileSettings from "./components/ProfilePages/ProfileSettings";
+import UserOrders from "./components/ProfilePages/UserOrders";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
           <Route path="/AdminPage" element={<AdminPage />} />
           <Route path="/RegistrationPage" element={<RegistrationPage />} />
           <Route path="/CartPage" element={<CartPage />} />
+          <Route path="/ProfileSettings" element={<ProfileSettings />} />
+          <Route path="/UserOrders" element={<UserOrders />} />
+
         </Routes>
       </BrowserRouter>
     </>

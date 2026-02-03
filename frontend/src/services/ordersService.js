@@ -22,9 +22,11 @@ export const createOrder = async (order, token) => {
 };
 
 // R
-export const getOrders = async (token) => {
+export const getOrders = async (state, token) => {
   try {
-    const res = await fetch(`${api}/Order`, {
+    const url = state === "All" ? `${api}/Order` : `${api}/Order?state=${state}`;
+
+    const res = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) {
@@ -37,26 +39,20 @@ export const getOrders = async (token) => {
   }
 };
 
-// export const getGuitar = async (id) => {
-//   try {
-//     const guitarRes = await fetch(`${api}/Guitar/${id}`);
-//     if (!guitarRes.ok) {
-//       throw new Error(`Error guitar! Status: ${guitar.status}`);
-//     }
-//     const guitar = await guitarRes.json();
-
-//     const imgsRes = await fetch(`${api}/Image/${id}`);
-//     if (!imgsRes.ok) {
-//       throw new Error(`Error imgs! Status: ${imgs.status}`);
-//     }
-//     const imgs = await imgsRes.json();
-
-//     return { ...guitar, imgs, mainImg: imgs.find((i) => i.isMain)?.url };
-//   } catch (err) {
-//     console.error("Read guitar error:", err);
-//     throw err;
-//   }
-// };
+export const getUserOrders = async (token) => {
+  try {
+    const res = await fetch(`${api}/Order/my`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) {
+      throw new Error(`Error read! Status: ${res.status}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.error("Read orders error:", err);
+    throw err;
+  }
+};
 
 // U
 export const updateOrderState = async (id, newState, token) => {

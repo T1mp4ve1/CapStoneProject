@@ -1,4 +1,5 @@
-﻿using backend.Model.DTO.OrderDTO;
+﻿using backend.Model;
+using backend.Model.DTO.OrderDTO;
 using backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,9 +39,18 @@ namespace backend.Controllers
         //R
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] OrderStates? state)
         {
-            var result = await _service.GetAllAsync();
+            var result = await _service.GetAllAsync(state);
+            return Ok(result);
+        }
+
+        [HttpGet("my")]
+        [Authorize]
+        public async Task<IActionResult> GetByUser()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var result = await _service.GetByUserAsync(userId);
             return Ok(result);
         }
 

@@ -31,7 +31,6 @@ function AdminPage() {
         </div>
       </div>
       <div className="container80 manageContaner flexContainerCenter">
-        {activeSection === null && <h3>Scegli categoria da gestire</h3>}
         {activeSection === "users" && <UsersManager />}
         {activeSection === "artists" && <ArtistsManager />}
         {activeSection === "guitars" && <GuitarsManager />}
