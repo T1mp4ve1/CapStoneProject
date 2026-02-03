@@ -15,6 +15,7 @@ export function NotificationsProvider({ children }) {
         "https://chitart-encwbed2fygxddb7.westeurope-01.azurewebsites.net/hubs/notifications",
         {
           accessTokenFactory: () => token,
+          transport: signalR.HttpTransportType.WebSockets,
         },
       )
       .withAutomaticReconnect()
@@ -24,20 +25,12 @@ export function NotificationsProvider({ children }) {
       .start()
       .then(() => {
         console.log("SignalR connected");
-
-        connection.on("OrderUpdate", (orderId, newState) => {
-          setNotifications((prev) => [
-            ...prev,
-            {
-              orderId,
-              newState,
-              date: new Date().toISOString(),
-              read: false,
-            },
-          ]);
-        });
       })
       .catch((err) => console.error("SignalR error:", err));
+
+    connection.onclose((err) => {
+      console.log("SignalR closed:", err);
+    });
 
     return () => {
       connection.stop();

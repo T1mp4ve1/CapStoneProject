@@ -333,7 +333,6 @@ C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\PubTmp\Out\Azure.Storage.Common.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\PubTmp\Out\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\PubTmp\Out\Microsoft.AspNetCore.SignalR.Client.Core.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\PubTmp\Out\Microsoft.Data.SqlClient.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x64\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
