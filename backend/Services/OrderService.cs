@@ -199,6 +199,7 @@ namespace backend.Services
             }
             exist.State = dto.State;
             var res = await _db.SaveChangesAsync();
+
             await _hub.Clients.User(exist.UserId)
                 .SendAsync("OrderUpdate", exist.Id, exist.State.ToString());
 
