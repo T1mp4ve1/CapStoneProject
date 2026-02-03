@@ -4,6 +4,7 @@ using backend.Model;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -38,6 +39,7 @@ builder.Services.AddScoped<ImageService>();
 builder.Services.AddSingleton<BlobService>(); // storage
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddSignalR();
+builder.Services.AddSingleton<IUserIdProvider, HubUserIdProvider>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -128,6 +130,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+Console.WriteLine("BACKEND AVVIATO - VERSIONE TEST MERDA");
 
 using (var scope = app.Services.CreateScope())
 {

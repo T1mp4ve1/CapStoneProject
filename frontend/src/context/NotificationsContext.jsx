@@ -42,6 +42,11 @@ export function NotificationsProvider({ children }) {
     connection.onclose((err) => {
       console.log("SignalR closed:", err);
     });
+
+    connection
+      .invoke("DebugPing", "hello from client")
+      .catch((err) => console.error("Invoke error:", err));
+      
   }, [isLogged, token]);
 
   const markAllAsRead = () => {
