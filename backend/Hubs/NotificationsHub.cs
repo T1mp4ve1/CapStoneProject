@@ -4,14 +4,11 @@ namespace backend.Hubs
 {
     public class NotificationsHub : Hub
     {
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
-            Console.WriteLine("CLAIMS:");
-            foreach (var c in Context.User.Claims)
-                Console.WriteLine($"{c.Type} = {c.Value}");
+            await Clients.Caller.SendAsync("ConnectionReady", Context.ConnectionId);
+            await base.OnConnectedAsync();
 
-            Console.WriteLine("USER CONNECTED: " + Context.UserIdentifier);
-            return base.OnConnectedAsync();
         }
 
         public async Task DebugPing(string message)

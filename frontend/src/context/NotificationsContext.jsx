@@ -18,8 +18,8 @@ export function NotificationsProvider({ children }) {
           accessTokenFactory: () => token,
           transport: signalR.HttpTransportType.WebSockets,
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         },
       )
       .withAutomaticReconnect()
@@ -37,8 +37,9 @@ export function NotificationsProvider({ children }) {
       ]);
     });
 
-    connection.onreconnected(() => {
-      console.log("SignalR fully connected");
+    connection.on("ConnectionReady", (id) => {
+      console.log("SignalR fully connected with ID:", id);
+
       connection
         .invoke("DebugPing", "hello from client")
         .catch((err) => console.error("Invoke error:", err));
