@@ -40,6 +40,7 @@ builder.Services.AddSingleton<BlobService>(); // storage
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IUserIdProvider, HubUserIdProvider>();
+builder.Services.AddScoped<NotificationService>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -81,13 +82,12 @@ builder.Services.AddAuthentication(options =>
         {
             OnMessageReceived = context =>
             {
-                if (context.Request.Headers.ContainsKey("Authorization"))
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) &&
+                path.StartsWithSegments("/hubs/notifications"))
                 {
-                    var header = context.Request.Headers["Authorization"].ToString();
-                    if (header.StartsWith("Bearer "))
-                    {
-                        context.Token = header.Substring("Bearer ".Length);
-                    }
+                    context.Token = accessToken;
                 }
                 return Task.CompletedTask;
 

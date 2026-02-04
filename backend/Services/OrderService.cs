@@ -200,6 +200,18 @@ namespace backend.Services
             exist.State = dto.State;
             var res = await _db.SaveChangesAsync();
 
+            var newNotification = new Notification
+            {
+                Id = Guid.NewGuid(),
+                UserId = exist.UserId,
+                OrderId = exist.Id,
+                State = exist.State.ToString(),
+                CreatedAt = DateTime.UtcNow,
+                Read = false
+            };
+            _db.Notifications.Add(newNotification);
+            await _db.SaveChangesAsync();
+
             await _hub.Clients.User(exist.UserId)
                 .SendAsync("OrderUpdate", exist.Id, exist.State.ToString());
 
@@ -228,7 +240,11 @@ namespace backend.Services
                 return new RequestResult_DTO { Success = false, Error = "NoChanges" };
             }
 
-            return new RequestResult_DTO { Success = true, Data = updated };
+            return new RequestResult_DTO
+            {
+                Success = true,
+                Data = updated
+            };
         }
 
         //D

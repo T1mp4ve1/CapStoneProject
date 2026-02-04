@@ -14,7 +14,7 @@ function NavbarGuitar() {
   const { cartCount } = useContext(CartContext);
   const { userRoles, isLogged, login, logout } = useContext(AuthContext);
   const isAdmin = userRoles.includes("Admin");
-  const { notifications, markAllAsRead } = useContext(NotificationsContext);
+  const { notifications } = useContext(NotificationsContext);
   const hasUnread = notifications.some((n) => !n.read);
 
   console.log(notifications);

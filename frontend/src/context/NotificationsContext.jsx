@@ -13,13 +13,10 @@ export function NotificationsProvider({ children }) {
 
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(
-        "https://chitart-encwbed2fygxddb7.westeurope-01.azurewebsites.net/hubs/notifications",
+        "https://chitart-encwbed2fygxddb7.westeurope-01.azurewebsites.net/hubs/notifications?access_token=" +
+          token,
         {
-          accessTokenFactory: () => token,
           transport: signalR.HttpTransportType.WebSockets,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         },
       )
       .withAutomaticReconnect()
@@ -37,20 +34,11 @@ export function NotificationsProvider({ children }) {
       ]);
     });
 
-    connection.on("ConnectionReady", (id) => {
-      console.log("SignalR fully connected with ID:", id);
+    connection.start().catch((err) => console.error("SignalR error:", err));
 
-      connection
-        .invoke("DebugPing", "hello from client")
-        .catch((err) => console.error("Invoke error:", err));
-    });
-
-    connection
-      .start()
-      .then(() => {
-        console.log("SignalR connected");
-      })
-      .catch((err) => console.error("SignalR error:", err));
+    return () => {
+      connection.stop();
+    };
   }, [isLogged, token]);
 
   const markAllAsRead = () => {
