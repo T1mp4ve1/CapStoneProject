@@ -5,32 +5,53 @@ import { AuthContext } from "./AuthContext";
 export const NotificationsContext = createContext();
 
 export function NotificationsProvider({ children }) {
+  const api = import.meta.env.VITE_API_URL;
+  const backend =
+    "https://chitart-encwbed2fygxddb7.westeurope-01.azurewebsites.net";
   const [notifications, setNotifications] = useState([]);
   const { token, isLogged } = useContext(AuthContext);
 
   useEffect(() => {
     if (!isLogged || !token) return;
+    const fetchNotifications = async () => {
+      try {
+        const res = await fetch(`${api}/Notification/unread`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!res.ok) {
+          return;
+        }
+        const data = await res.json();
+        setNotifications(data);
+      } catch (err) {
+        console.error("Error fetch notification:", err);
+      }
+    };
+    fetchNotifications();
+  }, [isLogged, token]);
 
+  // SignalR
+  useEffect(() => {
+    if (!isLogged || !token) return;
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(
-        "https://chitart-encwbed2fygxddb7.westeurope-01.azurewebsites.net/hubs/notifications?access_token=" +
-          token,
-        {
-          transport: signalR.HttpTransportType.WebSockets,
-        },
-      )
+      .withUrl(`${backend}/hubs/notifications?access_token=` + token, {
+        transport: signalR.HttpTransportType.WebSockets,
+      })
       .withAutomaticReconnect()
       .build();
 
     connection.on("OrderUpdate", (orderId, newState) => {
       setNotifications((prev) => [
-        ...prev,
         {
+          id: crypto.randomUUID(),
           orderId,
-          newState,
-          date: new Date().toISOString(),
+          state: newState,
+          createdAt: new Date().toISOString(),
           read: false,
         },
+        ...prev,
       ]);
     });
 
@@ -41,8 +62,18 @@ export function NotificationsProvider({ children }) {
     };
   }, [isLogged, token]);
 
-  const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  const markAllAsRead = async () => {
+    try {
+      await fetch(`${api}/Notification/mark_all_read`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setNotifications([]);
+    } catch (err) {
+      console.error("Notifications RT error:", err);
+    }
   };
 
   return (

@@ -14,8 +14,15 @@ function NavbarGuitar() {
   const { cartCount } = useContext(CartContext);
   const { userRoles, isLogged, login, logout } = useContext(AuthContext);
   const isAdmin = userRoles.includes("Admin");
-  const { notifications } = useContext(NotificationsContext);
-  const hasUnread = notifications.some((n) => !n.read);
+  const { notifications, markAllAsRead } = useContext(NotificationsContext);
+
+  const stateIcons = {
+    Pending: <i className="bi bi-exclamation-circle-fill text-warning"></i>,
+    Accepted: <i className="bi bi-circle-fill text-primary"></i>,
+    Shipped: <i className="bi bi-truck text-info"></i>,
+    Completed: <i className="bi bi-check-circle-fill text-success"></i>,
+    Canceled: <i className="bi bi-x-circle-fill text-danger"></i>,
+  };
 
   console.log(notifications);
 
@@ -82,7 +89,7 @@ function NavbarGuitar() {
             <Dropdown.Toggle as="div" className="profileDropdownToggle">
               <div className="position-relative">
                 <i className="bi bi-bell-fill fs-4"></i>
-                {hasUnread && (
+                {notifications.length > 0 && (
                   <span className="badge cartBadge rounded-pill bg-danger">
                     {notifications.length}
                   </span>
@@ -91,16 +98,18 @@ function NavbarGuitar() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="profileDropdownMenu border-0 slowOpacity shadow-lg">
-              <div className="d-flex justify-content-between align-items-center px-3 pt-2">
+              <div className="d-flex justify-content-between align-items-center px-3 pt-2 asdfgh">
                 <span className="fw-bold">Notifiche</span>
-                {/* {notifications.length > 0 && (
+                {notifications.length > 0 ? (
                   <button
                     className="btn btn-link btn-sm p-0"
                     onClick={markAllAsRead}
                   >
-                    Segna tutte come lette
+                    <i className="bi bi-eye-fill fs-4 text-danger"></i>
                   </button>
-                )} */}
+                ) : (
+                  <i className="bi bi-eye-fill fs-4"></i>
+                )}
               </div>
 
               <Dropdown.Divider />
@@ -108,14 +117,23 @@ function NavbarGuitar() {
               {notifications.length === 0 && (
                 <div className="px-3 pb-2 text-muted">Nessuna notifica</div>
               )}
-
               {notifications.map((n, i) => (
                 <div
                   key={i}
-                  className={`px-3 py-2 ${n.read ? "text-muted" : ""}`}
+                  className={`px-3 py-2 notificationItem ${n.read ? "read" : "unread"}`}
                 >
-                  Ordine <b>{String(n.orderId)}</b> è ora{" "}
-                  <b>{n.newState}</b>
+                  <div className="d-flex justify-content-between">
+                    <span>
+                      Ordine <b>...{String(n.orderId).slice(-6)}</b>{" "}
+                      <b>
+                        {n.state}
+                        {stateIcons[n.state]}
+                      </b>
+                    </span>
+                  </div>
+                  <small className="text-muted">
+                    {new Date(n.createdAt).toLocaleString()}
+                  </small>
                 </div>
               ))}
             </Dropdown.Menu>
@@ -142,6 +160,7 @@ function NavbarGuitar() {
                     <Link
                       to="/UserOrders"
                       className="flexContainerLeft dropdownItem"
+                      onClick={() => setshowDropdown(false)}
                     >
                       <i className="bi bi-floppy-fill"></i>
                       <p>Ordini</p>

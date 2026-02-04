@@ -147,7 +147,8 @@ a {
 /* dropdownMenu */
 .profileDropdownMenu {
     background: var(--colorBeige);
-    border-radius: 20px;
+    border-radius: 10px;
+    width: 200px;
 }
 
 .profileDropdownMenu a {
