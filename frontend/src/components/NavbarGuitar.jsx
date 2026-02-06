@@ -24,8 +24,6 @@ function NavbarGuitar() {
     Canceled: <i className="bi bi-x-circle-fill text-danger"></i>,
   };
 
-  console.log(notifications);
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
