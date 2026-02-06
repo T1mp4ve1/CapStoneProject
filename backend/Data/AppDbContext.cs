@@ -15,5 +15,6 @@ namespace backend.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrdersItems { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Opinion> Opinions { get; set; }
     }
 }

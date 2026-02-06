@@ -41,6 +41,7 @@ builder.Services.AddScoped<OrderService>();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IUserIdProvider, HubUserIdProvider>();
 builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<OpinionService>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()

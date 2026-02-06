@@ -166,6 +166,7 @@ function NavbarGuitar() {
                     <Link
                       to="/Customshop"
                       className="flexContainerLeft dropdownItem"
+                      onClick={() => setshowDropdown(false)}
                     >
                       <i className="bi bi-bandaid-fill"></i>
                       <p>Supporto</p>
@@ -173,6 +174,7 @@ function NavbarGuitar() {
                     <Link
                       to="/ProfileSettings"
                       className="flexContainerLeft dropdownItem"
+                      onClick={() => setshowDropdown(false)}
                     >
                       <i className="bi bi-gear-fill"></i>
                       <p>Impostazioni</p>

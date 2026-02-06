@@ -2,6 +2,7 @@
 using backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace backend.Controllers
 {
@@ -69,7 +70,39 @@ namespace backend.Controllers
             }
         }
 
+        [HttpGet("single_user")]
+        [Authorize]
+        public async Task<IActionResult> ReadById()
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var result = await _service.GetByIdAsync(userId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
         //U
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Edit(AppUser_Update dto)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var result = await _service.UpdateAsync(userId, dto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         //D
         [HttpDelete("{email}")]

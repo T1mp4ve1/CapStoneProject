@@ -17,26 +17,6 @@ export const registrationFunc = async (email, password, firstName) => {
 };
 
 // C
-// export const createArtist = async (artist) => {
-//   try {
-//     const res = await fetch(`${api}/Artist`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(artist),
-//     });
-
-//     if (!res.ok) {
-//       throw new Error(`Error create! Status: ${res.status}`);
-//     }
-//     return await res.json();
-//   } catch (err) {
-//     console.error("Create artist error", err);
-//     throw err;
-//   }
-// };
 
 // R
 export const getUsers = async (token) => {
@@ -55,27 +35,43 @@ export const getUsers = async (token) => {
   }
 };
 
+export const getSingleUsers = async (token) => {
+  try {
+    const res = await fetch(`${api}/AppUser/single_user`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) {
+      throw new Error(`Service error! Status: ${res.status}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.error("Read users error:", err);
+    throw err;
+  }
+};
+
 // U
-// export const updateArtist = async (id, artist) => {
-//   try {
-//     const res = await fetch(`${api}/Artist/${id}`, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(artist),
-//     });
+export const updateUser = async (body, token) => {
+  try {
+    const res = await fetch(`${api}/AppUser`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
 
-//     if (!res.ok) {
-//       throw new Error(`Error update! Status: ${res.status}`);
-//     }
+    if (!res.ok) {
+      throw new Error(`Error update! Status: ${res.status}`);
+    }
 
-//     return await res.json();
-//   } catch (err) {
-//     console.error("Update artist error:", err);
-//   }
-// };
+    return await res.json();
+  } catch (err) {
+    console.error("Update user error:", err);
+  }
+};
 
 // D
 export const deleteUser = async (email, token) => {

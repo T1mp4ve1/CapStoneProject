@@ -154,7 +154,74 @@ namespace backend.Services
                 }).ToListAsync();
         }
 
+        public async Task<RequestResult_DTO> GetByIdAsync(string userId)
+        {
+            var user = await _userManager.Users
+                .Where(u => u.Id == userId)
+                .AsNoTracking()
+                .Select(u => new AppUser_Read
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    EmailConfirmed = u.EmailConfirmed,
+                    UserName = u.UserName,
+                    FirstName = u.FirstName,
+                    CreatedAt = u.CreatedAt,
+                    PhoneNumber = u.PhoneNumber,
+                    PhoneNumberConfirmed = u.PhoneNumberConfirmed,
+                    TwoFactorEnabled = u.TwoFactorEnabled,
+                    AccessFailedCount = u.AccessFailedCount
+                }).FirstOrDefaultAsync();
+
+            return new RequestResult_DTO { Success = true, Data = user };
+        }
+
         //U
+        public async Task<RequestResult_DTO> UpdateAsync(string userId, AppUser_Update dto)
+        {
+            var exist = await _userManager.FindByIdAsync(userId);
+            if (exist == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.FirstName))
+            {
+                exist.FirstName = dto.FirstName;
+            }
+            if (!string.IsNullOrWhiteSpace(dto.PhoneNumber))
+            {
+                exist.PhoneNumber = dto.PhoneNumber;
+            }
+            if (!string.IsNullOrWhiteSpace(dto.Email) && dto.Email != exist.Email)
+            {
+                await _userManager.SetEmailAsync(exist, dto.Email);
+                await _userManager.SetUserNameAsync(exist, dto.Email);
+                exist.EmailConfirmed = false;
+            }
+
+            var result = await _db.SaveChangesAsync();
+            if (result == 0)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NoChanges" };
+            }
+
+            var modified = new AppUser_Read
+            {
+                Id = exist.Id,
+                Email = exist.Email,
+                EmailConfirmed = exist.EmailConfirmed,
+                UserName = exist.UserName,
+                FirstName = exist.FirstName,
+                CreatedAt = exist.CreatedAt,
+                PhoneNumber = exist.PhoneNumber,
+                PhoneNumberConfirmed = exist.PhoneNumberConfirmed,
+                TwoFactorEnabled = exist.TwoFactorEnabled,
+                AccessFailedCount = exist.AccessFailedCount
+            };
+
+            return new RequestResult_DTO { Success = true, Data = modified };
+        }
 
         //D
         public async Task<RequestResult_DTO> DeleteAsync(string email)

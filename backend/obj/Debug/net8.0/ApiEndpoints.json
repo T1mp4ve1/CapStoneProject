@@ -45,6 +45,22 @@
   },
   {
     "ContainingType": "backend.Controllers.AppUserController",
+    "Method": "Edit",
+    "RelativePath": "api/AppUser",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "backend.Model.DTO.AppUserDTO.AppUser_Update",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.AppUserController",
     "Method": "Delete",
     "RelativePath": "api/AppUser/{email}",
     "HttpMethod": "DELETE",
@@ -73,6 +89,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.AppUserController",
+    "Method": "ReadById",
+    "RelativePath": "api/AppUser/single_user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -357,6 +383,79 @@
     "ContainingType": "backend.Controllers.NotificationController",
     "Method": "GetUnread",
     "RelativePath": "api/Notification/unread",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.OpinionController",
+    "Method": "Create",
+    "RelativePath": "api/Opinion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "backend.Model.DTO.OpinionDTO.Opinion_Create",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.OpinionController",
+    "Method": "GetAll",
+    "RelativePath": "api/Opinion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.OpinionController",
+    "Method": "Update",
+    "RelativePath": "api/Opinion/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "backend.Model.DTO.OpinionDTO.Opinion_Update",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.OpinionController",
+    "Method": "Delete",
+    "RelativePath": "api/Opinion/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.OpinionController",
+    "Method": "GetMine",
+    "RelativePath": "api/Opinion/my",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
