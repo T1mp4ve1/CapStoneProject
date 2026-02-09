@@ -43,201 +43,198 @@ function NavbarGuitar() {
   };
 
   return (
-    <nav className="navbarCustom fixed-top shadow d-flex justify-content-around align-items-center">
-      <div className="navbarSide d-flex justify-content-around align-items-center">
-        <Link to="/Guitars" className="navbarLink">
-          Chitarre
-        </Link>
-        <i className="bi bi-dot fs-4"></i>
-        <Link to="/Accessories" className="navbarLink">
-          Accessori
-        </Link>
-        <i className="bi bi-dot fs-4"></i>
-        <Link to="/Customshop" className="navbarLink">
-          Custom shop
-        </Link>
-      </div>
-      <Navbar.Brand className="logoFont" as={Link} to="/">
-        Chitart
-      </Navbar.Brand>
-      <div className="navbarSide d-flex justify-content-around align-items-center">
-        <Link to="/OpinionPage" className="navbarLink">
-          Opinioni
-        </Link>
-        <i className="bi bi-dot fs-4"></i>
-        <Link to="/SupportPage" className="navbarLink">
-          Supporto
-        </Link>
-        <i className="bi bi-dot fs-4"></i>
-
-        {/* PROFILE CONTAINER */}
-        <div className="d-flex justify-content-around align-items-center iconsProfileContainer shadow-sm">
-          {/* CART */}
-          <Link to="/CartPage" className="position-relative">
-            <i className="bi bi-bag-fill fs-3 ms-3"></i>
-            {cartCount > 0 && (
-              <span className="badge cartBadge rounded-pill bg-danger">
-                {cartCount}
-              </span>
-            )}
+    <nav className="navbarCustom fixed-top shadow">
+      <div className="position-relative d-flex justify-content-between align-items-center">
+        {/* LEFT */}
+        <div className="navbarLeft d-flex justify-content-center align-items-center">
+          <Link to="/Guitars" className="navbarLink">
+            Chitarre
           </Link>
-
-          {/* NOTIFICATIONS */}
-          <Dropdown align="end">
-            <Dropdown.Toggle as="div" className="profileDropdownToggle">
-              <div className="position-relative">
-                <i className="bi bi-bell-fill fs-4"></i>
-                {notifications.length > 0 && (
-                  <span className="badge cartBadge rounded-pill bg-danger">
-                    {notifications.length}
-                  </span>
-                )}
-              </div>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu className="profileDropdownMenu border-0 slowOpacity shadow-lg">
-              <div className="d-flex justify-content-between align-items-center px-3 pt-2 asdfgh">
-                <span className="fw-bold">Notifiche</span>
-                {notifications.length > 0 ? (
-                  <button
-                    className="btn btn-link btn-sm p-0"
-                    onClick={markAllAsRead}
-                  >
-                    <i className="bi bi-eye-fill fs-4 text-danger"></i>
-                  </button>
-                ) : (
-                  <i className="bi bi-eye-fill fs-4"></i>
-                )}
-              </div>
-
-              <Dropdown.Divider />
-
-              {notifications.length === 0 && (
-                <div className="px-3 pb-2 text-muted">Nessuna notifica</div>
-              )}
-              {notifications.map((n, i) => (
-                <div
-                  key={i}
-                  className={`px-3 py-2 notificationItem ${n.read ? "read" : "unread"}`}
-                >
-                  <div className="d-flex justify-content-between">
-                    <span>
-                      Ordine <b>...{String(n.orderId).slice(-6)}</b>{" "}
-                      <b>
-                        {n.state}
-                        {stateIcons[n.state]}
-                      </b>
-                    </span>
-                  </div>
-                  <small className="text-muted">
-                    {new Date(n.createdAt).toLocaleString()}
-                  </small>
-                </div>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-
-          {/* PROFILE */}
-          <Dropdown
-            align="end"
-            show={showDropdown}
-            onToggle={() => setshowDropdown(!showDropdown)}
-          >
-            <Dropdown.Toggle
-              as="div"
-              className="profileDropdownToggle"
-              style={{ cursor: "pointer" }}
-            >
-              <i className="bi bi-person-fill fs-2 me-3"></i>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu className="profileDropdownMenu border-0 slowOpacity shadow-lg">
-              {isLogged ? (
-                <>
-                  <div className="m-3 d-flex flex-column">
-                    <Link
-                      to="/UserOrders"
-                      className="flexContainerLeft dropdownItem"
-                      onClick={() => setshowDropdown(false)}
-                    >
-                      <i className="bi bi-floppy-fill"></i>
-                      <p>Ordini</p>
-                    </Link>
-                    <Link
-                      to="/Customshop"
-                      className="flexContainerLeft dropdownItem"
-                      onClick={() => setshowDropdown(false)}
-                    >
-                      <i className="bi bi-bandaid-fill"></i>
-                      <p>Supporto</p>
-                    </Link>
-                    <Link
-                      to="/ProfileSettings"
-                      className="flexContainerLeft dropdownItem"
-                      onClick={() => setshowDropdown(false)}
-                    >
-                      <i className="bi bi-gear-fill"></i>
-                      <p>Impostazioni</p>
-                    </Link>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <form className="loginMenu" onSubmit={handleLogin}>
-                    <div className="mb-3">
-                      <div className="m-3 loginMenu">
-                        <input
-                          type="email"
-                          className="form-control mb-1"
-                          id="EmailInput"
-                          placeholder="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <input
-                          type="password"
-                          className="form-control mb-1"
-                          id="PasswordInput"
-                          placeholder="password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <button type="submit" className="w-100 loginBtn">
-                          Entra
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </>
-              )}
-
-              <Dropdown.Divider />
-
-              {isLogged ? (
-                <>
-                  <div className="m-3">
-                    <button onClick={handleLogout} className="w-100 loginBtn">
-                      Logout
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="text-center">
-                    <Link to="/RegistrationPage">Registrati</Link>
-                  </div>
-                </>
-              )}
-            </Dropdown.Menu>
-          </Dropdown>
+          <i className="bi bi-dot fs-4 mx-3"></i>
+          <Link to="/Customshop" className="navbarLink">
+            Custom shop
+          </Link>
         </div>
-        {isAdmin && (
-          <>
-            <Link to="/AdminPage" className="adminButton">
-              <i className="bi bi-gear-fill text-danger fs-3"></i>
+        {/* CENTER */}
+        <Navbar.Brand className="logoFont" as={Link} to="/">
+          Chitart
+        </Navbar.Brand>
+        {/* RIGHT */}
+        <div className="navbarRight d-flex align-items-center">
+          <Link to="/OpinionPage" className="navbarLink">
+            Opinioni
+          </Link>
+          <i className="bi bi-dot fs-4 mx-3"></i>
+
+          {/* PROFILE CONTAINER */}
+          <div className="d-flex justify-content-around align-items-center iconsProfileContainer me-3 shadow-sm">
+            {/* CART */}
+            <Link to="/CartPage" className="position-relative">
+              <i className="bi bi-bag-fill fs-3 ms-3"></i>
+              {cartCount > 0 && (
+                <span className="badge cartBadge rounded-pill bg-danger">
+                  {cartCount}
+                </span>
+              )}
             </Link>
-          </>
-        )}
+
+            {/* NOTIFICATIONS */}
+            <Dropdown align="end">
+              <Dropdown.Toggle as="div" className="profileDropdownToggle">
+                <div className="position-relative">
+                  <i className="bi bi-bell-fill fs-4"></i>
+                  {notifications.length > 0 && (
+                    <span className="badge cartBadge rounded-pill bg-danger">
+                      {notifications.length}
+                    </span>
+                  )}
+                </div>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu className="profileDropdownMenu border-0 slowOpacity shadow-lg">
+                <div className="d-flex justify-content-between align-items-center px-3 pt-2 asdfgh">
+                  <span className="fw-bold">Notifiche</span>
+                  {notifications.length > 0 ? (
+                    <button
+                      className="btn btn-link btn-sm p-0"
+                      onClick={markAllAsRead}
+                    >
+                      <i className="bi bi-eye-fill fs-4 text-danger"></i>
+                    </button>
+                  ) : (
+                    <i className="bi bi-eye-fill fs-4"></i>
+                  )}
+                </div>
+
+                <Dropdown.Divider />
+
+                {notifications.length === 0 && (
+                  <div className="px-3 pb-2 text-muted">Nessuna notifica</div>
+                )}
+                {notifications.map((n, i) => (
+                  <div
+                    key={i}
+                    className={`px-3 py-2 notificationItem ${n.read ? "read" : "unread"}`}
+                  >
+                    <div className="d-flex justify-content-between">
+                      <span>
+                        Ordine <b>...{String(n.orderId).slice(-6)}</b>{" "}
+                        <b>
+                          {n.state}
+                          {stateIcons[n.state]}
+                        </b>
+                      </span>
+                    </div>
+                    <small className="text-muted">
+                      {new Date(n.createdAt).toLocaleString()}
+                    </small>
+                  </div>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+
+            {/* PROFILE */}
+            <Dropdown
+              align="end"
+              show={showDropdown}
+              onToggle={() => setshowDropdown(!showDropdown)}
+            >
+              <Dropdown.Toggle
+                as="div"
+                className="profileDropdownToggle"
+                style={{ cursor: "pointer" }}
+              >
+                <i className="bi bi-person-fill fs-2 me-3"></i>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu className="profileDropdownMenu border-0 slowOpacity shadow-lg">
+                {isLogged ? (
+                  <>
+                    <div className="m-3 d-flex flex-column">
+                      <Link
+                        to="/UserOrders"
+                        className="flexContainerLeft dropdownItem"
+                        onClick={() => setshowDropdown(false)}
+                      >
+                        <i className="bi bi-floppy-fill"></i>
+                        <p>Ordini</p>
+                      </Link>
+                      <Link
+                        to="/SupportPage"
+                        className="flexContainerLeft dropdownItem"
+                        onClick={() => setshowDropdown(false)}
+                      >
+                        <i className="bi bi-bandaid-fill"></i>
+                        <p>Supporto</p>
+                      </Link>
+                      <Link
+                        to="/ProfileSettings"
+                        className="flexContainerLeft dropdownItem"
+                        onClick={() => setshowDropdown(false)}
+                      >
+                        <i className="bi bi-gear-fill"></i>
+                        <p>Impostazioni</p>
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <form className="loginMenu" onSubmit={handleLogin}>
+                      <div className="mb-3">
+                        <div className="m-3 loginMenu">
+                          <input
+                            type="email"
+                            className="form-control mb-1"
+                            id="EmailInput"
+                            placeholder="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                          <input
+                            type="password"
+                            className="form-control mb-1"
+                            id="PasswordInput"
+                            placeholder="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
+                          <button type="submit" className="w-100 loginBtn">
+                            Entra
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </>
+                )}
+
+                <Dropdown.Divider />
+
+                {isLogged ? (
+                  <>
+                    <div className="m-3">
+                      <button onClick={handleLogout} className="w-100 loginBtn">
+                        Logout
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-center">
+                      <Link to="/RegistrationPage">Registrati</Link>
+                    </div>
+                  </>
+                )}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          {isAdmin && (
+            <>
+              <Link to="/AdminPage" className="adminButton">
+                <i className="bi bi-gear-fill text-danger fs-3"></i>
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

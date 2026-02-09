@@ -42,6 +42,7 @@ builder.Services.AddSignalR();
 builder.Services.AddSingleton<IUserIdProvider, HubUserIdProvider>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<OpinionService>();
+builder.Services.AddScoped<TicketService>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()

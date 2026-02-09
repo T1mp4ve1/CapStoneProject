@@ -1,52 +1,90 @@
 import { useEffect, useState } from "react";
-import { getAllOpinions, createOpinion } from "../services/OpinionService";
+import {
+  getAllOpinions,
+  createOpinion,
+  updateOpinion,
+  deleteOpinion,
+} from "../services/OpinionService";
 import { useAuth } from "../context/UseAuth";
 
 function OpinionPage() {
-  const { token } = useAuth();
+  const { token, userId, userRoles } = useAuth();
 
   const [opinions, setOpinions] = useState([]);
 
-  // Form state
+  // Form create
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [userOpinion, setUserOpinion] = useState("");
   const [success, setSuccess] = useState(false);
 
+  // Edit state
+  const [editingId, setEditingId] = useState(null);
+  const [editRating, setEditRating] = useState(0);
+  const [editText, setEditText] = useState("");
+
+  const isAdmin = userRoles?.includes("Admin");
+
   // Fetch all opinions
+  const loadOpinions = async () => {
+    const res = await getAllOpinions();
+    if (res.success) setOpinions(res.data);
+    console.log(res.data);
+  };
+
   useEffect(() => {
-    const fetchOpinions = async () => {
-      const res = await getAllOpinions();
-      if (res.success) {
-        setOpinions(res.data);
-      }
-    };
-    fetchOpinions();
+    loadOpinions();
   }, []);
 
-  // Submit new opinion
+  // Create new opinion
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (rating === 0 || userOpinion.trim() === "") return;
 
-    const body = {
-      rating,
-      userOpinion,
-    };
-
+    const body = { rating, userOpinion };
     const res = await createOpinion(body, token);
 
     if (res.success) {
       setSuccess(true);
       setRating(0);
       setUserOpinion("");
-
-      // Refresh list
-      const updated = await getAllOpinions();
-      if (updated.success) setOpinions(updated.data);
-
+      await loadOpinions();
       setTimeout(() => setSuccess(false), 2000);
+    }
+  };
+
+  // Start editing
+  const startEdit = (op) => {
+    setEditingId(op.id);
+    setEditRating(op.rating);
+    setEditText(op.userOpinion);
+  };
+
+  // Save edit
+  const handleEditSave = async (id) => {
+    const body = {
+      rating: editRating,
+      userOpinion: editText,
+    };
+
+    const res = await updateOpinion(id, body, token);
+
+    if (res.success) {
+      setEditingId(null);
+      await loadOpinions();
+    }
+  };
+
+  // Delete
+  const handleDelete = async (id) => {
+    if (!window.confirm("Sei sicuro di voler eliminare questa opinione?"))
+      return;
+
+    const res = await deleteOpinion(id, token);
+
+    if (res.success) {
+      await loadOpinions();
     }
   };
 
@@ -121,32 +159,96 @@ function OpinionPage() {
             )}
 
             <ul className="list-group">
-              {opinions.map((op) => (
-                <li
-                  key={op.id}
-                  className="list-group-item d-flex flex-column mb-3 shadow-sm"
-                >
-                  <div className="d-flex justify-content-between">
-                    <strong>{op.userEmail}</strong>
-                    <span className="text-warning">
-                      {"★".repeat(op.rating)}
-                      {"☆".repeat(5 - op.rating)}
-                    </span>
-                  </div>
+              {opinions.map((op) => {
+                const canEdit = isAdmin || op.userId === userId;
 
-                  <p className="mt-2">{op.userOpinion}</p>
+                return (
+                  <li
+                    key={op.id}
+                    className="list-group-item d-flex flex-column mb-3 shadow-sm"
+                  >
+                    <div className="d-flex justify-content-between">
+                      <strong>{op.userEmail}</strong>
+                      <span className="text-warning">
+                        {"★".repeat(op.rating)}
+                        {"☆".repeat(5 - op.rating)}
+                      </span>
+                    </div>
 
-                  <small className="text-muted">
-                    {new Date(op.createdAt).toLocaleString("it-IT", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </small>
-                </li>
-              ))}
+                    {/* EDIT MODE */}
+                    {editingId === op.id ? (
+                      <>
+                        <div className="mt-3">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <i
+                              key={star}
+                              className={
+                                editRating >= star
+                                  ? "bi bi-star-fill text-warning fs-4 me-1"
+                                  : "bi bi-star text-warning fs-4 me-1"
+                              }
+                              style={{ cursor: "pointer" }}
+                              onClick={() => setEditRating(star)}
+                            ></i>
+                          ))}
+                        </div>
+
+                        <textarea
+                          className="form-control mt-2"
+                          rows="3"
+                          value={editText}
+                          onChange={(e) => setEditText(e.target.value)}
+                        ></textarea>
+
+                        <div className="mt-2">
+                          <button
+                            className="btn btn-success btn-sm me-2"
+                            onClick={() => handleEditSave(op.id)}
+                          >
+                            Salva
+                          </button>
+                          <button
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => setEditingId(null)}
+                          >
+                            Annulla
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <p className="mt-2">{op.userOpinion}</p>
+                        <small className="text-muted">
+                          {new Date(op.createdAt).toLocaleString("it-IT", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </small>
+
+                        {canEdit && (
+                          <div className="mt-2">
+                            <button
+                              className="btn btn-outline-primary btn-sm me-2"
+                              onClick={() => startEdit(op)}
+                            >
+                              Modifica
+                            </button>
+                            <button
+                              className="btn btn-outline-danger btn-sm"
+                              onClick={() => handleDelete(op.id)}
+                            >
+                              Elimina
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

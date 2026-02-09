@@ -14,8 +14,12 @@
     }
 }
 
-.navbarSide {
-    width: 35%;
+.navbarLeft {
+    margin-left: 3rem;
+}
+
+.navbarRight {
+    margin-right: 3rem;
 }
 
 .navbarLink {
@@ -33,9 +37,12 @@
 /* LOGO */
 
 .logoFont {
-    margin: -10px;
     font-family: "Limelight", sans-serif;
     font-size: 3.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* BADGE */
@@ -43,14 +50,14 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    
+
 }
 
 /* PROFILE */
 .iconsProfileContainer {
-    max-width: 30%;
     border-radius: 30px;
     background-color: var(--colorBeige);
+    margin: 0.5rem;
 }
 
 .iconsProfileContainer i {
@@ -88,6 +95,7 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
