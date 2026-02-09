@@ -1,4 +1,5 @@
-﻿using backend.Model.DTO.TicketDTO;
+﻿using backend.Model;
+using backend.Model.DTO.TicketDTO;
 using backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,13 +32,13 @@ namespace backend.Controllers
         }
 
         //R
-        [HttpGet("get_all")]
+        [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Read()
+        public async Task<IActionResult> Read([FromQuery] TicketState? state)
         {
             try
             {
-                var res = await _service.GetAllAsync();
+                var res = await _service.GetAllAsync(state);
                 return Ok(res);
             }
             catch (Exception ex)

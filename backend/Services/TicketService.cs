@@ -36,9 +36,18 @@ namespace backend.Services
         }
 
         //R
-        public async Task<RequestResult_DTO> GetAllAsync()
+        public async Task<RequestResult_DTO> GetAllAsync(TicketState? state)
         {
-            var tickets = await _db.Tickets
+            var query = _db.Tickets
+                .AsNoTracking()
+                .AsQueryable();
+
+            if (state.HasValue)
+            {
+                query = query.Where(t => t.State == state);
+            }
+
+            var tickets = await query
                 .OrderBy(t => t.State)
                 .ThenByDescending(t => t.CreatedAt)
                 .Select(t => new Ticket_Read
@@ -58,7 +67,7 @@ namespace backend.Services
         {
             var tickets = await _db.Tickets
                 .Where(t => t.UserId == userId)
-                .OrderBy(t => t.CreatedAt)
+                .OrderBy(t => t.State)
                 .ThenByDescending(t => t.CreatedAt)
                 .Select(t => new Ticket_Read
                 {

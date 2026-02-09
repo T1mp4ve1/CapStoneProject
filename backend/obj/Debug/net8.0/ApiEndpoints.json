@@ -580,6 +580,22 @@
   },
   {
     "ContainingType": "backend.Controllers.TicketController",
+    "Method": "Read",
+    "RelativePath": "api/Ticket",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "state",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.TicketController",
     "Method": "Delete",
     "RelativePath": "api/Ticket/{id}/delete",
     "HttpMethod": "DELETE",
@@ -634,16 +650,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "backend.Controllers.TicketController",
-    "Method": "Read",
-    "RelativePath": "api/Ticket/get_all",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

@@ -4,7 +4,7 @@ import HomePageGuitar from "./components/HomePageGuitar";
 import GuitarsPage from "./components/GuitarsPage";
 import CustomshopPage from "./components/CustomshopPage";
 import OpinionPage from "./components/OpinionPage";
-import SupportPage from "./components/SupportPage";
+import SupportPage from "./components/ProfilePages/SupportPage";
 import AdminPage from "./components/AdminPage";
 import RegistrationPage from "./components/RegistrationPage";
 import DetailsPage from "./components/DetailsPage";
@@ -29,7 +29,6 @@ function App() {
           <Route path="/CartPage" element={<CartPage />} />
           <Route path="/ProfileSettings" element={<ProfileSettings />} />
           <Route path="/UserOrders" element={<UserOrders />} />
-
         </Routes>
       </BrowserRouter>
     </>

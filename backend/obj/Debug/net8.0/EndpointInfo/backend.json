@@ -939,12 +939,24 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Ticket/get_all": {
+      },
       "get": {
         "tags": [
           "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "enum": [
+                "Opened",
+                "Waiting",
+                "Closed"
+              ],
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {

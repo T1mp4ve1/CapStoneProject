@@ -65,7 +65,6 @@ function NavbarGuitar() {
             Opinioni
           </Link>
           <i className="bi bi-dot fs-4 mx-3"></i>
-
           {/* PROFILE CONTAINER */}
           <div className="d-flex justify-content-around align-items-center iconsProfileContainer me-3 shadow-sm">
             {/* CART */}

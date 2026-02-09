@@ -3,7 +3,7 @@ import UsersManager from "./AdminSections/UsersManager.jsx";
 import ArtistsManager from "./AdminSections/ArtistsManager.jsx";
 import GuitarsManager from "./AdminSections/GuitarsManager.jsx";
 import OrdersManager from "./AdminSections/OrdersManager.jsx";
-import ImageManager from "./AdminSections/ImageManager.jsx";
+import TicketsManager from "./AdminSections/TicketsManager.jsx";
 
 function AdminPage() {
   const [activeSection, setActiveSection] = useState(null);
@@ -25,8 +25,8 @@ function AdminPage() {
           <button className="m-1" onClick={() => setActiveSection("orders")}>
             Ordini
           </button>
-          <button className="m-1" onClick={() => setActiveSection("images")}>
-            Immagini
+          <button className="m-1" onClick={() => setActiveSection("tickets")}>
+            Tickets
           </button>
         </div>
       </div>
@@ -35,7 +35,7 @@ function AdminPage() {
         {activeSection === "artists" && <ArtistsManager />}
         {activeSection === "guitars" && <GuitarsManager />}
         {activeSection === "orders" && <OrdersManager />}
-        {activeSection === "images" && <ImageManager />}
+        {activeSection === "tickets" && <TicketsManager />}
       </div>
     </>
   );
