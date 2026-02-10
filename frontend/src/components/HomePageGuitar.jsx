@@ -111,7 +111,7 @@ function HomePageGuitar() {
               <p className="fs-3 mb-3 hero-subtitle slowOpacity">
                 La tua idea diventa nostra passione
               </p>
-              <Link as={Link} to="/#" className="fs-5 beatyButton slowOpacity">
+              <Link as={Link} to="/Customshop" className="fs-5 beatyButton slowOpacity">
                 Configura
               </Link>
             </div>

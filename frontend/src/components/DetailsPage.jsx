@@ -8,7 +8,7 @@ function DetailsPage() {
   const { id } = useParams();
   const [guitar, setGuitar] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useContext(CartContext); // in questo caso usiamo funzione addToCart da CartContext?
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const loadData = async () => {
@@ -37,7 +37,7 @@ function DetailsPage() {
 
   return (
     <>
-      <div className="containerAfterNavbar">
+      <div className="containerAfterNavbar slowOpacity">
         {guitar && (
           <>
             <div className="row g-1 gridDetails">

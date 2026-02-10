@@ -11,6 +11,7 @@ import DetailsPage from "./components/DetailsPage";
 import CartPage from "./components/CartPage";
 import ProfileSettings from "./components/ProfilePages/ProfileSettings";
 import UserOrders from "./components/ProfilePages/UserOrders";
+import FooterGuitar from "./components/FooterGuitar";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/ProfileSettings" element={<ProfileSettings />} />
           <Route path="/UserOrders" element={<UserOrders />} />
         </Routes>
+        <FooterGuitar />
       </BrowserRouter>
     </>
   );

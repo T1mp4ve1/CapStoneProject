@@ -1,0 +1,25 @@
+.customShopImageContainer {
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.customShopMainImg {
+    max-height: 300%;
+    max-width: 100%;
+    transform: rotate(90deg);
+    object-fit: contain;
+}
+
+.cardCustomShop {
+    padding: 2rem;
+    border-radius: 10px;
+    color: var(--colorBrown);
+}
+
+.carouselCustom {
+    height: 200px;
+}
