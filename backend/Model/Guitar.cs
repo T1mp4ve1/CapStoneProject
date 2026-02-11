@@ -19,5 +19,7 @@ namespace backend.Model
         [Required]
         public int CategoryId { get; set; }
         public GuitarCategory Category { get; set; }
+
+        public bool? Custom { get; set; }
     }
 }

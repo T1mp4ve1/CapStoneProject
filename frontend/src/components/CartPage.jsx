@@ -7,6 +7,7 @@ import { createOrder } from "../services/ordersService";
 import MenuLogin from "../components/MenuLogin.jsx";
 import { AuthContext } from "../context/AuthContext.jsx";
 import MenuRegistration from "./MenuRegistration.jsx";
+import { getActiveImg } from "../services/customShopService.js";
 
 const CartPage = () => {
   const { isLogged, token } = useContext(AuthContext);
@@ -39,6 +40,7 @@ const CartPage = () => {
           }),
         );
         setProducts(results);
+        console.log(results);
       } catch (err) {
         console.error("Page cart error", err);
       } finally {
@@ -166,7 +168,11 @@ const CartPage = () => {
               >
                 <div className="d-flex align-items-center">
                   <img
-                    src={p.mainImg}
+                    src={
+                      p.custom
+                        ? getActiveImg(p.category, p.name, p.description)
+                        : p.mainImg
+                    }
                     alt={p.name}
                     style={{
                       width: "150px",
@@ -177,7 +183,9 @@ const CartPage = () => {
                   />
 
                   <div>
-                    <h5 className="mb-1">{p.name}</h5>
+                    <h5 className="mb-1">
+                      {p.custom ? `Custom ${p.category} guitar` : p.name}
+                    </h5>
                     <p className="text-secondary mb-1">{p.price} €</p>
 
                     <div className="d-flex align-items-center">

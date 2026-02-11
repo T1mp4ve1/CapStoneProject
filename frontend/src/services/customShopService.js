@@ -97,3 +97,13 @@ export const imgs = {
   HollowBlu: HollowBlu,
   HollowTurchese: HollowTurchese,
 };
+
+export const getActiveImg = (body, material, color) => {
+  let activeImg;
+  if (color === "Naturale") {
+    activeImg = imgs[`${body}${material}`];
+  } else {
+    activeImg = imgs[`${body}${color}`];
+  }
+  return activeImg;
+};

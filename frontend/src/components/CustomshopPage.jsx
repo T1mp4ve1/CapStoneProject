@@ -6,8 +6,9 @@ import {
   guitarBodies,
   materials,
   pickups,
-  imgs,
+  getActiveImg,
 } from "../services/customShopService";
+import { createGuitar } from "../services/guitarService";
 
 function CustomshopPage() {
   const { addToCart } = useContext(CartContext);
@@ -23,15 +24,7 @@ function CustomshopPage() {
     pickup: pickups[0].name,
   });
 
-  const getActiveImg = (body, material, color) => {
-    let activeImg;
-    if (color === "Naturale") {
-      activeImg = imgs[`${body}${material}`];
-    } else {
-      activeImg = imgs[`${body}${color}`];
-    }
-    return activeImg;
-  };
+  const bodyId = { Acoustic: 1, Electric: 2, Classic: 3, Hollow: 4 };
 
   useEffect(() => {
     const bodyPrice =
@@ -45,6 +38,25 @@ function CustomshopPage() {
     console.log(guitar);
   }, [guitar]);
 
+  const handleCreateGuitar = async () => {
+    let newGuitar = {
+      name: guitar.material,
+      description: guitar.color,
+      price: total,
+      categoryId: bodyId[guitar.body],
+      custom: true,
+      images: [],
+    };
+
+    try {
+      const data = await createGuitar(newGuitar);
+      console.log(data, data.id);
+      addToCart(data.id);
+    } catch (err) {
+      console.error("Create guitar error:", err);
+      alert("Errore durante la creazione della chitarra");
+    }
+  };
   return (
     <div className="containerAfterNavbar slowOpacity">
       <div className="row g-1 gridDetails">
@@ -180,7 +192,7 @@ function CustomshopPage() {
                     <h2 className="my-2">{total} €</h2>
                     <button
                       className="beatyButton2"
-                      onClick={() => addToCart(guitar)}
+                      onClick={handleCreateGuitar}
                     >
                       Aggiungi al carello
                     </button>

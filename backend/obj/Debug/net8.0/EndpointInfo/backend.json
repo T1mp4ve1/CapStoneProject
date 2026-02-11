@@ -1232,6 +1232,10 @@
           "categoryId": {
             "type": "integer",
             "format": "int32"
+          },
+          "custom": {
+            "type": "boolean",
+            "nullable": true
           }
         },
         "additionalProperties": false

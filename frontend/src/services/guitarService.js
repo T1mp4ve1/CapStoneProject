@@ -1,13 +1,14 @@
+import { imgs } from "./customShopService";
+
 const api = import.meta.env.VITE_API_URL;
 
 // C
-export const createGuitar = async (guitar, token) => {
+export const createGuitar = async (guitar) => {
   try {
     const res = await fetch(`${api}/Guitar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(guitar),
     });
@@ -42,6 +43,10 @@ export const getGuitar = async (id) => {
       throw new Error(`Error guitar! Status: ${guitar.status}`);
     }
     const guitar = await guitarRes.json();
+
+    if(guitar.custom){
+      return guitar;
+    }
 
     const imgsRes = await fetch(`${api}/Image/${id}`);
     if (!imgsRes.ok) {

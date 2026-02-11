@@ -18,7 +18,6 @@ namespace backend.Controllers
 
         //C
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(Guitar_Create dto)
         {
             try

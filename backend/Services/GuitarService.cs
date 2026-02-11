@@ -20,7 +20,8 @@ namespace backend.Services
                 Name = dto.Name,
                 Description = dto.Description,
                 Price = dto.Price,
-                CategoryId = dto.CategoryId
+                CategoryId = dto.CategoryId,
+                Custom = dto.Custom
             };
 
             _db.Guitars.Add(entity);
@@ -36,6 +37,7 @@ namespace backend.Services
                 Price = dto.Price,
                 Category = entity.Category.CategoryName,
                 CategoryId = entity.CategoryId,
+                Custom = entity.Custom
             };
         }
 
@@ -43,6 +45,7 @@ namespace backend.Services
         public async Task<List<Guitar_Read>> GetAllAsync()
         {
             return await _db.Guitars
+                .Where(g => g.Custom == false || g.Custom == null)
                 .AsNoTracking()
                 .Include(g => g.Category)
                 .Select(g => new Guitar_Read
@@ -53,6 +56,7 @@ namespace backend.Services
                     Description = g.Description,
                     Category = g.Category.CategoryName,
                     CategoryId = g.CategoryId,
+                    Custom = g.Custom
                 })
                 .ToListAsync();
         }
@@ -71,6 +75,7 @@ namespace backend.Services
                     Description = g.Description,
                     Category = g.Category.CategoryName,
                     CategoryId = g.CategoryId,
+                    Custom = g.Custom
                 }).FirstOrDefaultAsync();
             if (guitar == null)
             {
@@ -106,6 +111,7 @@ namespace backend.Services
                 Price = exist.Price,
                 Category = exist.Category.CategoryName,
                 CategoryId = exist.CategoryId,
+                Custom = exist.Custom
             };
 
             return new RequestResult_DTO { Success = true, Data = modifiedEntity };
