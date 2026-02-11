@@ -17,15 +17,25 @@ function CustomshopPage() {
   };
 
   const [guitar, setGuitar] = useState({
-    body: "Acoustic",
-    material: "Palissandro",
-    color: "Colore1",
-    pickup: "Pickup1",
+    body: guitarBodies[0].name,
+    material: materials[0].name,
+    color: colors[0].name,
+    pickup: pickups[0].name,
   });
+
+  const getActiveImg = (body, material, color) => {
+    let activeImg;
+    if (color === "Naturale") {
+      activeImg = imgs[`${body}${material}`];
+    } else {
+      activeImg = imgs[`${body}${color}`];
+    }
+    return activeImg;
+  };
 
   useEffect(() => {
     const bodyPrice =
-      guitarBodies.find((b) => b.body === guitar.body).price || 0;
+      guitarBodies.find((b) => b.name === guitar.body).price || 0;
     const materialPrice =
       materials.find((m) => m.name === guitar.material).price || 0;
     const colorPrice = colors.find((c) => c.name === guitar.color).price || 0;
@@ -39,7 +49,10 @@ function CustomshopPage() {
     <div className="containerAfterNavbar slowOpacity">
       <div className="row g-1 gridDetails">
         <div className="col-12 customShopImageContainer">
-          <img src={imgs[guitar.body]} className="customShopMainImg" />
+          <img
+            src={getActiveImg(guitar.body, guitar.material, guitar.color)}
+            className="customShopMainImg"
+          />
         </div>
 
         {/* CAROUSEL */}
@@ -86,15 +99,15 @@ function CustomshopPage() {
             <div className="carousel-inner">
               <div className="carousel-item active carouselCustom">
                 <div className="carousel-caption">
-                  <h5>Scegli il tipo</h5>
+                  <h5>Corpo</h5>
                   <div className="d-flex gap-3 justify-content-center mt-3">
                     {guitarBodies.map((t) => (
                       <button
-                        key={t.body}
-                        className={`btn ${guitar.body === t.body ? "btn-dark" : "btn-outline-dark"}`}
-                        onClick={() => updateGuitar("body", t.body)}
+                        key={t.name}
+                        className={`btn ${guitar.body === t.name ? "btn-dark" : "btn-outline-dark"}`}
+                        onClick={() => updateGuitar("body", t.name)}
                       >
-                        <p>{t.body}</p>
+                        <p>{t.name}</p>
                         <hr className="mt-0 mb-1" />
                         <p>{t.price} €</p>
                       </button>
@@ -105,7 +118,7 @@ function CustomshopPage() {
 
               <div className="carousel-item carouselCustom">
                 <div className="carousel-caption">
-                  <h5>Scegli materiale</h5>
+                  <h5>Materiale</h5>
                   <div className="d-flex gap-3 justify-content-center mt-3">
                     {materials.map((m) => (
                       <button
@@ -124,7 +137,7 @@ function CustomshopPage() {
 
               <div className="carousel-item carouselCustom">
                 <div className="carousel-caption">
-                  <h5>Scegli il colore</h5>
+                  <h5>Colore</h5>
                   <div className="d-flex gap-3 justify-content-center mt-3">
                     {colors.map((c) => (
                       <button
@@ -143,7 +156,7 @@ function CustomshopPage() {
 
               <div className="carousel-item carouselCustom">
                 <div className="carousel-caption">
-                  <h5>Scegli il pickup</h5>
+                  <h5>Pickup</h5>
                   <div className="d-flex gap-3 justify-content-center mt-3">
                     {pickups.map((p) => (
                       <button

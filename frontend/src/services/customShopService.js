@@ -1,37 +1,99 @@
-import AcousticImg from "../img/Acoustic.png";
-import ClassicImg from "../img/Classic.png";
-import ElectricImg from "../img/Electric.png";
-import HollowImg from "../img/Hollow.png";
+import AcousticEbano from "../img/AcousticEbano.png";
+import AcousticMogano from "../img/AcousticMogano.png";
+import AcousticPalissandro from "../img/AcousticPalissandro.png";
+import AcousticNoce from "../img/AcousticNoce.png";
+import AcousticRosso from "../img/AcousticRosso.png";
+import AcousticBlu from "../img/AcousticBlu.png";
+import AcousticVerde from "../img/AcousticVerde.png";
+import AcousticTurchese from "../img/AcousticTurchese.png";
+
+import ClassicEbano from "../img/ClassicEbano.png";
+import ClassicMogano from "../img/ClassicMogano.png";
+import ClassicPalissandro from "../img/ClassicPalissandro.png";
+import ClassicNoce from "../img/ClassicNoce.png";
+import ClassicRosso from "../img/ClassicRosso.png";
+import ClassicBlu from "../img/ClassicBlu.png";
+import ClassicVerde from "../img/ClassicVerde.png";
+import ClassicTurchese from "../img/ClassicTurchese.png";
+
+import ElectricEbano from "../img/ElectricEbano.png";
+import ElectricMogano from "../img/ElectricMogano.png";
+import ElectricPalissandro from "../img/ElectricPalissandro.png";
+import ElectricNoce from "../img/ElectricNoce.png";
+import ElectricRosso from "../img/ElectricRosso.png";
+import ElectricBlu from "../img/ElectricBlu.png";
+import ElectricVerde from "../img/ElectricVerde.png";
+import ElectricTurchese from "../img/ElectricTurchese.png";
+
+import HollowEbano from "../img/HollowEbano.png";
+import HollowMogano from "../img/HollowMogano.png";
+import HollowPalissandro from "../img/HollowPalissandro.png";
+import HollowNoce from "../img/HollowNoce.png";
+import HollowRosso from "../img/HollowRosso.png";
+import HollowBlu from "../img/HollowBlu.png";
+import HollowVerde from "../img/HollowVerde.png";
+import HollowTurchese from "../img/HollowTurchese.png";
 
 export const guitarBodies = [
-  { body: "Acoustic", price: 240 },
-  { body: "Classic", price: 200 },
-  { body: "Electric", price: 360 },
-  { body: "Hollow", price: 410 },
+  { name: "Acoustic", price: 240 },
+  { name: "Classic", price: 200 },
+  { name: "Electric", price: 360 },
+  { name: "Hollow", price: 410 },
 ];
 export const materials = [
+  { name: "Palissandro", price: 410 },
   { name: "Ebano", price: 240 },
   { name: "Mogano", price: 350 },
-  { name: "Palissandro", price: 410 },
   { name: "Noce", price: 370 },
 ];
 export const colors = [
   { name: "Naturale", price: 0 },
-  { name: "Colore1", price: 230 },
-  { name: "Colore2", price: 260 },
-  { name: "Colore3", price: 230 },
-  { name: "Colore4", price: 230 },
+  { name: "Rosso", price: 230 },
+  { name: "Verde", price: 260 },
+  { name: "Blu", price: 230 },
+  { name: "Turchese", price: 230 },
 ];
 export const pickups = [
   { name: "Senza", price: 0 },
-  { name: "Pickup1", price: 370 },
-  { name: "Pickup2", price: 380 },
-  { name: "Pickup3", price: 260 },
-  { name: "Pickup4", price: 600 },
+  { name: "P-90", price: 370 },
+  { name: "Single", price: 380 },
+  { name: "Humbucker", price: 260 },
+  { name: "LR Baggs Anthem", price: 600 },
 ];
 export const imgs = {
-  Acoustic: AcousticImg,
-  Classic: ClassicImg,
-  Electric: ElectricImg,
-  Hollow: HollowImg,
+  AcousticPalissandro: AcousticPalissandro,
+  AcousticEbano: AcousticEbano,
+  AcousticMogano: AcousticMogano,
+  AcousticNoce: AcousticNoce,
+  AcousticRosso: AcousticRosso,
+  AcousticVerde: AcousticVerde,
+  AcousticBlu: AcousticBlu,
+  AcousticTurchese: AcousticTurchese,
+
+  ClassicPalissandro: ClassicPalissandro,
+  ClassicEbano: ClassicEbano,
+  ClassicMogano: ClassicMogano,
+  ClassicNoce: ClassicNoce,
+  ClassicRosso: ClassicRosso,
+  ClassicVerde: ClassicVerde,
+  ClassicBlu: ClassicBlu,
+  ClassicTurchese: ClassicTurchese,
+
+  ElectricPalissandro: ElectricPalissandro,
+  ElectricEbano: ElectricEbano,
+  ElectricMogano: ElectricMogano,
+  ElectricNoce: ElectricNoce,
+  ElectricRosso: ElectricRosso,
+  ElectricVerde: ElectricVerde,
+  ElectricBlu: ElectricBlu,
+  ElectricTurchese: ElectricTurchese,
+
+  HollowPalissandro: HollowPalissandro,
+  HollowEbano: HollowEbano,
+  HollowMogano: HollowMogano,
+  HollowNoce: HollowNoce,
+  HollowRosso: HollowRosso,
+  HollowVerde: HollowVerde,
+  HollowBlu: HollowBlu,
+  HollowTurchese: HollowTurchese,
 };
