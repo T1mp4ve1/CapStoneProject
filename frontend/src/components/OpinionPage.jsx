@@ -6,6 +6,7 @@ import {
   deleteOpinion,
 } from "../services/OpinionService";
 import { useAuth } from "../context/UseAuth";
+import "./css/OpinionPage.css";
 
 function OpinionPage() {
   const { token, userId, userRoles, isLogged } = useAuth();
@@ -20,7 +21,6 @@ function OpinionPage() {
 
   const isAdmin = userRoles?.includes("Admin");
 
-  // Fetch all opinions
   const loadOpinions = async () => {
     const res = await getAllOpinions();
     if (res.success) setOpinions(res.data);
@@ -86,47 +86,43 @@ function OpinionPage() {
     <>
       <div className="containerAfterNavbar slowOpacity">
         <div className="row flexContainerCenter">
-          <div className="col-8 beigeContainer shadow-sm p-4">
+          <div className="col-8 opinionContainer mb-5">
             {/* FORM */}
 
             {isLogged && (
               <>
-                <div className="mb-5">
-                  <h4 className="mb-3">Lascia la tua opinione</h4>
-
+                <div>
+                  <h4 className="mb-3">Comè stata la tua esperienza?</h4>
                   {success && (
                     <div className="alert alert-success py-2">
                       Opinione inviata con successo!
                     </div>
                   )}
 
-                  <form onSubmit={handleSubmit}>
+                  <form
+                    className="formContainer shadow-sm"
+                    onSubmit={handleSubmit}
+                  >
                     {/* Rating */}
                     <div className="mb-3">
-                      <label className="form-label fw-bold">Valutazione</label>
-                      <div>
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <i
-                            key={star}
-                            className={
-                              (hoverRating || rating) >= star
-                                ? "bi bi-star-fill text-warning fs-3 me-1"
-                                : "bi bi-star text-warning fs-3 me-1"
-                            }
-                            style={{ cursor: "pointer" }}
-                            onMouseEnter={() => setHoverRating(star)}
-                            onMouseLeave={() => setHoverRating(0)}
-                            onClick={() => setRating(star)}
-                          ></i>
-                        ))}
-                      </div>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <i
+                          key={star}
+                          className={
+                            (hoverRating || rating) >= star
+                              ? "bi bi-star-fill text-warning fs-3 me-1"
+                              : "bi bi-star text-warning fs-3 me-1"
+                          }
+                          style={{ cursor: "pointer" }}
+                          onMouseEnter={() => setHoverRating(star)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          onClick={() => setRating(star)}
+                        ></i>
+                      ))}
                     </div>
 
                     {/* Commento */}
                     <div className="mb-3">
-                      <label className="form-label fw-bold">
-                        La tua opinione
-                      </label>
                       <textarea
                         className="form-control"
                         rows="4"
@@ -139,7 +135,11 @@ function OpinionPage() {
 
                     <button
                       type="submit"
-                      className="btn btn-dark"
+                      className={
+                        rating === 0 || userOpinion.trim() === ""
+                          ? "beatyButton4Disabled"
+                          : "beatyButton4"
+                      }
                       disabled={rating === 0 || userOpinion.trim() === ""}
                     >
                       Invia opinione
@@ -148,31 +148,66 @@ function OpinionPage() {
                 </div>
               </>
             )}
+          </div>
 
-            {/* LISTA OPINIONI */}
-            <h2 className="mb-3">Cosa parlano di noi</h2>
-            <hr />
+          {/* LISTA OPINIONI */}
+          <div className="col-8">
+            <h4 className="mb-3">Cosa parlano di noi</h4>
             {opinions.length === 0 && (
               <p className="text-muted">Nessuna opinione presente.</p>
             )}
 
-            <ul className="list-group">
+            <div>
               {opinions.map((op) => {
                 const canEdit = isAdmin || op.userId === userId;
 
                 return (
-                  <li
+                  <div
                     key={op.id}
-                    className="list-group-item d-flex flex-column mb-3 shadow-sm"
+                    className="d-flex flex-column mb-3 formContainer"
                   >
                     <div className="d-flex justify-content-between">
-                      <strong>{op.userEmail}</strong>
-                      <span className="text-warning">
-                        {"★".repeat(op.rating)}
-                        {"☆".repeat(5 - op.rating)}
-                      </span>
+                      <div className="flexContainerCenter">
+                        <i className="bi bi-person-circle fs-3 me-2"></i>
+                        <strong>{op.userFirstName}</strong>
+                      </div>
+                      {canEdit && (
+                        <div className="mt-2">
+                          {editingId === op.id ? (
+                            <>
+                              <button
+                                className="editButtonSm me-2"
+                                onClick={() => handleEditSave(op.id)}
+                              >
+                                <i class="bi bi-check-lg"></i>
+                              </button>
+                              <button
+                                className="beatyButtonSm"
+                                onClick={() => setEditingId(null)}
+                              >
+                                <i class="bi bi-x-lg"></i>
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                className="editButtonSm me-2"
+                                onClick={() => startEdit(op)}
+                              >
+                                <i class="bi bi-pen"></i>
+                              </button>
+                              <button
+                                className="beatyButtonSm"
+                                onClick={() => handleDelete(op.id)}
+                              >
+                                <i className="bi bi-trash"></i>
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      )}
                     </div>
-
+                    <hr className="m-2" />
                     {/* EDIT MODE */}
                     {editingId === op.id ? (
                       <>
@@ -197,57 +232,31 @@ function OpinionPage() {
                           value={editText}
                           onChange={(e) => setEditText(e.target.value)}
                         ></textarea>
-
-                        <div className="mt-2">
-                          <button
-                            className="btn btn-success btn-sm me-2"
-                            onClick={() => handleEditSave(op.id)}
-                          >
-                            Salva
-                          </button>
-                          <button
-                            className="btn btn-secondary btn-sm"
-                            onClick={() => setEditingId(null)}
-                          >
-                            Annulla
-                          </button>
-                        </div>
                       </>
                     ) : (
                       <>
                         <p className="mt-2">{op.userOpinion}</p>
-                        <small className="text-muted">
-                          {new Date(op.createdAt).toLocaleString("it-IT", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </small>
-
-                        {canEdit && (
-                          <div className="mt-2">
-                            <button
-                              className="btn btn-outline-primary btn-sm me-2"
-                              onClick={() => startEdit(op)}
-                            >
-                              Modifica
-                            </button>
-                            <button
-                              className="btn btn-outline-danger btn-sm"
-                              onClick={() => handleDelete(op.id)}
-                            >
-                              Elimina
-                            </button>
+                        <div className="flexContainerBetween">
+                          <div className="text-warning fs-4">
+                            {"★".repeat(op.rating)}
+                            {"☆".repeat(5 - op.rating)}
                           </div>
-                        )}
+                          <small className="text-muted p-2 rounded-4 shadow-sm">
+                            {new Date(op.createdAt).toLocaleString("it-IT", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </small>
+                        </div>
                       </>
                     )}
-                  </li>
+                  </div>
                 );
               })}
-            </ul>
+            </div>
           </div>
         </div>
       </div>

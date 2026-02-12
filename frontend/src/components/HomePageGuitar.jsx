@@ -1,7 +1,7 @@
 import bgImg from "../img/img11.jpg";
 import shopImg from "../img/img15.png";
 import "./css/HomePageGuitar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getArtists } from "../services/artistService";
@@ -12,6 +12,7 @@ function HomePageGuitar() {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [guitars, setGuitars] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadGuitars = async () => {
@@ -111,9 +112,11 @@ function HomePageGuitar() {
               <p className="fs-3 mb-3 hero-subtitle slowOpacity">
                 La tua idea diventa nostra passione
               </p>
-              <Link as={Link} to="/Customshop" className="fs-5 beatyButton slowOpacity">
-                Configura
-              </Link>
+              <button className="beatyButton slowOpacity">
+                <Link to="/Customshop" className="fs-5">
+                  Configura
+                </Link>
+              </button>
             </div>
 
             <div
@@ -128,9 +131,11 @@ function HomePageGuitar() {
               <p className="fs-3 mb-3 hero-subtitle slowOpacity">
                 Artigianato, passione e suoni che ispirano
               </p>
-              <Link as={Link} to="/Guitars" className="fs-5 beatyButton slowOpacity">
-                Scopri la gamma
-              </Link>
+              <button className="beatyButton slowOpacity">
+                <Link to="/Guitars" className="fs-5">
+                  Scopri la gamma
+                </Link>
+              </button>
             </div>
           </div>
         </section>
@@ -142,7 +147,10 @@ function HomePageGuitar() {
             <div className="row row-cols-4 g-2">
               {guitars.slice(7, 11).map((g) => (
                 <div className="col" key={g.id}>
-                  <div className="card border-0 position-relative shadow guitarCard">
+                  <div
+                    className="card border-0 position-relative shadow guitarCard"
+                    onClick={() => navigate(`/Product/${g.id}`)}
+                  >
                     <img src={g.mainImage} alt="img" />
                     <p>{g.price}€</p>
                   </div>

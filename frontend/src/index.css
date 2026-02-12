@@ -1,17 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Limelight&family=Outfit:wght@100..900&family=Poiret+One&display=swap');
 
-/* COLORS */
-:root {
-    --colorDarkBeige: rgba(113, 111, 107, 0.707);
-    --colorBeige: rgba(255, 250, 242, 0.899);
-    --colorBeigeSelected: rgba(245, 240, 232, 0.899);
-    --colorBrown: rgba(57, 45, 26, 0.899);
-    --colorMediumBeige: rgba(200, 187, 165, 0.899);
-    --colorTrasparent: rgba(200, 187, 165, 0);
-    --colorBeigeRuby: rgb(209, 115, 100);
-    --colorTurquoise: rgb(142, 201, 201);
-}
-
 .card {
     cursor: pointer;
 }
@@ -26,11 +14,65 @@
 }
 
 body {
-    background-color: rgba(255, 250, 242, 0.899);
+    background-color: var(--colorBeigeSelected);
     font-family: "Outfit", sans-serif;
 }
 
+
+
+/* COLORS */
+:root {
+    --colorDarkBeige: rgba(113, 111, 107, 0.707);
+    --colorBeige: rgba(255, 250, 242, 0.899);
+    --colorBeigeSelected: rgba(245, 240, 232, 0.899);
+    --colorLightGrey: rgba(214, 210, 203, 0.899);
+    --colorBrown: rgba(57, 45, 26, 0.899);
+    --colorMediumBeige: rgba(200, 187, 165, 0.899);
+    --colorSemiMediumBeige: rgba(233, 219, 197, 0.899);
+    --colorTrasparent: rgba(200, 187, 165, 0);
+    --colorBeigeRuby: rgb(209, 115, 100);
+    --colorTurquoise: rgb(142, 201, 201);
+}
+
 /* BUTTONS */
+.beatyButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    box-shadow:
+        0px 3px 0px -1px rgba(255, 250, 242, 0.707),
+        0px -3px 0px -1px rgba(255, 250, 242, 0.707);
+    transition: all 0.3s;
+}
+
+.beatyButton:hover {
+    background: rgba(255, 250, 242, 0.199);
+    box-shadow:
+        5px 1px 10px -1px rgba(255, 250, 242, 0.707),
+        -5px -1px 10px -1px rgba(255, 250, 242, 0.707);
+}
+
+.beatyButton:active {
+    background: rgba(255, 250, 242, 0);
+}
+
+.beatyButton a {
+    color: #F6F6F7;
+}
+
+.loginBtn {
+    color: var(--colorBrown);
+    border: 0;
+    border-radius: 20px;
+    background-color: var(--colorMediumBeige);
+    transition: all 0.2s;
+}
+
+.loginBtn:hover {
+    background-color: var(--colorBeige);
+}
+
 .beatyButton2 {
     border: 2px solid var(--colorBeige);
     border-radius: 10px;
@@ -51,7 +93,70 @@ body {
     box-shadow: 0px 0px 5px 1px var(--colorTurquoise);
 }
 
+.beatyButton3 {
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--colorTrasparent);
+    box-shadow: -1px 2px 0px 0px var(--colorDarkBeige);
+    background-color: var(--colorTrasparent);
+    transition: all 0.3s;
+}
+
+.beatyButton3Active {
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--colorTrasparent);
+    background-color: var(--colorSemiMediumBeige);
+    transform: translate(-2px, 2px);
+    transition: all 0.3s;
+}
+
+.beatyButton3:hover {
+    box-shadow: -1px 2px 0px 0px var(--colorTrasparent);
+    background-color: var(--colorSemiMediumBeige);
+    transform: translate(-2px, 2px);
+}
+
+.beatyButton3:active {
+    background-color: var(--colorDarkBeige);
+}
+
+.beatyButton4 {
+    color: var(--colorBeige);
+    background-color: var(--colorTurquoise);
+    border: 2px solid var(--colorBeige);
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    box-shadow:
+        0px 3px 0px -1px var(--colorTurquoise),
+        0px -3px 0px -1px var(--colorTurquoise);
+    transition: all 0.3s;
+}
+
+.beatyButton4Disabled {
+    color: var(--colorBeige);
+    background-color: var(--colorLightGrey);
+    border: 2px solid var(--colorBeige);
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    box-shadow:
+        0px 3px 0px -1px var(--colorLightGrey),
+        0px -3px 0px -1px var(--colorLightGrey);
+    transition: all 0.3s;
+}
+
+.beatyButton4:hover {
+    box-shadow:
+        0px 3px 10px -1px var(--colorTurquoise),
+        0px -3px 10px -1px var(--colorTurquoise);
+}
+
+.beatyButton4:active {
+    background: var(--colorMediumBeige);
+}
+
 .beatyButtonSm {
+    font-size: 1.4rem;
     width: 40px;
     height: 40px;
     border: 2px solid var(--colorBeige);
@@ -72,12 +177,50 @@ body {
     box-shadow: 0px 0px 5px 1px var(--colorBeigeRuby);
 }
 
+.editButtonSm {
+    font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--colorBeige);
+    border-radius: 10px;
+    background-color: var(--colorTurquoise);
+    color: var(--colorBeige);
+    transition: all 0.2s;
+}
+
+.editButtonSm:hover {
+    color: var(--colorBrown);
+    background-color: var(--colorTrasparent);
+    border: 2px solid var(--colorTurquoise);
+}
+
+.editButtonSm:active {
+    background-color: var(--colorBeigeSelected);
+    box-shadow: 0px 0px 5px 1px var(--colorTurquoise);
+}
+
 
 p {
     margin: 0;
 }
 
 /* CONTAINERS */
+html,
+body,
+#root {
+    height: 100%;
+}
+
+.appContainer {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContent {
+    flex: 1;
+}
+
 .containerAfterNavbar {
     width: 90%;
     margin: 5rem auto 0 auto;
@@ -113,10 +256,44 @@ p {
     transition: all 0.2s;
 }
 
+.flexContainerRight {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 0 0.6rem;
+    transition: all 0.2s;
+}
+
 .beigeContainer {
     padding: 2rem;
     background-color: var(--colorBeige);
     border-radius: 20px;
+}
+
+.guitarCard {
+    background-color: var(--colorBeige);
+    padding: 4rem;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.guitarCard img {
+    height: 400px;
+    object-fit: contain;
+    transition: all 0.3s;
+}
+
+.guitarCard:hover {
+    background-color: var(--colorBeigeSelected);
+}
+
+.guitarCard p {
+    font-family: "Outfit", sans-serif;
+    color: var(--colorDarkBeige);
+    font-size: 1.2rem;
+    position: absolute;
+    top: 90%;
+    left: 10%;
 }
 
 a {

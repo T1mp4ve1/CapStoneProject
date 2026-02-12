@@ -15,25 +15,27 @@ import FooterGuitar from "./components/FooterGuitar";
 
 function App() {
   return (
-    <>
+    <div className="appContainer">
       <BrowserRouter>
         <NavbarGuitar />
-        <Routes>
-          <Route path="/" element={<HomePageGuitar />} />
-          <Route path="/Guitars" element={<GuitarsPage />} />
-          <Route path="/Product/:id" element={<DetailsPage />} />
-          <Route path="/Customshop" element={<CustomshopPage />} />
-          <Route path="/OpinionPage" element={<OpinionPage />} />
-          <Route path="/SupportPage" element={<SupportPage />} />
-          <Route path="/AdminPage" element={<AdminPage />} />
-          <Route path="/RegistrationPage" element={<RegistrationPage />} />
-          <Route path="/CartPage" element={<CartPage />} />
-          <Route path="/ProfileSettings" element={<ProfileSettings />} />
-          <Route path="/UserOrders" element={<UserOrders />} />
-        </Routes>
+        <div className="mainContent">
+          <Routes>
+            <Route path="/" element={<HomePageGuitar />} />
+            <Route path="/Guitars" element={<GuitarsPage />} />
+            <Route path="/Product/:id" element={<DetailsPage />} />
+            <Route path="/Customshop" element={<CustomshopPage />} />
+            <Route path="/OpinionPage" element={<OpinionPage />} />
+            <Route path="/SupportPage" element={<SupportPage />} />
+            <Route path="/AdminPage" element={<AdminPage />} />
+            <Route path="/RegistrationPage" element={<RegistrationPage />} />
+            <Route path="/CartPage" element={<CartPage />} />
+            <Route path="/ProfileSettings" element={<ProfileSettings />} />
+            <Route path="/UserOrders" element={<UserOrders />} />
+          </Routes>
+        </div>
         <FooterGuitar />
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

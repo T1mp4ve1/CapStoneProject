@@ -47,11 +47,11 @@ export const materials = [
   { name: "Noce", price: 370 },
 ];
 export const colors = [
-  { name: "Naturale", price: 0 },
-  { name: "Rosso", price: 230 },
-  { name: "Verde", price: 260 },
-  { name: "Blu", price: 230 },
-  { name: "Turchese", price: 230 },
+  { name: "Naturale", colorCode: "#f6c28720", price: 0 },
+  { name: "Rosso", colorCode: "#8D0506", price: 230 },
+  { name: "Verde", colorCode: "#18902A", price: 260 },
+  { name: "Blu", colorCode: "#0F458B", price: 230 },
+  { name: "Turchese", colorCode: "#05858A", price: 230 },
 ];
 export const pickups = [
   { name: "Senza", price: 0 },

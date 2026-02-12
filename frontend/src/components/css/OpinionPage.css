@@ -1,0 +1,11 @@
+.opinionContainer {
+    padding: 2rem;
+    background-color: var(--colorBeigeSelected);
+    border-radius: 20px;
+}
+
+.formContainer {
+    padding: 2rem;
+    border-radius: 20px;
+    background-color: var(--colorBeige);
+}

@@ -7,5 +7,6 @@
         public int Rating { get; set; }
         public string UserOpinion { get; set; }
         public string UserId { get; set; }
+        public string userFirstName { get; set; }
     }
 }

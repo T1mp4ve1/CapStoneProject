@@ -6,8 +6,17 @@ function GuitarsPage() {
   const api = import.meta.env.VITE_API_URL;
 
   const [guitars, setGuitars] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("Tutti");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const handleFilter = (value) => {
+    setActiveCategory(value);
+    setFiltered(
+      value === "Tutti" ? guitars : guitars.filter((g) => g.category === value),
+    );
+  };
 
   useEffect(() => {
     const loadGuitars = async () => {
@@ -28,6 +37,7 @@ function GuitarsPage() {
         );
 
         setGuitars(guitarsWithImages);
+        setFiltered(guitarsWithImages);
       } catch (err) {
         console.error("Error guitars page:", err);
       } finally {
@@ -52,8 +62,50 @@ function GuitarsPage() {
     <>
       <div className="containerAfterNavbar slowOpacity">
         <div className="container80">
+          <div className="my-2">
+            <button
+              className={`me-1
+                ${activeCategory === "Tutti" ? "beatyButton3Active" : "beatyButton3"}
+              `}
+              onClick={() => handleFilter("Tutti")}
+            >
+              Tutti
+            </button>
+            <button
+              className={`me-1
+                ${activeCategory === "Acoustic" ? "beatyButton3Active" : "beatyButton3"}
+              `}
+              onClick={() => handleFilter("Acoustic")}
+            >
+              Acoustic
+            </button>
+            <button
+              className={`me-1
+                ${activeCategory === "Classic" ? "beatyButton3Active" : "beatyButton3"}
+              `}
+              onClick={() => handleFilter("Classic")}
+            >
+              Classic
+            </button>
+            <button
+              className={`me-1
+                ${activeCategory === "Electric" ? "beatyButton3Active" : "beatyButton3"}
+              `}
+              onClick={() => handleFilter("Electric")}
+            >
+              Electric
+            </button>
+            <button
+              className={`me-1
+                ${activeCategory === "Hollow" ? "beatyButton3Active" : "beatyButton3"}
+              `}
+              onClick={() => handleFilter("Hollow")}
+            >
+              Hollow
+            </button>
+          </div>
           <div className="row row-cols-4 g-2">
-            {guitars.map((g) => (
+            {filtered.map((g) => (
               <div className="col" key={g.id}>
                 <div
                   className="card border-0 shadow guitarCard"

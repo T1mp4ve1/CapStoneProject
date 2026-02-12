@@ -35,7 +35,6 @@ function CustomshopPage() {
     const pickupPrice =
       pickups.find((p) => p.name === guitar.pickup).price || 0;
     setTotal(bodyPrice + materialPrice + colorPrice + pickupPrice);
-    console.log(guitar);
   }, [guitar]);
 
   const handleCreateGuitar = async () => {
@@ -154,11 +153,15 @@ function CustomshopPage() {
                     {colors.map((c) => (
                       <button
                         key={c.name}
-                        className={`btn ${guitar.color === c.name ? "btn-dark" : "btn-outline-dark"}`}
+                        className={guitar.color === c.name ? "btnColorActive" : "btnColor"}
                         onClick={() => updateGuitar("color", c.name)}
                       >
-                        <p>{c.name}</p>
-                        <hr className="mt-0 mb-1" />
+                        <div
+                          className="colorChoice"
+                          style={{
+                            backgroundColor: c.colorCode,
+                          }}
+                        ></div>
                         <p>{c.price} €</p>
                       </button>
                     ))}

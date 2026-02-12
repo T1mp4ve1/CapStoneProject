@@ -9,6 +9,8 @@ function DetailsPage() {
   const [guitar, setGuitar] = useState(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
+  // const [showModal, setShowModal] = useState(false);
+  // const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const loadData = async () => {
@@ -39,73 +41,89 @@ function DetailsPage() {
     <>
       <div className="containerAfterNavbar slowOpacity">
         {guitar && (
-          <>
-            <div className="row g-1 gridDetails">
-              <div className="col-8">
-                <div className="row flexContainerCenter">
-                  <div className="col-12 detailsImageContainer">
-                    <img src={guitar.mainImg} className="guitarMainImg" />
-                  </div>
-                  {guitar.imgs.map((i) => (
-                    <div
-                      className="col-3 border rounded-3 p-0 m-2 alternativeImgContainer"
-                      key={i.id}
-                    >
-                      <img src={i.url} alt="img" className="alternativeImg" />
-                    </div>
-                  ))}
+          <div className="row g-1 gridDetails">
+            <div className="col-8">
+              <div className="row flexContainerCenter">
+                <div className="col-12 detailsImageContainer">
+                  <img
+                    src={guitar.mainImg}
+                    className="guitarMainImg"
+                    onClick={() => {
+                      setActiveIndex(0);
+                      setShowModal(true);
+                    }}
+                  />
                 </div>
+                {guitar.imgs.map((i) => (
+                  <div
+                    className="col-3 border rounded-3 p-0 m-2 alternativeImgContainer"
+                    key={i.id}
+                  >
+                    <img
+                      src={i.url}
+                      alt="img"
+                      className="alternativeImg"
+                      onClick={() => {
+                        const index = guitar.imgs.findIndex(
+                          (img) => img.id === i.id,
+                        );
+                        setActiveIndex(index);
+                        setShowModal(true);
+                      }}
+                    />
+                  </div>
+                ))}
               </div>
-              <div className="col-4">
-                <div className="row row-cols-1 g-3">
-                  <div className="col cardDetails shadow-sm">
-                    <h2>{guitar.name}</h2>
-                    <p>{guitar.category}</p>
-                    <hr className="mb-1" />
-                    <p className="text-secondary">modello: {guitar.id}</p>
-                  </div>
+            </div>
+            <div className="col-4">
+              <div className="row row-cols-1 g-3">
+                <div className="col cardDetails shadow-sm">
+                  <h2>{guitar.name}</h2>
+                  <p>{guitar.category}</p>
+                  <hr className="mb-1" />
+                  <p className="text-secondary">modello: {guitar.id}</p>
+                </div>
 
-                  <div className="col cardDetails shadow-sm">
-                    <div className="d-flex justify-content-around align-items-center">
-                      <h2 className="my-2">{guitar.price} €</h2>
-                      <button
-                        className="beatyButton2"
-                        onClick={() => addToCart(guitar.id)}
-                      >
-                        Aggiungi al carello
-                      </button>
+                <div className="col cardDetails shadow-sm">
+                  <div className="d-flex justify-content-around align-items-center">
+                    <h2 className="my-2">{guitar.price} €</h2>
+                    <button
+                      className="beatyButton2"
+                      onClick={() => addToCart(guitar.id)}
+                    >
+                      Aggiungi al carello
+                    </button>
+                  </div>
+                </div>
+
+                <div className="col cardDetails shadow-sm">
+                  <div className="row row-cols-2">
+                    <div className="col flexContainerLeft">
+                      <i className="bi bi-shield-check fs-3 me-1"></i>
+                      <p>Garanzia a vita</p>
+                    </div>
+                    <div className="col flexContainerLeft">
+                      <i className="bi bi-award fs-3 me-1"></i>
+                      <p>Materiali di alta qualita'</p>
+                    </div>
+                    <div className="col flexContainerLeft">
+                      <i className="bi bi-globe fs-3 me-1"></i>
+                      <p>Spedizione ovunque</p>
+                    </div>
+                    <div className="col flexContainerLeft">
+                      <i className="bi bi-tree fs-3 me-1"></i>
+                      <p>Legni stagionati di prima scelta</p>
                     </div>
                   </div>
+                </div>
 
-                  <div className="col cardDetails shadow-sm">
-                    <div className="row row-cols-2">
-                      <div className="col flexContainerLeft">
-                        <i className="bi bi-shield-check fs-3 me-1"></i>
-                        <p>Garanzia a vita</p>
-                      </div>
-                      <div className="col flexContainerLeft">
-                        <i className="bi bi-award fs-3 me-1"></i>
-                        <p>Materiali di alta qualita'</p>
-                      </div>
-                      <div className="col flexContainerLeft">
-                        <i className="bi bi-globe fs-3 me-1"></i>
-                        <p>Spedizione ovunque</p>
-                      </div>
-                      <div className="col flexContainerLeft">
-                        <i className="bi bi-tree fs-3 me-1"></i>
-                        <p>Legni stagionati di prima scelta</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col cardDetails shadow-sm">
-                    <h4>Descrizione</h4>
-                    <p>{guitar.description}</p>
-                  </div>
+                <div className="col cardDetails shadow-sm">
+                  <h4>Descrizione</h4>
+                  <p>{guitar.description}</p>
                 </div>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </>
