@@ -149,11 +149,11 @@ function CustomshopPage() {
               <div className="carousel-item carouselCustom">
                 <div className="carousel-caption">
                   <h5>Colore</h5>
-                  <div className="d-flex gap-3 justify-content-center mt-3">
+                  <div className="d-flex gap-3 flexContainerCenter mt-3">
                     {colors.map((c) => (
                       <button
                         key={c.name}
-                        className={guitar.color === c.name ? "btnColorActive" : "btnColor"}
+                        className={`flexContainerCenter flex-column ${guitar.color === c.name ? "btnColorActive shadow-sm" : "btnColor"}`}
                         onClick={() => updateGuitar("color", c.name)}
                       >
                         <div
