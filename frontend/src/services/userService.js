@@ -81,7 +81,7 @@ export const updateUserRole = async (userId, newRole, token) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({userId, newRole}),
+      body: JSON.stringify({ userId, newRole }),
     });
 
     if (!res.ok) {
@@ -94,7 +94,34 @@ export const updateUserRole = async (userId, newRole, token) => {
   }
 };
 
+export const selfUpdateRole = async (userId, newRole, token) => {
+  try {
+    const res = await fetch(`${api}/AppUser/changeMyRole`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId, newRole }),
+    });
+
+    if (!res.ok) {
+      console.error(res.Error);
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("Update user error:", err);
+  }
+};
+
 export const appRoles = ["Admin", "Vice", "Operator", "User"];
+export const roleColors = {
+  Admin: "bg-danger",
+  Vice: "bg-warning",
+  Operator: "bg-success",
+  User: "bg-info",
+};
 
 // D
 export const deleteUser = async (email, token) => {

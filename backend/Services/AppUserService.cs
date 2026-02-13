@@ -166,6 +166,8 @@ namespace backend.Services
 
         public async Task<RequestResult_DTO> GetByIdAsync(string userId)
         {
+            var userRoles = await _db.UserRoles.ToListAsync();
+            var roles = await _db.Roles.ToListAsync();
             var user = await _userManager.Users
                 .Where(u => u.Id == userId)
                 .AsNoTracking()
@@ -180,8 +182,14 @@ namespace backend.Services
                     PhoneNumber = u.PhoneNumber,
                     PhoneNumberConfirmed = u.PhoneNumberConfirmed,
                     TwoFactorEnabled = u.TwoFactorEnabled,
-                    AccessFailedCount = u.AccessFailedCount
+                    AccessFailedCount = u.AccessFailedCount,
+                    Roles = new List<string>()
                 }).FirstOrDefaultAsync();
+
+            user.Roles = await _db.UserRoles
+                .Where(ur => ur.UserId == userId)
+                .Join(_db.Roles, ur => ur.RoleId, r => r.Id, (ur, r) => r.Name)
+                .ToListAsync();
 
             return new RequestResult_DTO { Success = true, Data = user };
         }
@@ -263,6 +271,49 @@ namespace backend.Services
             }
 
             return new RequestResult_DTO { Success = true, Data = new { user.Id, currentRoles } };
+        }
+
+        public async Task<RequestResult_DTO> selfUpdateRoles(string currentUserId, AppUser_ChangeRole dto)
+        {
+            if (dto.UserId != currentUserId)
+            {
+                return new RequestResult_DTO { Success = false, Error = "Unauthorized" };
+            }
+            var user = await _userManager.FindByIdAsync(dto.UserId);
+            if (user == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+            if (dto.NewRole == "Admin" || dto.NewRole == "Vice")
+            {
+                return new RequestResult_DTO { Success = false, Error = "CannotHaveRole" };
+            }
+            var roleExist = await _db.Roles.AnyAsync(r => r.Name == dto.NewRole);
+            if (!roleExist)
+            {
+                return new RequestResult_DTO { Success = false, Error = "RoleNotFound" };
+            }
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            if (currentRoles.Contains("Admin"))
+            {
+                return new RequestResult_DTO { Success = false, Error = "CannotModifyAdmin" };
+            }
+
+            var removeRoles = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            if (!removeRoles.Succeeded)
+            {
+                return new RequestResult_DTO { Success = false, Error = "CannotRemoveRole" };
+            }
+
+            var addRole = await _userManager.AddToRoleAsync(user, dto.NewRole);
+            if (!addRole.Succeeded)
+            {
+                return new RequestResult_DTO { Success = false, Error = "CannotAddRole" };
+            }
+            var newRoles = await _userManager.GetRolesAsync(user);
+
+            return new RequestResult_DTO { Success = true, Data = new { user.Id, newRoles } };
         }
 
         //D

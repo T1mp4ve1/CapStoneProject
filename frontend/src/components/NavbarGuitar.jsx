@@ -13,7 +13,10 @@ function NavbarGuitar() {
   const [showDropdown, setshowDropdown] = useState(false);
   const { cartCount } = useContext(CartContext);
   const { userRoles, isLogged, login, logout } = useContext(AuthContext);
-  const isAdmin = userRoles.includes("Admin");
+  const vip =
+    userRoles.includes("Admin") ||
+    userRoles.includes("Vice") ||
+    userRoles.includes("Operator");
   const { notifications, markAllAsRead } = useContext(NotificationsContext);
 
   const stateIcons = {
@@ -226,7 +229,7 @@ function NavbarGuitar() {
               </Dropdown.Menu>
             </Dropdown>
           </div>
-          {isAdmin && (
+          {vip && (
             <>
               <Link to="/AdminPage" className="adminButton">
                 <i className="bi bi-gear-fill text-danger fs-3"></i>

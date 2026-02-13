@@ -124,6 +124,27 @@ namespace backend.Controllers
             }
         }
 
+        [HttpPost("changeMyRole")]
+        [Authorize]
+        public async Task<IActionResult> SelfChangeRole(AppUser_ChangeRole dto)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var result = await _service.selfUpdateRoles(userId, dto);
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         //D
         [HttpDelete("{email}")]
         [Authorize(Roles = "Admin,Vice")]

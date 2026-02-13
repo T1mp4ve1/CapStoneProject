@@ -47,7 +47,8 @@ namespace backend.Services
                     Rating = o.Rating,
                     UserOpinion = o.UserOpinion,
                     UserId = o.UserId,
-                    userFirstName = o.User.FirstName
+                    userFirstName = o.User.FirstName,
+                    userEmail = o.User.Email
                 })
                 .ToListAsync();
 

@@ -149,6 +149,37 @@
         }
       }
     },
+    "/api/AppUser/changeMyRole": {
+      "post": {
+        "tags": [
+          "AppUser"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppUser_ChangeRole"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppUser_ChangeRole"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppUser_ChangeRole"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/AppUser/{email}": {
       "delete": {
         "tags": [

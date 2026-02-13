@@ -77,6 +77,22 @@
   },
   {
     "ContainingType": "backend.Controllers.AppUserController",
+    "Method": "SelfChangeRole",
+    "RelativePath": "api/AppUser/changeMyRole",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "backend.Model.DTO.AppUserDTO.AppUser_ChangeRole",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.AppUserController",
     "Method": "ChangeRole",
     "RelativePath": "api/AppUser/changeRole",
     "HttpMethod": "POST",

@@ -3,6 +3,7 @@ import {
   appRoles,
   deleteUser,
   getUsers,
+  roleColors,
   updateUserRole,
 } from "../../services/userService";
 import { AuthContext } from "../../context/AuthContext";
@@ -70,12 +71,6 @@ function UsersManager() {
     );
   }
 
-  const roleColors = {
-    Admin: "bg-danger",
-    Vice: "bg-warning",
-    Operator: "bg-success",
-    User: "bg-info",
-  };
 
   return (
     <>

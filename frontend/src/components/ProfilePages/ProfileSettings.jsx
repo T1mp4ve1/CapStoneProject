@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
-import { getSingleUsers, updateUser } from "../../services/userService";
+import {
+  appRoles,
+  getSingleUsers,
+  roleColors,
+  selfUpdateRole,
+  updateUser,
+} from "../../services/userService";
 import { useAuth } from "../../context/UseAuth";
 
 function ProfileSettings() {
+  const [loadingRole, setLoadingRole] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [editingField, setEditingField] = useState(null);
   const [fieldValue, setFieldValue] = useState("");
-  const { token } = useAuth();
+  const { token, setUserRoles } = useAuth();
   console.log(userInfo);
   const handleChange = (field, value) => {
     setEditingField(field);
@@ -25,6 +32,25 @@ function ProfileSettings() {
     console.log("Update", [res.data]);
     setEditingField(null);
     setFieldValue("");
+  };
+
+  const handleChangeRole = async (userId, newRole) => {
+    try {
+      setLoadingRole(true);
+      const res = await selfUpdateRole(userId, newRole, token);
+      console.log(res);
+      setUserRoles(newRole);
+      localStorage.setItem("userRoles", JSON.stringify([newRole]));
+
+      setUserInfo((prev) => ({
+        ...prev,
+        roles: [newRole],
+      }));
+    } catch (err) {
+      console.error("Update errore:", err);
+    } finally {
+      setLoadingRole(false);
+    }
   };
 
   useEffect(() => {
@@ -165,6 +191,46 @@ function ProfileSettings() {
                       minute: "2-digit",
                     })}
                   </p>
+                </li>
+
+                {/* Role */}
+                <li className="flexContainerBetween mb-2">
+                  <p>Ruolo:</p>
+
+                  {loadingRole ? (
+                    <>
+                      <div
+                        className="spinner-border flexContainerCenter"
+                        role="status"
+                      >
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="dropdown">
+                        <button
+                          className={`btn btn-light dropdown-toggle rounded-5 ${roleColors[userInfo.roles[0]]}`}
+                          data-bs-toggle="dropdown"
+                        >
+                          {userInfo.roles[0]}
+                        </button>
+
+                        <ul className="dropdown-menu">
+                          {appRoles.slice(2).map((r) => (
+                            <li key={r}>
+                              <button
+                                className={`dropdown-item d-flex align-items-center ${roleColors[r]}`}
+                                onClick={() => handleChangeRole(userInfo.id, r)}
+                              >
+                                {r}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </>
+                  )}
                 </li>
               </ul>
             </div>

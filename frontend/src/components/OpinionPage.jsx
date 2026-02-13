@@ -9,7 +9,7 @@ import { useAuth } from "../context/UseAuth";
 import "./css/OpinionPage.css";
 
 function OpinionPage() {
-  const { token, userId, userRoles, isLogged } = useAuth();
+  const { token, userEmail, userRoles, isLogged } = useAuth();
   const [opinions, setOpinions] = useState([]);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
@@ -72,13 +72,13 @@ function OpinionPage() {
 
   // D
   const handleDelete = async (id) => {
-    if (!window.confirm("Sei sicuro di voler eliminare questa opinione?"))
-      return;
-
-    const res = await deleteOpinion(id, token);
-
-    if (res.success) {
-      await loadOpinions();
+    try {
+      const res = await deleteOpinion(id, token);
+      if (res.success) {
+        await loadOpinions();
+      }
+    } catch (err) {
+      console.error("Remove comment:", err);
     }
   };
 
@@ -88,65 +88,62 @@ function OpinionPage() {
         <div className="row flexContainerCenter">
           <div className="col-8 opinionContainer mb-5">
             {/* FORM */}
-
             {isLogged && (
-              <>
-                <div>
-                  <h4 className="mb-3">Comè stata la tua esperienza?</h4>
-                  {success && (
-                    <div className="alert alert-success py-2">
-                      Opinione inviata con successo!
-                    </div>
-                  )}
+              <div>
+                <h4 className="mb-3">Comè stata la tua esperienza?</h4>
+                {success && (
+                  <div className="alert alert-success py-2">
+                    Opinione inviata con successo!
+                  </div>
+                )}
 
-                  <form
-                    className="formContainer shadow-sm"
-                    onSubmit={handleSubmit}
+                <form
+                  className="formContainer shadow-sm"
+                  onSubmit={handleSubmit}
+                >
+                  {/* RATING */}
+                  <div className="mb-3">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <i
+                        key={star}
+                        className={
+                          (hoverRating || rating) >= star
+                            ? "bi bi-star-fill text-warning fs-3 me-1"
+                            : "bi bi-star text-warning fs-3 me-1"
+                        }
+                        style={{ cursor: "pointer" }}
+                        onMouseEnter={() => setHoverRating(star)}
+                        onMouseLeave={() => setHoverRating(0)}
+                        onClick={() => setRating(star)}
+                      ></i>
+                    ))}
+                  </div>
+
+                  {/* COMMENT */}
+                  <div className="mb-3">
+                    <textarea
+                      className="form-control rounded-4 border-0 shadow-sm"
+                      rows="4"
+                      maxLength="1000"
+                      value={userOpinion}
+                      onChange={(e) => setUserOpinion(e.target.value)}
+                      placeholder="Scrivi qui la tua opinione..."
+                    ></textarea>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className={
+                      rating === 0 || userOpinion.trim() === ""
+                        ? "beatyButton4Disabled"
+                        : "beatyButton4"
+                    }
+                    disabled={rating === 0 || userOpinion.trim() === ""}
                   >
-                    {/* RATING */}
-                    <div className="mb-3">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <i
-                          key={star}
-                          className={
-                            (hoverRating || rating) >= star
-                              ? "bi bi-star-fill text-warning fs-3 me-1"
-                              : "bi bi-star text-warning fs-3 me-1"
-                          }
-                          style={{ cursor: "pointer" }}
-                          onMouseEnter={() => setHoverRating(star)}
-                          onMouseLeave={() => setHoverRating(0)}
-                          onClick={() => setRating(star)}
-                        ></i>
-                      ))}
-                    </div>
-
-                    {/* COMMENT */}
-                    <div className="mb-3">
-                      <textarea
-                        className="form-control rounded-4 border-0 shadow-sm"
-                        rows="4"
-                        maxLength="1000"
-                        value={userOpinion}
-                        onChange={(e) => setUserOpinion(e.target.value)}
-                        placeholder="Scrivi qui la tua opinione..."
-                      ></textarea>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className={
-                        rating === 0 || userOpinion.trim() === ""
-                          ? "beatyButton4Disabled"
-                          : "beatyButton4"
-                      }
-                      disabled={rating === 0 || userOpinion.trim() === ""}
-                    >
-                      Invia opinione
-                    </button>
-                  </form>
-                </div>
-              </>
+                    Invia opinione
+                  </button>
+                </form>
+              </div>
             )}
           </div>
 
@@ -159,7 +156,7 @@ function OpinionPage() {
 
             <div>
               {opinions.map((op) => {
-                const canEdit = isAdmin || op.userId === userId;
+                const canEdit = isAdmin || op.userEmail === userEmail;
 
                 return (
                   <div
@@ -221,6 +218,8 @@ function OpinionPage() {
                                   : "bi bi-star text-warning fs-4 me-1"
                               }
                               style={{ cursor: "pointer" }}
+                              onMouseEnter={() => setHoverRating(star)}
+                              onMouseLeave={() => setHoverRating(0)}
                               onClick={() => setEditRating(star)}
                             ></i>
                           ))}

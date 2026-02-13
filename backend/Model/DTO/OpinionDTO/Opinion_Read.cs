@@ -8,5 +8,6 @@
         public string UserOpinion { get; set; }
         public string UserId { get; set; }
         public string userFirstName { get; set; }
+        public string userEmail { get; set; }
     }
 }
