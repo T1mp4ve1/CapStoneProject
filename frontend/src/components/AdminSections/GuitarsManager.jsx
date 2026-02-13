@@ -123,7 +123,7 @@ function GuitarsManager() {
         <h3>Aggiungi chitarra</h3>
         <input
           type="text"
-          className="form-control mb-2"
+          className="form-control mb-2 rounded-4 border-0"
           placeholder="Nome..."
           value={newGuitar.name}
           onChange={(e) => setNewGuitar({ ...newGuitar, name: e.target.value })}
@@ -131,7 +131,7 @@ function GuitarsManager() {
         <input
           type="number"
           step={0.01}
-          className="form-control mb-2"
+          className="form-control mb-2 rounded-4 border-0"
           placeholder="Prezzo..."
           value={newGuitar.price}
           onChange={(e) =>
@@ -140,7 +140,7 @@ function GuitarsManager() {
         />
         <textarea
           type="text"
-          className="form-control mb-2"
+          className="form-control mb-2 rounded-4 border-0"
           placeholder="Description..."
           value={newGuitar.description}
           onChange={(e) =>
@@ -148,7 +148,7 @@ function GuitarsManager() {
           }
         />
         <select
-          className="form-select mb-2"
+          className="form-select mb-2 rounded-4 border-0"
           value={newGuitar.categoryId}
           onChange={(e) =>
             setNewGuitar({ ...newGuitar, categoryId: Number(e.target.value) })
@@ -163,12 +163,15 @@ function GuitarsManager() {
         <input
           type="file"
           multiple
-          className="form-control mb-2"
+          className="form-control mb-2 rounded-4"
           onChange={(e) =>
             setNewGuitar({ ...newGuitar, images: Array.from(e.target.files) })
           }
         />
-        <button className="mb-4 w-100" onClick={() => handleCreateGuitar()}>
+        <button
+          className="loginBtn mb-4 w-100"
+          onClick={() => handleCreateGuitar()}
+        >
           Aggiungi
         </button>
         {loadingOnCreate && (
@@ -260,12 +263,12 @@ function GuitarsManager() {
         <h2>Lista chitarre</h2>
         <input
           type="text"
-          className="form-control mb-3"
+          className="form-control mb-3 rounded-4 border-0"
           placeholder="Id chitarra..."
           value={searched}
           onChange={(e) => setSearched(e.target.value)}
         />
-        <table className="table">
+        <table>
           <thead>
             <tr>
               <th scope="col">Id</th>
@@ -280,7 +283,7 @@ function GuitarsManager() {
           <tbody>
             {[...filtered].reverse().map((g) => (
               <tr key={g.id}>
-                <th scope="row">{g.id}</th>
+                <td>{g.id}</td>
                 <td>{g.name}</td>
                 <td>{g.price}</td>
                 <td>{g.category}</td>
@@ -288,16 +291,16 @@ function GuitarsManager() {
                 <td>{g.description}</td>
                 <td>
                   <button
-                    className="btn btn-outline-warning mb-2"
+                    className="editButtonSm mb-2"
                     onClick={() => setEditGuitar(g)}
                   >
-                    <i className="bi bi-pencil-fill"></i>
+                    <i className="bi bi-pen"></i>
                   </button>
                   <button
-                    className="btn btn-outline-danger"
+                    className="beatyButtonSm"
                     onClick={() => handleDelete(g.id)}
                   >
-                    <i className="bi bi-x-lg"></i>
+                    <i className="bi bi-trash"></i>
                   </button>
                 </td>
               </tr>

@@ -78,12 +78,12 @@ function OrdersManager() {
           </div>
         )}
 
-        <div className="d-flex gap-1 mb-1">
+        <div className="d-flex gap-1 mb-2">
           {["All", ...orderStates].map((s) => (
             <button
               key={s}
-              className={`rounded-0 ${
-                filter === s ? "btn btn-secondary" : "btn btn-outline-secondary"
+              className={`${
+                filter === s ? "beatyButton3Active" : "beatyButton3"
               }`}
               onClick={() => handleFilter(s)}
             >
@@ -91,7 +91,7 @@ function OrdersManager() {
             </button>
           ))}
         </div>
-        <table className="table table-striped">
+        <table>
           <thead>
             <tr>
               <th>ID</th>
@@ -103,7 +103,7 @@ function OrdersManager() {
               <th>Azioni</th>
             </tr>
           </thead>
-
+          
           <tbody>
             {orders &&
               orders.map((o) => (
