@@ -5,7 +5,7 @@ import {
   getArtists,
   updateArtist,
 } from "../../services/artistService";
-import "../css/ArtistManager.css"
+import "../css/ArtistManager.css";
 
 function ArtistsManager() {
   const [artists, setArtists] = useState([]);
@@ -89,27 +89,27 @@ function ArtistsManager() {
         <h3>Aggiungi artista</h3>
         <input
           type="text"
-          className="form-control mb-2"
+          className="form-control mb-2 rounded-4 border-0"
           placeholder="Nome..."
           value={newArtist.name}
           onChange={(e) => setNewArtist({ ...newArtist, name: e.target.value })}
         />
         <input
           type="text"
-          className="form-control mb-2"
+          className="form-control mb-2 rounded-4 border-0"
           placeholder="URL immagine..."
           value={newArtist.img}
           onChange={(e) => setNewArtist({ ...newArtist, img: e.target.value })}
         />
         <textarea
-          className="w-100"
+          className="form-control mb-2 rounded-4 border-0"
           placeholder="Descrizione..."
           value={newArtist.about}
           onChange={(e) =>
             setNewArtist({ ...newArtist, about: e.target.value })
           }
         />
-        <button className="mb-4 w-100" onClick={() => handleCreateArtist()}>
+        <button className="mb-4 w-100 loginBtn" onClick={() => handleCreateArtist()}>
           Aggiungi
         </button>
       </div>
@@ -117,7 +117,10 @@ function ArtistsManager() {
       {/* UPDATE FORM */}
       {editArtist && (
         <div className="modalOverlay" onClick={() => setEditArtist(null)}>
-          <div className="modalContent fastOpacity" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="modalContent fastOpacity"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3>Modifica artista</h3>
 
             <input
@@ -170,12 +173,13 @@ function ArtistsManager() {
         <h2>Lista artisti</h2>
         <input
           type="text"
-          className="form-control mb-3"
+          className="form-control mb-3 rounded-4 border-0"
           placeholder="Nome artista..."
           value={searched}
           onChange={(e) => setSearched(e.target.value)}
         />
-        <table className="table">
+
+        <table>
           <thead>
             <tr>
               <th scope="col">Id</th>
@@ -188,7 +192,7 @@ function ArtistsManager() {
           <tbody>
             {[...filtered].reverse().map((a) => (
               <tr key={a.id}>
-                <th scope="row">{a.id}</th>
+                <td scope="row">{a.id}</td>
                 <td>{a.name}</td>
                 <td>
                   <img src={a.img} alt="img" width={60} />{" "}
@@ -196,16 +200,16 @@ function ArtistsManager() {
                 <td>{a.about}</td>
                 <td>
                   <button
-                    className="btn btn-outline-warning mb-2"
+                    className="editButtonSm mb-2"
                     onClick={() => setEditArtist(a)}
                   >
-                    <i className="bi bi-pencil-fill"></i>
+                    <i className="bi bi-pen"></i>
                   </button>
                   <button
-                    className="btn btn-outline-danger"
+                    className="beatyButtonSm"
                     onClick={() => handleDelete(a.id)}
                   >
-                    <i className="bi bi-x-lg"></i>
+                    <i className="bi bi-trash"></i>
                   </button>
                 </td>
               </tr>

@@ -87,7 +87,7 @@ function SupportPage() {
             <span className="visually-hidden">Loading...</span>
           </div>
         )}
-        <table className="table table-striped">
+        <table>
           <thead>
             <tr>
               <th>ID</th>

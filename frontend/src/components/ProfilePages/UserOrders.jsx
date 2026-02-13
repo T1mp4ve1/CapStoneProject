@@ -33,14 +33,14 @@ function UserOrders() {
   return (
     <>
       <div className="containerAfterNavbar slowOpacity">
-        <h2>User Orders</h2>
+        <h2 className="ms-3 pt-4">I miei ordini</h2>
         {loading && (
           <div className="spinner-border flexContainerCenter" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         )}
 
-        <table className="table table-striped">
+        <table>
           <thead>
             <tr>
               <th>ID</th>
@@ -60,7 +60,12 @@ function UserOrders() {
                   <td>{new Date(o.createdAt).toLocaleString()}</td>
                   <td>{o.address}</td>
                   <td>{o.total} €</td>
-                  <td>{stateIcons[o.state]}</td>
+                  <td>
+                    <span>
+                      {stateIcons[o.state]}
+                      <span className="ms-2">{o.state}</span>
+                    </span>
+                  </td>
                   <td>{o.products.length}</td>
                 </tr>
               ))}

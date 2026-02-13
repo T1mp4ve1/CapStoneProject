@@ -103,7 +103,7 @@ function OpinionPage() {
                     className="formContainer shadow-sm"
                     onSubmit={handleSubmit}
                   >
-                    {/* Rating */}
+                    {/* RATING */}
                     <div className="mb-3">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <i
@@ -121,10 +121,10 @@ function OpinionPage() {
                       ))}
                     </div>
 
-                    {/* Commento */}
+                    {/* COMMENT */}
                     <div className="mb-3">
                       <textarea
-                        className="form-control"
+                        className="form-control rounded-4 border-0 shadow-sm"
                         rows="4"
                         maxLength="1000"
                         value={userOpinion}

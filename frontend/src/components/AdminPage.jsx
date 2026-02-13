@@ -13,19 +13,34 @@ function AdminPage() {
       <div className="containerAfterNavbar text-center">
         <h2>Cosa vuoi gestire?</h2>
         <div className="">
-          <button className="m-1" onClick={() => setActiveSection("users")}>
+          <button
+            className={`me-1 ${activeSection === "users" ? "beatyButton3Active" : "beatyButton3"}`}
+            onClick={() => setActiveSection("users")}
+          >
             Utenti
           </button>
-          <button className="m-1" onClick={() => setActiveSection("artists")}>
+          <button
+            className={`me-1 ${activeSection === "artists" ? "beatyButton3Active" : "beatyButton3"}`}
+            onClick={() => setActiveSection("artists")}
+          >
             Artisti
           </button>
-          <button className="m-1" onClick={() => setActiveSection("guitars")}>
+          <button
+            className={`me-1 ${activeSection === "guitars" ? "beatyButton3Active" : "beatyButton3"}`}
+            onClick={() => setActiveSection("guitars")}
+          >
             Chitarre
           </button>
-          <button className="m-1" onClick={() => setActiveSection("orders")}>
+          <button
+            className={`me-1 ${activeSection === "orders" ? "beatyButton3Active" : "beatyButton3"}`}
+            onClick={() => setActiveSection("orders")}
+          >
             Ordini
           </button>
-          <button className="m-1" onClick={() => setActiveSection("tickets")}>
+          <button
+            className={`me-1 ${activeSection === "tickets" ? "beatyButton3Active" : "beatyButton3"}`}
+            onClick={() => setActiveSection("tickets")}
+          >
             Tickets
           </button>
         </div>

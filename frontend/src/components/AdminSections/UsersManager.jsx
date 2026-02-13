@@ -67,25 +67,25 @@ function UsersManager() {
         <div className="artistListContainer">
           <input
             type="text"
-            className="form-control mb-3"
+            className="form-control mb-3 rounded-4 border-0"
             placeholder="User id..."
             value={searched}
             onChange={(e) => setSearched(e.target.value)}
           />
-          <table className="table">
+          <table>
             <thead>
               <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Email</th>
-                <th scope="col">CreatedAt</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Actions</th>
+                <th>Id</th>
+                <th>Email</th>
+                <th>CreatedAt</th>
+                <th>Telefono</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {[...filtered].reverse().map((u) => (
                 <tr key={u.id}>
-                  <th scope="row">{u.id}</th>
+                  <td>{u.id}</td>
                   <td>
                     {u.email}
                     {u.emailConfirmed ? (
@@ -116,17 +116,14 @@ function UsersManager() {
                     )}
                   </td>
                   <td className="d-flex flex-column justify-content-center">
-                    <button
-                      className="btn btn-outline-warning mb-2"
-                      // onClick={() => setEditArtist(a)}
-                    >
-                      <i className="bi bi-pencil-fill"></i>
+                    <button className="editButtonSm mb-2">
+                      <i className="bi bi-pen"></i>
                     </button>
                     <button
-                      className="btn btn-outline-danger"
+                      className="beatyButtonSm"
                       onClick={() => handleDelete(u.email)}
                     >
-                      <i className="bi bi-x-lg"></i>
+                      <i className="bi bi-trash"></i>
                     </button>
                   </td>
                 </tr>
