@@ -179,13 +179,13 @@ function OpinionPage() {
                                 className="editButtonSm me-2"
                                 onClick={() => handleEditSave(op.id)}
                               >
-                                <i class="bi bi-check-lg"></i>
+                                <i className="bi bi-check-lg"></i>
                               </button>
                               <button
                                 className="beatyButtonSm"
                                 onClick={() => setEditingId(null)}
                               >
-                                <i class="bi bi-x-lg"></i>
+                                <i className="bi bi-x-lg"></i>
                               </button>
                             </>
                           ) : (
@@ -194,7 +194,7 @@ function OpinionPage() {
                                 className="editButtonSm me-2"
                                 onClick={() => startEdit(op)}
                               >
-                                <i class="bi bi-pen"></i>
+                                <i className="bi bi-pen"></i>
                               </button>
                               <button
                                 className="beatyButtonSm"

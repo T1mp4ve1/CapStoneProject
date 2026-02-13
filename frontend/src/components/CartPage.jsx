@@ -70,90 +70,7 @@ const CartPage = () => {
       <div className="containerAfterNavbar">
         <div className="row flexContainerCenter">
           <div className="col-6">
-            {showModal && (
-              <>
-                <div className="checkOutModal flexContainerCenter shadow">
-                  <div className="relativeContainer flexContainerCenter">
-                    <div className="modalContainer flexContainerCenter">
-                      <div className="me-5">
-                        <ul className="fs-5">
-                          {products.map((p, index) => (
-                            <li
-                              key={index}
-                              className="flexContainerBetween list-group-item"
-                            >
-                              <p className="me-2">{p.name} </p>
-                              <p>
-                                {p.price}€
-                                <span className="ms-1">x{p.quantity}</span>
-                              </p>
-                            </li>
-                          ))}
-                        </ul>
-                        <hr />
-                        <div className="flexContainerBetween">
-                          <h4>Totale:</h4>
-                          <h4>{total}€</h4>
-                        </div>
-                      </div>
-
-                      <div className="ms-5">
-                        {isLogged ? (
-                          <>
-                            <textarea
-                              className="form-control"
-                              type="text"
-                              placeholder="Indirizzo di spedizione..."
-                              value={userAddress}
-                              onChange={(e) => setUserAddress(e.target.value)}
-                            ></textarea>
-                            <button
-                              className="beatyButton2 w-100 mt-3"
-                              onClick={handleCheckout}
-                            >
-                              Conferma l'ordine
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            {activeWindow === "login" && (
-                              <>
-                                <div className="text-center">
-                                  <MenuLogin />
-                                  <i className="bi bi-dot fs-4"></i>
-                                  <p
-                                    onClick={() => setActiveWindow("register")}
-                                  >
-                                    Registrati
-                                  </p>
-                                </div>
-                              </>
-                            )}
-
-                            {activeWindow === "register" && (
-                              <>
-                                <div className="text-center">
-                                  <MenuRegistration />
-                                  <i className="bi bi-dot fs-4"></i>
-                                  <p onClick={() => setActiveWindow("login")}>
-                                    Loggati
-                                  </p>
-                                </div>
-                              </>
-                            )}
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    <i
-                      className="bi bi-x-circle-fill closeModalButton"
-                      onClick={() => setShowModal(false)}
-                    ></i>
-                  </div>
-                </div>
-              </>
-            )}
-
+            {/* CART */}
             {products.length === 0 && (
               <div className="text-center">
                 <img src={imgEmptyCart} />
@@ -237,6 +154,90 @@ const CartPage = () => {
                   Procedi al checkout
                 </button>
               </div>
+            )}
+            {/* MODAL */}
+            {showModal && (
+              <>
+                <div className="checkOutModal flexContainerCenter shadow">
+                  <div className="relativeContainer flexContainerCenter">
+                    <div className="modalContainer flexContainerCenter">
+                      <div className="me-5">
+                        <ul className="fs-5">
+                          {products.map((p, index) => (
+                            <li
+                              key={index}
+                              className="flexContainerBetween list-group-item"
+                            >
+                              <p className="me-2">{p.name} </p>
+                              <p>
+                                {p.price}€
+                                <span className="ms-1">x{p.quantity}</span>
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                        <hr />
+                        <div className="flexContainerBetween">
+                          <h4>Totale:</h4>
+                          <h4>{total}€</h4>
+                        </div>
+                      </div>
+
+                      <div className="ms-5">
+                        {isLogged ? (
+                          <>
+                            <textarea
+                              className="form-control"
+                              type="text"
+                              placeholder="Indirizzo di spedizione..."
+                              value={userAddress}
+                              onChange={(e) => setUserAddress(e.target.value)}
+                            ></textarea>
+                            <button
+                              className="beatyButton2 w-100 mt-3"
+                              onClick={handleCheckout}
+                            >
+                              Conferma l'ordine
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            {activeWindow === "login" && (
+                              <>
+                                <div className="text-center">
+                                  <MenuLogin />
+                                  <i className="bi bi-dot fs-4"></i>
+                                  <p
+                                    onClick={() => setActiveWindow("register")}
+                                  >
+                                    Registrati
+                                  </p>
+                                </div>
+                              </>
+                            )}
+
+                            {activeWindow === "register" && (
+                              <>
+                                <div className="text-center">
+                                  <MenuRegistration />
+                                  <i className="bi bi-dot fs-4"></i>
+                                  <p onClick={() => setActiveWindow("login")}>
+                                    Loggati
+                                  </p>
+                                </div>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <i
+                      className="bi bi-x-circle-fill closeModalButton"
+                      onClick={() => setShowModal(false)}
+                    ></i>
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>

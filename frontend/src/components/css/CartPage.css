@@ -1,9 +1,3 @@
-.closeButton {
-    position: absolute;
-    top: 5%;
-    left: 95%;
-}
-
 .qntButton {
     width: 30px;
     height: 30px;
@@ -38,6 +32,12 @@
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .closeModalButton {
