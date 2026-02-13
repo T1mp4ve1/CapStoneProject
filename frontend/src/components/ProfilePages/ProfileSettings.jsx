@@ -14,7 +14,7 @@ function ProfileSettings() {
   const [editingField, setEditingField] = useState(null);
   const [fieldValue, setFieldValue] = useState("");
   const { token, setUserRoles } = useAuth();
-  console.log(userInfo);
+  // console.log(userInfo);
   const handleChange = (field, value) => {
     setEditingField(field);
     setFieldValue(value);
