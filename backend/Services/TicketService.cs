@@ -1,7 +1,9 @@
 ﻿using backend.Data;
+using backend.Hubs;
 using backend.Model;
 using backend.Model.DTO.Common;
 using backend.Model.DTO.TicketDTO;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
@@ -9,7 +11,9 @@ namespace backend.Services
     public class TicketService
     {
         private readonly AppDbContext _db;
-        public TicketService(AppDbContext db) { _db = db; }
+        private readonly IHubContext<NotificationsHub> _hub;
+        public TicketService(AppDbContext db, IHubContext<NotificationsHub> hub)
+        { _db = db; _hub = hub; }
 
         //C
         public async Task<RequestResult_DTO> CreateAsync(string userId, Ticket_Create dto)
@@ -22,6 +26,31 @@ namespace backend.Services
             };
             _db.Tickets.Add(ticket);
             await _db.SaveChangesAsync();
+
+            var admins_vices = await _db.UserRoles
+                .Join(_db.Roles, ur => ur.RoleId, r => r.Id, (ur, r) => new { ur.UserId, RoleName = r.Name })
+                .Where(x => x.RoleName == "Admin" || x.RoleName == "Vice")
+                .Select(x => x.UserId)
+                .ToListAsync();
+
+            foreach (var avId in admins_vices)
+            {
+                var n = new Notification
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = avId,
+                    OrderId = ticket.Id,
+                    State = "New Ticket",
+                    CreatedAt = DateTime.UtcNow,
+                    Read = false
+                };
+                _db.Notifications.Add(n);
+
+                await _hub.Clients.User(avId)
+                .SendAsync("New ticket", ticket.Id, "New Ticket");
+            }
+            await _db.SaveChangesAsync();
+
 
             var newTicket = new Ticket_Read
             {

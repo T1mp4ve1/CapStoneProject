@@ -262,7 +262,7 @@ namespace backend.Services
                 return new RequestResult_DTO { Success = false, Error = "CannotAddRole" };
             }
 
-            return new RequestResult_DTO { Success = true, Data = new { user.Id, dto.NewRole } };
+            return new RequestResult_DTO { Success = true, Data = new { user.Id, currentRoles } };
         }
 
         //D
