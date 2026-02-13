@@ -20,6 +20,7 @@ namespace backend.Controllers
 
         //R
         [HttpGet("unread")]
+        [Authorize]
         public async Task<IActionResult> GetUnread()
         {
             try
@@ -36,6 +37,7 @@ namespace backend.Controllers
 
         //U
         [HttpPost("mark_all_read")]
+        [Authorize]
         public async Task<IActionResult> MarkAllRead()
         {
             try
@@ -51,6 +53,7 @@ namespace backend.Controllers
         }
 
         [HttpPost("mark_read/{id}")]
+        [Authorize]
         public async Task<IActionResult> MarkRead(Guid id)
         {
             try
@@ -67,8 +70,6 @@ namespace backend.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
         }
-
     }
 }

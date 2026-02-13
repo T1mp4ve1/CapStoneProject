@@ -12,5 +12,6 @@
         public bool PhoneNumberConfirmed { get; set; }
         public bool TwoFactorEnabled { get; set; }
         public int AccessFailedCount { get; set; }
+        public List<string> Roles { get; set; }
     }
 }

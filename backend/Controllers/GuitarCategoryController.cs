@@ -18,7 +18,7 @@ namespace backend.Controllers
 
         //C
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Create(GuitarCategory_Create dto)
         {
             try
@@ -54,7 +54,7 @@ namespace backend.Controllers
 
         //U
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Update(GuitarCategory_Update dto, int id)
         {
             try
@@ -82,7 +82,7 @@ namespace backend.Controllers
 
         //D
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Delete(int id)
         {
             try

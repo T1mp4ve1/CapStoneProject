@@ -16,6 +16,7 @@ namespace backend.Controllers
 
         //C
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(Order_Create dto)
         {
             try
@@ -38,7 +39,7 @@ namespace backend.Controllers
 
         //R
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice,Operator")]
         public async Task<IActionResult> GetAll([FromQuery] OrderStates? state)
         {
             var result = await _service.GetAllAsync(state);
@@ -56,7 +57,7 @@ namespace backend.Controllers
 
         //U
         [HttpPut("update/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice,Operator")]
         public async Task<IActionResult> Update(Guid id, Order_Update dto)
         {
             try
@@ -76,7 +77,7 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}/state")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice,Operator")]
         public async Task<IActionResult> UpdateState(Guid id, Order_Update_State dto)
         {
             try
@@ -97,7 +98,7 @@ namespace backend.Controllers
 
         //D
         [HttpDelete("delete/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

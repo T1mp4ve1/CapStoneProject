@@ -28,6 +28,7 @@ namespace backend.Controllers
 
         // R
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var result = await _service.GetAllAsync();

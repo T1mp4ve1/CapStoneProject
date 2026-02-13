@@ -33,7 +33,7 @@ namespace backend.Controllers
 
         //R
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin,Vice,Operator")]
         public async Task<IActionResult> Read([FromQuery] TicketState? state)
         {
             try
@@ -80,7 +80,7 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}/update_state")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Vice,Operator")]
         public async Task<IActionResult> UpdateState(Guid id, TicketState_Update newState)
         {
             try
@@ -96,7 +96,7 @@ namespace backend.Controllers
 
         //D
         [HttpDelete("{id}/delete")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

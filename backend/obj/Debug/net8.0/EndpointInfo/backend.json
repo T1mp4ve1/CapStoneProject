@@ -118,6 +118,37 @@
         }
       }
     },
+    "/api/AppUser/changeRole": {
+      "post": {
+        "tags": [
+          "AppUser"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppUser_ChangeRole"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppUser_ChangeRole"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppUser_ChangeRole"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/AppUser/{email}": {
       "delete": {
         "tags": [
@@ -1087,6 +1118,20 @@
   },
   "components": {
     "schemas": {
+      "AppUser_ChangeRole": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "newRole": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "AppUser_Create": {
         "required": [
           "email",

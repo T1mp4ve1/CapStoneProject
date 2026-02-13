@@ -1,10 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import { deleteUser, getUsers } from "../../services/userService";
+import {
+  appRoles,
+  deleteUser,
+  getUsers,
+  updateUserRole,
+} from "../../services/userService";
 import { AuthContext } from "../../context/AuthContext";
 
 function UsersManager() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingRole, setLoadingRole] = useState({});
   const [searched, setSearched] = useState("");
   const [filtered, setFiltered] = useState([]);
   const { token } = useContext(AuthContext);
@@ -15,6 +21,7 @@ function UsersManager() {
       try {
         const data = await getUsers(token);
         setUsers(data);
+        console.log(data);
       } catch (err) {
         console.error("Artists fetch error:", err);
       } finally {
@@ -25,15 +32,19 @@ function UsersManager() {
   }, []);
 
   // U
-  // const handleUpdate = async () => {
-  //   try {
-  //     const edited = await updateArtist(editArtist.id, editArtist);
-  //     setArtists((prev) => prev.map((a) => (a.id === edited.id ? edited : a)));
-  //     setEditArtist(null);
-  //   } catch (err) {
-  //     console.error("Update artist error", err);
-  //   }
-  // };
+  const handleChangeRole = async (userId, newState) => {
+    try {
+      setLoadingRole((prev) => ({ ...prev, [userId]: true }));
+      await updateUserRole(userId, newState, token);
+      setUsers((prev) =>
+        prev.map((u) => (u.id === userId ? { ...u, roles: [newState] } : u)),
+      );
+    } catch (err) {
+      console.error("Update errore:", err);
+    } finally {
+      setLoadingRole((prev) => ({ ...prev, [userId]: false }));
+    }
+  };
 
   // D
   const handleDelete = async (email) => {
@@ -59,6 +70,13 @@ function UsersManager() {
     );
   }
 
+  const roleColors = {
+    Admin: "bg-danger",
+    Vice: "bg-warning",
+    Operator: "bg-success",
+    User: "bg-info",
+  };
+
   return (
     <>
       <div className="container80 manageContaner">
@@ -76,6 +94,7 @@ function UsersManager() {
             <thead>
               <tr>
                 <th>Id</th>
+                <th>Ruolo</th>
                 <th>Email</th>
                 <th>CreatedAt</th>
                 <th>Telefono</th>
@@ -86,6 +105,40 @@ function UsersManager() {
               {[...filtered].reverse().map((u) => (
                 <tr key={u.id}>
                   <td>{u.id}</td>
+                  <td>
+                    <div className="dropdown">
+                      {loadingRole[u.id] ? (
+                        <div
+                          className="spinner-border flexContainerCenter"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      ) : (
+                        <>
+                          <button
+                            className={`btn btn-light dropdown-toggle rounded-5 ${roleColors[u.roles[0]]}`}
+                            data-bs-toggle="dropdown"
+                          >
+                            {u.roles[0]}
+                          </button>
+
+                          <ul className="dropdown-menu">
+                            {appRoles.map((r) => (
+                              <li key={r}>
+                                <button
+                                  className={`dropdown-item d-flex align-items-center ${roleColors[r]}`}
+                                  onClick={() => handleChangeRole(u.id, r)}
+                                >
+                                  {r}
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </div>
+                  </td>
                   <td>
                     {u.email}
                     {u.emailConfirmed ? (
@@ -115,8 +168,8 @@ function UsersManager() {
                       </>
                     )}
                   </td>
-                  <td className="d-flex flex-column justify-content-center">
-                    <button className="editButtonSm mb-2">
+                  <td>
+                    <button className="editButtonSm me-1">
                       <i className="bi bi-pen"></i>
                     </button>
                     <button

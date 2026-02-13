@@ -20,7 +20,7 @@ namespace backend.Controllers
 
         //C
         [HttpPost("upload")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Upload(
             IFormFile file,
             [FromForm] ImageTypes entityType,

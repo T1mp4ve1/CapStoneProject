@@ -5,6 +5,7 @@ using backend.Model.DTO.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace backend.Services
 {
@@ -137,21 +138,30 @@ namespace backend.Services
         //R
         public async Task<List<AppUser_Read>> GetAllAsync()
         {
-            return await _userManager.Users
+            var users = await _userManager.Users
                 .AsNoTracking()
-                .Select(u => new AppUser_Read
-                {
-                    Id = u.Id,
-                    Email = u.Email,
-                    EmailConfirmed = u.EmailConfirmed,
-                    UserName = u.UserName,
-                    FirstName = u.FirstName,
-                    CreatedAt = u.CreatedAt,
-                    PhoneNumber = u.PhoneNumber,
-                    PhoneNumberConfirmed = u.PhoneNumberConfirmed,
-                    TwoFactorEnabled = u.TwoFactorEnabled,
-                    AccessFailedCount = u.AccessFailedCount
-                }).ToListAsync();
+                .ToListAsync();
+            var userRoles = await _db.UserRoles.ToListAsync();
+            var roles = await _db.Roles.ToListAsync();
+
+            var result = users.Select(u => new AppUser_Read
+            {
+                Id = u.Id,
+                Email = u.Email,
+                EmailConfirmed = u.EmailConfirmed,
+                UserName = u.UserName,
+                FirstName = u.FirstName,
+                CreatedAt = u.CreatedAt,
+                PhoneNumber = u.PhoneNumber,
+                PhoneNumberConfirmed = u.PhoneNumberConfirmed,
+                TwoFactorEnabled = u.TwoFactorEnabled,
+                AccessFailedCount = u.AccessFailedCount,
+                Roles = userRoles
+                 .Where(ur => ur.UserId == u.Id)
+                 .Join(roles, ur => ur.RoleId, r => r.Id, (ur, r) => r.Name).ToList()
+            }).ToList();
+
+            return result;
         }
 
         public async Task<RequestResult_DTO> GetByIdAsync(string userId)
@@ -221,6 +231,38 @@ namespace backend.Services
             };
 
             return new RequestResult_DTO { Success = true, Data = modified };
+        }
+
+        public async Task<RequestResult_DTO> UpdateRoles(AppUser_ChangeRole dto)
+        {
+            var user = await _userManager.FindByIdAsync(dto.UserId);
+            if (user == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+            var roleExist = await _db.Roles.AnyAsync(r => r.Name == dto.NewRole);
+            if (!roleExist)
+            {
+                return new RequestResult_DTO { Success = false, Error = "RoleNotFound" };
+            }
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            if (currentRoles.Contains("Admin"))
+            {
+                return new RequestResult_DTO { Success = false, Error = "CannotModifyAdmin" };
+            }
+            var removeRoles = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            if (!removeRoles.Succeeded)
+            {
+                return new RequestResult_DTO { Success = false, Error = "CannotRemoveRole" };
+            }
+            var addRole = await _userManager.AddToRoleAsync(user, dto.NewRole);
+            if (!addRole.Succeeded)
+            {
+                return new RequestResult_DTO { Success = false, Error = "CannotAddRole" };
+            }
+
+            return new RequestResult_DTO { Success = true, Data = new { user.Id, dto.NewRole } };
         }
 
         //D

@@ -56,7 +56,7 @@ namespace backend.Controllers
 
         //R
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice,Operator")]
         public async Task<IActionResult> Read()
         {
             try
@@ -104,9 +104,29 @@ namespace backend.Controllers
             }
         }
 
+        [HttpPost("changeRole")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ChangeRole(AppUser_ChangeRole dto)
+        {
+            try
+            {
+                var result = await _service.UpdateRoles(dto);
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         //D
         [HttpDelete("{email}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Delete(string email)
         {
             var result = await _service.DeleteAsync(email);

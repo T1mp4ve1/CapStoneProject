@@ -71,7 +71,7 @@ namespace backend.Controllers
 
         //U
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Update(Guitar_Update dto, Guid id)
         {
             try
@@ -99,7 +99,7 @@ namespace backend.Controllers
 
         //D
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Vice")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

@@ -1,19 +1,19 @@
 const api = import.meta.env.VITE_API_URL;
 
 export const registrationFunc = async (email, password, firstName) => {
-    const res = await fetch(`${api}/AppUser`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, firstName }),
-    });
+  const res = await fetch(`${api}/AppUser`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password, firstName }),
+  });
 
-    if (!res.ok) {
-      const errData = await res.json();
-      throw errData;
-    }
+  if (!res.ok) {
+    const errData = await res.json();
+    throw errData;
+  }
 
-    const data = await res.json();
-    return data;
+  const data = await res.json();
+  return data;
 };
 
 // C
@@ -72,6 +72,29 @@ export const updateUser = async (body, token) => {
     console.error("Update user error:", err);
   }
 };
+
+export const updateUserRole = async (userId, newRole, token) => {
+  try {
+    const res = await fetch(`${api}/AppUser/changeRole`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({userId, newRole}),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error update! Status: ${res.status}`);
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error("Update user error:", err);
+  }
+};
+
+export const appRoles = ["Admin", "Vice", "Operator", "User"];
 
 // D
 export const deleteUser = async (email, token) => {
