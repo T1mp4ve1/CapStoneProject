@@ -8,7 +8,7 @@
 }
 
 .guitarMainImg {
-    max-height: 300%;
+    max-height: 140%;
     max-width: 100%;
     transform: rotate(90deg);
     object-fit: contain;
@@ -51,4 +51,30 @@
 .modalDetailsContent {
     background-color: antiquewhite;
     width: 90%;
+}
+
+/* RESPONSIVE */
+
+@media (min-width: 992px) {
+    .guitarMainImg {
+        max-height: 180%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .guitarMainImg {
+        max-height: 230%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .guitarMainImg {
+        max-height: 260%;
+    }
+}
+
+@media (min-width: 1700px) {
+    .guitarMainImg {
+        max-height: 300%;
+    }
 }

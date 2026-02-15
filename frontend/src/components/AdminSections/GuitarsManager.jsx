@@ -117,7 +117,7 @@ function GuitarsManager() {
   }
 
   return (
-    <div className="container80 manageContaner">
+    <div className="componentContainer">
       {/* CREATE FORM */}
       <div className="createGuitarContainer position-relative">
         <h3>Aggiungi chitarra</h3>

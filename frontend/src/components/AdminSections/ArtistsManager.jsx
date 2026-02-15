@@ -5,7 +5,6 @@ import {
   getArtists,
   updateArtist,
 } from "../../services/artistService";
-import "../css/ArtistManager.css";
 
 function ArtistsManager() {
   const [artists, setArtists] = useState([]);
@@ -83,7 +82,7 @@ function ArtistsManager() {
   }
 
   return (
-    <div className="container80 manageContaner">
+    <>
       {/* CREATE FORM */}
       <div className="createArtistContainer">
         <h3>Aggiungi artista</h3>
@@ -109,7 +108,10 @@ function ArtistsManager() {
             setNewArtist({ ...newArtist, about: e.target.value })
           }
         />
-        <button className="mb-4 w-100 loginBtn" onClick={() => handleCreateArtist()}>
+        <button
+          className="mb-4 w-100 loginBtn"
+          onClick={() => handleCreateArtist()}
+        >
           Aggiungi
         </button>
       </div>
@@ -217,7 +219,7 @@ function ArtistsManager() {
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 }
 

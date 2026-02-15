@@ -9,8 +9,6 @@ function DetailsPage() {
   const [guitar, setGuitar] = useState(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
-  // const [showModal, setShowModal] = useState(false);
-  // const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const loadData = async () => {
@@ -48,10 +46,6 @@ function DetailsPage() {
                   <img
                     src={guitar.mainImg}
                     className="guitarMainImg"
-                    onClick={() => {
-                      setActiveIndex(0);
-                      setShowModal(true);
-                    }}
                   />
                 </div>
                 {guitar.imgs.map((i) => (
@@ -63,13 +57,6 @@ function DetailsPage() {
                       src={i.url}
                       alt="img"
                       className="alternativeImg"
-                      onClick={() => {
-                        const index = guitar.imgs.findIndex(
-                          (img) => img.id === i.id,
-                        );
-                        setActiveIndex(index);
-                        setShowModal(true);
-                      }}
                     />
                   </div>
                 ))}
@@ -85,7 +72,7 @@ function DetailsPage() {
                 </div>
 
                 <div className="col cardDetails shadow-sm">
-                  <div className="d-flex justify-content-around align-items-center">
+                  <div className="d-flex flex-column flex-lg-row justify-content-around align-items-center">
                     <h2 className="my-2">{guitar.price} €</h2>
                     <button
                       className="beatyButton2"
@@ -97,7 +84,7 @@ function DetailsPage() {
                 </div>
 
                 <div className="col cardDetails shadow-sm">
-                  <div className="row row-cols-2">
+                  <div className="row row-cols-1 row-cols-xl-2">
                     <div className="col flexContainerLeft">
                       <i className="bi bi-shield-check fs-3 me-1"></i>
                       <p>Garanzia a vita</p>

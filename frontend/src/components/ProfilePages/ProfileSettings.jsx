@@ -67,7 +67,7 @@ function ProfileSettings() {
       <div className="containerAfterNavbar slowOpacity">
         {userInfo && (
           <div className="row flexContainerCenter">
-            <div className="col-6 beigeContainer shadow-sm">
+            <div className="col-12 col-md-10 col-lg-8 col-xl-6 beigeContainer shadow-sm">
               <h2>Profile Settings</h2>
               <hr />
               <ul className="fs-5">

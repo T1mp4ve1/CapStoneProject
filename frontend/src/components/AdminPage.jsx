@@ -45,7 +45,7 @@ function AdminPage() {
           </button>
         </div>
       </div>
-      <div className="container80 manageContaner flexContainerCenter">
+      <div className="componentContainer">
         {activeSection === "users" && <UsersManager />}
         {activeSection === "artists" && <ArtistsManager />}
         {activeSection === "guitars" && <GuitarsManager />}

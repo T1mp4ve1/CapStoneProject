@@ -69,7 +69,7 @@ const CartPage = () => {
     <>
       <div className="containerAfterNavbar">
         <div className="row flexContainerCenter">
-          <div className="col-6">
+          <div className="col-10 col-lg-8 col-xl-6">
             {/* CART */}
             {products.length === 0 && (
               <div className="text-center">

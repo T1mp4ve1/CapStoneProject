@@ -225,6 +225,11 @@ body,
     margin: 5rem auto 0 auto;
 }
 
+.componentContainer {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .container90 {
     width: 90%;
     margin: 0 auto;
@@ -457,6 +462,24 @@ tbody tr:last-child td:last-child {
     border-bottom-right-radius: 20px;
 }
 
-tr:hover{
+tr:hover {
     background-color: var(--colorBrown);
 }
+
+/* RESPONSIVE */
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {
+    .componentContainer {
+        width: 90%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .componentContainer {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1400px) {}

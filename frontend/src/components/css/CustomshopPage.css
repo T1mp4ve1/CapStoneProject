@@ -8,10 +8,9 @@
 }
 
 .customShopMainImg {
-    max-height: 300%;
+    max-height: 200%;
     max-width: 100%;
     transform: rotate(90deg);
-    object-fit: contain;
 }
 
 .cardCustomShop {
@@ -43,4 +42,11 @@
     border: 2px solid transparent;
     border-radius: 10px;
     background-color: var(--colorBeige);
+}
+
+@media (min-width: 1200px) {
+    .customShopMainImg {
+        max-height: 300%;
+        max-width: 100%;
+    }
 }
