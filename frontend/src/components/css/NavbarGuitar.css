@@ -14,16 +14,8 @@
     }
 }
 
-.navbarLeft {
-    margin-left: 3rem;
-}
-
-.navbarRight {
-    margin-right: 3rem;
-}
-
 .navbarLink {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 2vw, 1.5rem);
     color: rgb(21, 21, 21);
     border-top: 2px solid rgba(122, 30, 20, 0);
     transition: all 0.3s;
@@ -38,7 +30,7 @@
 
 .logoFont {
     font-family: "Limelight", sans-serif;
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -99,4 +91,14 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+/* RESPONSIVE */
+@media (min-width: 992px) {
+    /* .logoFont {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    } */
 }

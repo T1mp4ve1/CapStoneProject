@@ -85,7 +85,6 @@ function HomePageGuitar() {
   }
 
   return (
-    <>
       <div className="generalHomeDiv">
         {/* TOP */}
         <section>
@@ -99,12 +98,12 @@ function HomePageGuitar() {
             }}
           ></div>
 
-          <div className="hpTop d-flex justify-content-between text-light container90">
+          <div className="hpTop d-xl-flex justify-content-between align-items-center text-light container90">
             <div
-              className="glassContainer slowOpacity shadow text-center"
+              className="glassContainer slowOpacity shadow text-center mb-5 mb-xl-0"
               style={{ animationDelay: "0.2s" }}
             >
-              <h2 style={{ fontSize: "5rem" }}>
+              <h2>
                 <span className="slowOpacity">Scelto da te</span>
                 <br />
                 <span className="slowOpacity">Fatto da noi</span>
@@ -123,7 +122,7 @@ function HomePageGuitar() {
               className="glassContainer slowOpacity shadow text-center"
               style={{ animationDelay: "0.2s" }}
             >
-              <h2 style={{ fontSize: "5rem" }}>
+              <h2>
                 <span className="slowOpacity">Nostra</span>
                 <br />
                 <span className="slowOpacity">Collezione</span>
@@ -144,7 +143,7 @@ function HomePageGuitar() {
         <section>
           <div className="container80 my-5 fade-in">
             <h2 className="fontTitle">Piu popolari</h2>
-            <div className="row row-cols-4 g-2">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-2">
               {guitars.slice(7, 11).map((g) => (
                 <div className="col" key={g.id}>
                   <div
@@ -193,7 +192,7 @@ function HomePageGuitar() {
               </>
             ) : (
               <>
-                <div className="row row-cols-5 g-1">
+                <div className="row row-cols-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-1">
                   {artists.map((a, index) => (
                     <div className="col" key={a.id}>
                       <div className="card rounded-0 position-relative cardArtist">
@@ -210,7 +209,6 @@ function HomePageGuitar() {
           </div>
         </section>
       </div>
-    </>
   );
 }
 

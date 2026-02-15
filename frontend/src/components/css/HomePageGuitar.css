@@ -5,9 +5,9 @@
 /* TOP */
 .hpTop {
     position: absolute;
-    top: 35%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 }
 
 .glassContainer {
@@ -24,7 +24,11 @@
     border: 2px solid rgba(255, 250, 242, 0.525);
 }
 
-.glassContainer h2,
+.glassContainer h2 {
+    font-family: "Poiret One", sans-serif;
+    font-size: clamp(3rem, 4vw, 5rem);
+}
+
 .glassContainer p {
     font-family: "Poiret One", sans-serif;
 }
@@ -92,4 +96,11 @@
 .artistName {
     width: 100%;
     background: rgba(255, 250, 242, 0.899);
+}
+
+/* RESPONSIVE */
+@media (min-width: 992px) {
+    .hpTop{
+        
+    }
 }
