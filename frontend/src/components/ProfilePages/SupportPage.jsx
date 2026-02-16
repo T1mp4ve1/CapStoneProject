@@ -32,17 +32,14 @@ function SupportPage() {
         }
         const loadedTickets = res.data;
         setTickets(loadedTickets);
-        console.log("Tickets:", loadedTickets);
 
         const msgs = {};
 
         for (const t of loadedTickets) {
           const resMsgs = await getMessagesByTicket(t.id, token);
-          console.log("Msg", resMsgs.data);
           msgs[t.id] = resMsgs.data;
         }
         setMessages(msgs);
-        console.log("Messages", messages);
       } catch (err) {
         console.error("Fetch page error", err);
       } finally {
@@ -159,7 +156,7 @@ function SupportPage() {
                         disabled={t.state === "Closed"}
                         onClick={() => handleChangeState(t.id, "Closed")}
                       >
-                        <i className="bi bi-trash"></i>
+                        <i className="bi bi-check-lg"></i>
                       </button>
                     </td>
                   </tr>
