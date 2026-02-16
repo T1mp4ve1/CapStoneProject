@@ -2,8 +2,8 @@
 {
     public class Opinion_Create
     {
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
         public string UserOpinion { get; set; }
-
+        public Guid? EntityId { get; set; }
     }
 }

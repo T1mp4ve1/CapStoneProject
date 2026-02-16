@@ -35,13 +35,20 @@ namespace backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet("my")]
+        [HttpGet("by_ticket/{id}")]
         [Authorize]
-        public async Task<IActionResult> GetMine()
+        public async Task<IActionResult> GetTicket(Guid id)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var result = await _service.GetByUserAsync(userId);
-            return Ok(result);
+            try
+            {
+                var result = await _service.GetByIdAsync(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
 
         // U

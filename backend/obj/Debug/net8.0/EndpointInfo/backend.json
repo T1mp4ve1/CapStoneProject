@@ -721,10 +721,21 @@
         }
       }
     },
-    "/api/Opinion/my": {
+    "/api/Opinion/by_ticket/{id}": {
       "get": {
         "tags": [
           "Opinion"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -1362,10 +1373,16 @@
         "properties": {
           "rating": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "userOpinion": {
             "type": "string",
+            "nullable": true
+          },
+          "entityId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true
           }
         },

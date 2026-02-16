@@ -10,8 +10,7 @@ namespace backend.Model
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        [Required]
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
 
         [Required]
         public string UserId { get; set; }
@@ -20,6 +19,9 @@ namespace backend.Model
         [Required]
         [MaxLength(1000)]
         public string UserOpinion { get; set; }
+
+        public Guid? EntityId { get; set; }
+        public Ticket? Entity { get; set; }
 
     }
 }

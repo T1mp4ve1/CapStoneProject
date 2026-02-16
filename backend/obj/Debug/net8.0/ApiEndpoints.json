@@ -486,12 +486,18 @@
   },
   {
     "ContainingType": "backend.Controllers.OpinionController",
-    "Method": "GetMine",
-    "RelativePath": "api/Opinion/my",
+    "Method": "GetTicket",
+    "RelativePath": "api/Opinion/by_ticket/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

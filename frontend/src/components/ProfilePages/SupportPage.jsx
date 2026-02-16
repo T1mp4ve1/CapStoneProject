@@ -5,11 +5,14 @@ import {
   getUserTickets,
   updateTicketState,
 } from "../../services/ticketsService";
+import { getMessagesByTicket } from "../../services/OpinionService";
 
 function SupportPage() {
   const [tickets, setTickets] = useState([]);
+  const [messages, setMessages] = useState({});
   const [loading, setLoading] = useState(true);
   const [problem, setProblem] = useState("");
+  const [openRow, setOpenRow] = useState(null);
   const { token } = useAuth();
 
   const stateIcons = {
@@ -23,8 +26,23 @@ function SupportPage() {
       try {
         setLoading(true);
         const res = await getUserTickets(token);
-        setTickets(res.data);
-        console.log(res.data);
+        if (!res.success) {
+          console.error(res.error);
+          return;
+        }
+        const loadedTickets = res.data;
+        setTickets(loadedTickets);
+        console.log("Tickets:", loadedTickets);
+
+        const msgs = {};
+
+        for (const t of loadedTickets) {
+          const resMsgs = await getMessagesByTicket(t.id, token);
+          console.log("Msg", resMsgs.data);
+          msgs[t.id] = resMsgs.data;
+        }
+        setMessages(msgs);
+        console.log("Messages", messages);
       } catch (err) {
         console.error("Fetch page error", err);
       } finally {
@@ -81,7 +99,7 @@ function SupportPage() {
           </div>
         </div>
 
-        <h2>Le mie richieste</h2>
+        <h2>Cronologia richieste</h2>
         {loading && (
           <div className="spinner-border flexContainerCenter" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -94,31 +112,96 @@ function SupportPage() {
               <th>Data</th>
               <th>Stato</th>
               <th>Problema</th>
+              <th>Risposte</th>
               <th>Azioni</th>
             </tr>
           </thead>
-
           <tbody>
             {tickets &&
               tickets.map((t) => (
-                <tr key={t.id}>
-                  <td>{t.id}</td>
-                  <td>{new Date(t.createdAt).toLocaleString()}</td>
-                  <td>
-                    {stateIcons[t.state]}{" "}
-                    <span className="ms-1">{t.state}</span>
-                  </td>
-
-                  <td>{t.problem}</td>
-                  <td>
-                    <button
-                      className="beatyButtonSm"
-                      onClick={() => handleChangeState(t.id, "Closed")}
-                    >
-                      <i className="bi bi-trash"></i>
-                    </button>
-                  </td>
-                </tr>
+                <>
+                  <tr key={t.id}>
+                    <td>{t.id}</td>
+                    <td>
+                      <p>
+                        {new Date(t.createdAt).toLocaleString("it-IT", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </td>
+                    <td>
+                      {stateIcons[t.state]}{" "}
+                      <span className="ms-1">{t.state}</span>
+                    </td>
+                    <td>{t.problem}</td>
+                    <td>
+                      <button
+                        className="flexContainerCenter beatyBadge"
+                        onClick={() =>
+                          setOpenRow(openRow === t.id ? null : t.id)
+                        }
+                      >
+                        <p>{messages[t.id]?.length}</p>
+                        <i className="bi bi-arrow-down-short fs-5"></i>
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className={
+                          t.state === "Closed"
+                            ? "beatyButtonSmDisabled"
+                            : "beatyButtonSm"
+                        }
+                        disabled={t.state === "Closed"}
+                        onClick={() => handleChangeState(t.id, "Closed")}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  {openRow === t.id && (
+                    <tr className="expandedTr">
+                      <td className="expandedRow" colSpan="1">
+                        <i className="bi bi-arrow-90deg-up fs-5"></i>
+                      </td>
+                      <td className="expandedRow" colSpan="2">
+                        {messages[t.id]?.length > 0 && (
+                          <>
+                            {messages[t.id].map((m) => (
+                              <p className="text-muted">
+                                {new Date(m.createdAt).toLocaleString("it-IT", {
+                                  day: "2-digit",
+                                  month: "short",
+                                  year: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </p>
+                            ))}
+                          </>
+                        )}
+                      </td>
+                      <td className="expandedRow" colSpan="3">
+                        {messages[t.id]?.length > 0 ? (
+                          <>
+                            {messages[t.id].map((m) => (
+                              <p key={m.id}>
+                                <strong>{m.userFirstName}</strong>:{" "}
+                                {m.userOpinion}
+                              </p>
+                            ))}
+                          </>
+                        ) : (
+                          <p className="text-danger">Nessuna risposta ancora</p>
+                        )}
+                      </td>
+                    </tr>
+                  )}
+                </>
               ))}
           </tbody>
         </table>

@@ -97,7 +97,7 @@ function TicketsManager() {
           <tbody>
             {tickets &&
               tickets.map((t) => (
-                <tr key={t.id}>
+                <tr key={t.id} style={{ cursor: "pointer" }}>
                   <td>{t.id}</td>
                   <td>{new Date(t.createdAt).toLocaleString()}</td>
                   <td className="position-relative">

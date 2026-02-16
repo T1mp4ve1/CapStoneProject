@@ -20,13 +20,12 @@ export const getAllOpinions = async () => {
   return await res.json();
 };
 
-export const getMyOpinions = async (token) => {
-  const res = await fetch(`${api}/Opinion/my`, {
+export const getMessagesByTicket = async (id, token) => {
+  const res = await fetch(`${api}/Opinion/by_ticket/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
   return await res.json();
 };
 

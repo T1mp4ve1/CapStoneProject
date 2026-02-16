@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Limelight&family=Outfit:wght@100..900&family=Poiret+One&display=swap');
 
+p {
+    margin: 0;
+}
+
 .card {
     cursor: pointer;
 }
@@ -70,6 +74,7 @@ body {
 
 .loginBtn:hover {
     background-color: var(--colorBeige);
+    box-shadow: 0px 1px 0px 1px var(--colorMediumBeige);
 }
 
 .beatyButton2 {
@@ -176,6 +181,16 @@ body {
     box-shadow: 0px 0px 5px 1px var(--colorBeigeRuby);
 }
 
+.beatyButtonSmDisabled {
+    font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--colorLightGrey);
+    border-radius: 10px;
+    background-color: var(--colorBeige);
+    color: var(--colorLightGrey);
+}
+
 .editButtonSm {
     font-size: 1.4rem;
     width: 40px;
@@ -198,9 +213,11 @@ body {
     box-shadow: 0px 0px 5px 1px var(--colorTurquoise);
 }
 
-
-p {
-    margin: 0;
+.beatyBadge {
+    background-color: var(--colorSemiMediumBeige);
+    border-radius: 20px;
+    border: none;
+    padding: 0rem 2rem;
 }
 
 /* CONTAINERS */
@@ -465,6 +482,32 @@ tbody tr:last-child td:last-child {
 tr:hover {
     background-color: var(--colorBrown);
 }
+
+.expandedRow {
+    background-color: var(--colorSemiMediumBeige);
+    animation: fadeIn 0.2s;
+}
+
+.expandedTr td:last-child {
+    border-bottom-right-radius: 20px;
+}
+.expandedTr td:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 /* RESPONSIVE */
 

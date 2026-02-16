@@ -203,29 +203,29 @@ const CartPage = () => {
                         ) : (
                           <>
                             {activeWindow === "login" && (
-                              <>
-                                <div className="text-center">
-                                  <MenuLogin />
-                                  <i className="bi bi-dot fs-4"></i>
-                                  <p
-                                    onClick={() => setActiveWindow("register")}
-                                  >
-                                    Registrati
-                                  </p>
-                                </div>
-                              </>
+                              <div className="flexContainerCenter flex-column">
+                                <MenuLogin />
+                                <i className="bi bi-dot fs-4"></i>
+                                <button
+                                  className="loginBtn px-3"
+                                  onClick={() => setActiveWindow("register")}
+                                >
+                                  Registrati
+                                </button>
+                              </div>
                             )}
 
                             {activeWindow === "register" && (
-                              <>
-                                <div className="text-center">
-                                  <MenuRegistration />
-                                  <i className="bi bi-dot fs-4"></i>
-                                  <p onClick={() => setActiveWindow("login")}>
-                                    Loggati
-                                  </p>
-                                </div>
-                              </>
+                              <div className="flexContainerCenter flex-column">
+                                <MenuRegistration />
+                                <i className="bi bi-dot fs-4"></i>
+                                <button
+                                  className="loginBtn px-3"
+                                  onClick={() => setActiveWindow("login")}
+                                >
+                                  Loggati
+                                </button>
+                              </div>
                             )}
                           </>
                         )}

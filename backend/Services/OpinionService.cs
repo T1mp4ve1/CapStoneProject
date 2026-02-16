@@ -21,7 +21,8 @@ namespace backend.Services
             {
                 UserId = userId,
                 Rating = dto.Rating,
-                UserOpinion = dto.UserOpinion
+                UserOpinion = dto.UserOpinion,
+                EntityId = dto.EntityId
             };
 
             _db.Opinions.Add(newOpinion);
@@ -38,6 +39,7 @@ namespace backend.Services
         public async Task<RequestResult_DTO> GetAllAsync()
         {
             var opinions = await _db.Opinions
+                .Where(o => o.EntityId == null)
                 .Include(o => o.User)
                 .OrderByDescending(o => o.CreatedAt)
                 .Select(o => new Opinion_Read
@@ -55,11 +57,11 @@ namespace backend.Services
             return new RequestResult_DTO { Success = true, Data = opinions };
         }
 
-        public async Task<RequestResult_DTO> GetByUserAsync(string userId)
+        public async Task<RequestResult_DTO> GetByIdAsync(Guid id)
         {
             var list = await _db.Opinions
-                .Where(o => o.UserId == userId)
-                .OrderByDescending(o => o.CreatedAt)
+                .Where(o => o.EntityId == id)
+                .OrderBy(o => o.CreatedAt)
                 .Select(o => new Opinion_Read
                 {
                     Id = o.Id,
@@ -67,7 +69,8 @@ namespace backend.Services
                     Rating = o.Rating,
                     UserOpinion = o.UserOpinion,
                     UserId = o.UserId,
-                    userFirstName = o.User.FirstName
+                    userFirstName = o.User.FirstName,
+                    EntityId = o.EntityId
                 })
                 .ToListAsync();
 

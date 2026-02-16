@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  getAllOpinions,
-  createOpinion,
-  updateOpinion,
-  deleteOpinion,
-} from "../services/OpinionService";
 import { useAuth } from "../context/UseAuth";
 import "./css/OpinionPage.css";
+import {
+  createOpinion,
+  deleteOpinion,
+  getAllOpinions,
+  updateOpinion,
+} from "../services/OpinionService";
 
 function OpinionPage() {
   const { token, userEmail, userRoles, isLogged } = useAuth();
