@@ -84,6 +84,7 @@ namespace backend.Services
         {
             var query = _db.Orders
                 .AsNoTracking()
+                .OrderBy(o => o.CreatedAt)
                 .Include(o => o.Products)
                 .Include(o => o.User)
                 .AsQueryable();

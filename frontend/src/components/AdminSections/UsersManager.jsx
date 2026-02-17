@@ -63,14 +63,6 @@ function UsersManager() {
     setFiltered(result);
   }, [searched, users]);
 
-  if (loading) {
-    return (
-      <div className="spinner-border flexContainerCenter" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    );
-  }
-
   return (
     <>
       <h2>Utenti</h2>
@@ -93,85 +85,112 @@ function UsersManager() {
           </tr>
         </thead>
         <tbody>
-          {[...filtered].reverse().map((u) => (
-            <tr key={u.id}>
-              <td>{u.id}</td>
-              <td>
-                <div className="dropdown">
-                  {loadingRole[u.id] ? (
-                    <div
-                      className="spinner-border flexContainerCenter"
-                      role="status"
-                    >
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  ) : (
-                    <>
-                      <button
-                        className={`btn btn-light dropdown-toggle rounded-5 ${roleColors[u.roles[0]]}`}
-                        data-bs-toggle="dropdown"
-                      >
-                        {u.roles[0]}
-                      </button>
+          {loading ? (
+            <>
+              <tr>
+                <td>
+                  <div className="spinner-border"></div>
+                </td>
+                <td>
+                  <div className="spinner-border"></div>
+                </td>
+                <td>
+                  <div className="spinner-border"></div>
+                </td>
+                <td>
+                  <div className="spinner-border"></div>
+                </td>
+                <td>
+                  <div className="spinner-border"></div>
+                </td>
+                <td>
+                  <div className="spinner-border"></div>
+                </td>
+              </tr>
+            </>
+          ) : (
+            <>
+              {[...filtered]?.reverse().map((u) => (
+                <tr key={u.id}>
+                  <td>{u.id}</td>
+                  <td>
+                    <div className="dropdown">
+                      {loadingRole[u.id] ? (
+                        <div
+                          className="spinner-border flexContainerCenter"
+                          role="status"
+                        >
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      ) : (
+                        <>
+                          <button
+                            className={`btn btn-light dropdown-toggle rounded-5 ${roleColors[u.roles[0]]}`}
+                            data-bs-toggle="dropdown"
+                          >
+                            {u.roles[0]}
+                          </button>
 
-                      <ul className="dropdown-menu">
-                        {appRoles.map((r) => (
-                          <li key={r}>
-                            <button
-                              className={`dropdown-item d-flex align-items-center ${roleColors[r]}`}
-                              onClick={() => handleChangeRole(u.id, r)}
-                            >
-                              {r}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                </div>
-              </td>
-              <td>
-                {u.email}
-                {u.emailConfirmed ? (
-                  <i className="bi bi-check text-success"></i>
-                ) : (
-                  <i className="bi bi-x text-danger"></i>
-                )}
-              </td>
-              <td>
-                {new Date(u.createdAt).toLocaleString("it-IT", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </td>
-              <td>
-                {u.phoneNumber && (
-                  <>
-                    {u.phoneNumber}
-                    {u.phoneNumberConfirmed ? (
+                          <ul className="dropdown-menu">
+                            {appRoles.map((r) => (
+                              <li key={r}>
+                                <button
+                                  className={`dropdown-item d-flex align-items-center ${roleColors[r]}`}
+                                  onClick={() => handleChangeRole(u.id, r)}
+                                >
+                                  {r}
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                  <td>
+                    {u.email}
+                    {u.emailConfirmed ? (
                       <i className="bi bi-check text-success"></i>
                     ) : (
                       <i className="bi bi-x text-danger"></i>
                     )}
-                  </>
-                )}
-              </td>
-              <td>
-                <button className="editButtonSm me-1">
-                  <i className="bi bi-pen"></i>
-                </button>
-                <button
-                  className="beatyButtonSm"
-                  onClick={() => handleDelete(u.email)}
-                >
-                  <i className="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-          ))}
+                  </td>
+                  <td>
+                    {new Date(u.createdAt).toLocaleString("it-IT", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </td>
+                  <td>
+                    {u.phoneNumber && (
+                      <>
+                        {u.phoneNumber}
+                        {u.phoneNumberConfirmed ? (
+                          <i className="bi bi-check text-success"></i>
+                        ) : (
+                          <i className="bi bi-x text-danger"></i>
+                        )}
+                      </>
+                    )}
+                  </td>
+                  <td>
+                    <button className="editButtonSm me-1">
+                      <i className="bi bi-pen"></i>
+                    </button>
+                    <button
+                      className="beatyButtonSm"
+                      onClick={() => handleDelete(u.email)}
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </>
+          )}
         </tbody>
       </table>
     </>

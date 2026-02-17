@@ -73,14 +73,6 @@ function ArtistsManager() {
     setFiltered(result);
   }, [searched, artists]);
 
-  if (loading) {
-    return (
-      <div className="spinner-border flexContainerCenter" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    );
-  }
-
   return (
     <>
       {/* CREATE FORM */}
@@ -171,7 +163,7 @@ function ArtistsManager() {
       )}
 
       {/* LIST */}
-      <div className="artistListContainer">
+      <div>
         <h2>Lista artisti</h2>
         <input
           type="text"
@@ -184,38 +176,65 @@ function ArtistsManager() {
         <table>
           <thead>
             <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">Img</th>
-              <th scope="col">About</th>
-              <th scope="col">Actions</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Img</th>
+              <th>About</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {[...filtered].reverse().map((a) => (
-              <tr key={a.id}>
-                <td scope="row">{a.id}</td>
-                <td>{a.name}</td>
-                <td>
-                  <img src={a.img} alt="img" width={60} />{" "}
-                </td>
-                <td>{a.about}</td>
-                <td>
-                  <button
-                    className="editButtonSm mb-2"
-                    onClick={() => setEditArtist(a)}
-                  >
-                    <i className="bi bi-pen"></i>
-                  </button>
-                  <button
-                    className="beatyButtonSm"
-                    onClick={() => handleDelete(a.id)}
-                  >
-                    <i className="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {loading ? (
+              <>
+                <tr>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                </tr>
+              </>
+            ) : (
+              <>
+                {[...filtered].reverse().map((a) => (
+                  <tr key={a.id}>
+                    <td scope="row">{a.id}</td>
+                    <td>{a.name}</td>
+                    <td>
+                      <img src={a.img} alt="img" width={60} />{" "}
+                    </td>
+                    <td>{a.about}</td>
+                    <td>
+                      <button
+                        className="editButtonSm mb-2"
+                        onClick={() => setEditArtist(a)}
+                      >
+                        <i className="bi bi-pen"></i>
+                      </button>
+                      <button
+                        className="beatyButtonSm"
+                        onClick={() => handleDelete(a.id)}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>

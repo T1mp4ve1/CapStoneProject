@@ -108,17 +108,8 @@ function GuitarsManager() {
     setFiltered(result);
   }, [searched, guitars]);
 
-  if (loading) {
-    return (
-      <div className="spinner-border flexContainerCenter" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    );
-  }
-
   return (
-    <div className="componentContainer">
-      {/* CREATE FORM */}
+    <>
       <div className="createGuitarContainer position-relative">
         <h3>Aggiungi chitarra</h3>
         <input
@@ -271,44 +262,74 @@ function GuitarsManager() {
         <table>
           <thead>
             <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">Price</th>
-              <th scope="col">Tipo</th>
-              <th scope="col">TipoId</th>
-              <th scope="col">About</th>
-              <th scope="col">Actions</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Tipo</th>
+              <th>TipoId</th>
+              <th>About</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {[...filtered].reverse().map((g) => (
-              <tr key={g.id}>
-                <td>{g.id}</td>
-                <td>{g.name}</td>
-                <td>{g.price}</td>
-                <td>{g.category}</td>
-                <td>{g.categoryId}</td>
-                <td>{g.description}</td>
-                <td>
-                  <button
-                    className="editButtonSm mb-2"
-                    onClick={() => setEditGuitar(g)}
-                  >
-                    <i className="bi bi-pen"></i>
-                  </button>
-                  <button
-                    className="beatyButtonSm"
-                    onClick={() => handleDelete(g.id)}
-                  >
-                    <i className="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {loading ? (
+              <>
+                <tr>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                  <td>
+                    <div className="spinner-border"></div>
+                  </td>
+                </tr>
+              </>
+            ) : (
+              <>
+                {[...filtered].reverse().map((g) => (
+                  <tr key={g.id}>
+                    <td>{g.id}</td>
+                    <td>{g.name}</td>
+                    <td>{g.price}</td>
+                    <td>{g.category}</td>
+                    <td>{g.categoryId}</td>
+                    <td>{g.description}</td>
+                    <td>
+                      <button
+                        className="editButtonSm mb-2"
+                        onClick={() => setEditGuitar(g)}
+                      >
+                        <i className="bi bi-pen"></i>
+                      </button>
+                      <button
+                        className="beatyButtonSm"
+                        onClick={() => handleDelete(g.id)}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 }
 

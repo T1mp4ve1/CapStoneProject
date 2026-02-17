@@ -94,7 +94,7 @@ function NavbarGuitar() {
                   </div>
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu className="profileDropdownMenu border-0 slowOpacity shadow-lg">
+                <Dropdown.Menu className="notifiDropdownMenu border-0 slowOpacity shadow-lg">
                   <div className="d-flex justify-content-between align-items-center px-3 pt-2 asdfgh">
                     <span className="fw-bold">Notifiche</span>
                     {notifications.length > 0 ? (
@@ -120,13 +120,14 @@ function NavbarGuitar() {
                       className={`px-3 py-2 notificationItem ${n.read ? "read" : "unread"}`}
                     >
                       <div className="d-flex justify-content-between">
-                        <span>
-                          Ordine <b>...{String(n.orderId).slice(-6)}</b>{" "}
-                          <b>
+                        <p>
+                          ID:<b>...{String(n.orderId).slice(-8)}</b>
+                          {" - "}
+                          <span style={{ fontSize: "1rem" }}>
                             {n.state}
                             {stateIcons[n.state]}
-                          </b>
-                        </span>
+                          </span>
+                        </p>
                       </div>
                       <small className="text-muted">
                         {new Date(n.createdAt).toLocaleString()}

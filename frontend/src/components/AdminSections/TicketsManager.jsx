@@ -96,151 +96,157 @@ function TicketsManager() {
 
   return (
     <>
-      <div className="container80 manageContaner">
-        <h2>Tickets</h2>
+      <div className="flexContainerLeft">
+        <h2 className="me-2">Tickets</h2>
         {loading && (
-          <div className="spinner-border flexContainerCenter" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+          <small>
+            <div className="spinner-border"></div>
+          </small>
         )}
+      </div>
 
-        <div className="d-flex gap-1 mb-2">
-          {["All", ...ticketStates].map((s) => (
-            <button
-              key={s}
-              className={`${
-                filter === s ? "beatyButton3Active" : "beatyButton3"
-              }`}
-              onClick={() => handleFilter(s)}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Data</th>
-              <th>Stato</th>
-              <th>Problema</th>
-              <th>Risposte</th>
-              <th>Azioni</th>
-            </tr>
-          </thead>
+      <div className="d-flex gap-1 mb-2">
+        {["All", ...ticketStates].map((s) => (
+          <button
+            key={s}
+            className={`${
+              filter === s ? "beatyButton3Active" : "beatyButton3"
+            }`}
+            onClick={() => handleFilter(s)}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Stato</th>
+            <th>Problema</th>
+            <th>Risposte</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            {tickets &&
-              tickets.map((t) => (
-                <React.Fragment key={t.id}>
-                  <tr style={{ cursor: "pointer" }}>
-                    <td>{t.id}</td>
-                    <td>{new Date(t.createdAt).toLocaleString()}</td>
-                    <td className="position-relative">
-                      <div className="dropdown">
-                        <button
-                          className="btn btn-light dropdown-toggle"
-                          data-bs-toggle="dropdown"
-                        >
-                          {stateIcons[t.state]}
-                        </button>
+        <tbody>
+          {tickets &&
+            tickets.map((t) => (
+              <React.Fragment key={t.id}>
+                <tr style={{ cursor: "pointer" }}>
+                  <td>{t.id}</td>
+                  <td>{new Date(t.createdAt).toLocaleString()}</td>
+                  <td className="position-relative">
+                    <div className="dropdown">
+                      <button
+                        className="btn btn-light dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                      >
+                        {stateIcons[t.state]}
+                      </button>
 
-                        <ul className="dropdown-menu">
-                          {ticketStates.map((s) => (
-                            <li key={s}>
-                              <button
-                                className="dropdown-item d-flex align-items-center gap-2"
-                                onClick={() => handleChangeState(t.id, s)}
-                              >
-                                {stateIcons[s]} {s}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
+                      <ul className="dropdown-menu">
+                        {ticketStates.map((s) => (
+                          <li key={s}>
+                            <button
+                              className="dropdown-item d-flex align-items-center gap-2"
+                              onClick={() => handleChangeState(t.id, s)}
+                            >
+                              {stateIcons[s]} {s}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </td>
+
+                  <td>{t.problem}</td>
+                  <td>
+                    {loading ? (
+                      <div
+                        class="spinner-grow text-info"
+                        role="status"
+                      >
+                        <span class="visually-hidden">Loading...</span>
                       </div>
-                    </td>
+                    ) : (
+                      <>
+                        <button
+                          className="flexContainerCenter beatyBadge"
+                          onClick={() =>
+                            setOpenRow(openRow === t.id ? null : t.id)
+                          }
+                        >
+                          <p>{messages[t.id]?.length}</p>
+                          <i className="bi bi-arrow-down-short fs-5"></i>
+                        </button>
+                      </>
+                    )}
+                  </td>
+                  <td>
+                    <button
+                      className="beatyButtonSm"
+                      onClick={() => handleDelete(t.id)}
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
 
-                    <td>{t.problem}</td>
-                    <td>
+                {openRow === t.id && (
+                  <tr className="expandedTr">
+                    <td className="expandedRow" colSpan="3">
+                      <textarea
+                        className="form-control rounded-4 mb-1"
+                        placeholder="Scrivi messaggio..."
+                        style={{ height: "150px" }}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                      />
                       <button
-                        className="flexContainerCenter beatyBadge"
-                        onClick={() =>
-                          setOpenRow(openRow === t.id ? null : t.id)
-                        }
+                        className="beatyButton2 w-100 p-1"
+                        onClick={() => handleCreateMessage(t.id)}
                       >
-                        <p>{messages[t.id]?.length}</p>
-                        <i className="bi bi-arrow-down-short fs-5"></i>
+                        Manda
                       </button>
                     </td>
-                    <td>
-                      <button
-                        className="beatyButtonSm"
-                        onClick={() => handleDelete(t.id)}
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
+                    <td className="expandedRow" colSpan="3">
+                      {messages[t.id]?.length > 0 ? (
+                        <>
+                          {messages[t.id].map((m) => (
+                            <div
+                              key={m.id}
+                              className="commentsContainer mb-1 p-2 rounded-3"
+                            >
+                              <p>
+                                <strong>{m.userFirstName}</strong>:{" "}
+                                {m.userOpinion}
+                              </p>
+                              <small className="text-muted">
+                                {new Date(m.createdAt).toLocaleString("it-IT", {
+                                  day: "2-digit",
+                                  month: "short",
+                                  year: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </small>
+                            </div>
+                          ))}
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-danger">Nessuna risposta ancora</p>
+                        </>
+                      )}
                     </td>
                   </tr>
-
-                  {openRow === t.id && (
-                    <tr className="expandedTr">
-                      <td className="expandedRow" colSpan="3">
-                        <textarea
-                          className="form-control rounded-4 mb-1"
-                          placeholder="Scrivi messaggio..."
-                          style={{ height: "150px" }}
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
-                        />
-                        <button
-                          className="beatyButton2 w-100 p-1"
-                          onClick={() => handleCreateMessage(t.id)}
-                        >
-                          Manda
-                        </button>
-                      </td>
-                      <td className="expandedRow" colSpan="3">
-                        {messages[t.id]?.length > 0 ? (
-                          <>
-                            {messages[t.id].map((m) => (
-                              <div
-                                key={m.id}
-                                className="commentsContainer mb-1 p-2 rounded-3"
-                              >
-                                <p>
-                                  <strong>{m.userFirstName}</strong>:{" "}
-                                  {m.userOpinion}
-                                </p>
-                                <small className="text-muted">
-                                  {new Date(m.createdAt).toLocaleString(
-                                    "it-IT",
-                                    {
-                                      day: "2-digit",
-                                      month: "short",
-                                      year: "numeric",
-                                      hour: "2-digit",
-                                      minute: "2-digit",
-                                    },
-                                  )}
-                                </small>
-                              </div>
-                            ))}
-                          </>
-                        ) : (
-                          <>
-                            <p className="text-danger">
-                              Nessuna risposta ancora
-                            </p>
-                          </>
-                        )}
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
-              ))}
-          </tbody>
-        </table>
-      </div>
+                )}
+              </React.Fragment>
+            ))}
+        </tbody>
+      </table>
     </>
   );
 }

@@ -14,17 +14,31 @@ const CartPage = () => {
   const { removeFromCart, clearCart, cart, increaseQty, decreaseQty } =
     useContext(CartContext);
   const [loading, setLoading] = useState(true);
+  const [loadingOrder, setLoadingOrder] = useState(false);
   const [products, setProducts] = useState([]);
   const [userAddress, setUserAddress] = useState("");
   const orderToSend = { address: userAddress, products: cart };
   const [showModal, setShowModal] = useState(false);
+  const [orderComplete, setOrderComplete] = useState(false);
   const [activeWindow, setActiveWindow] = useState("login");
 
   const handleCheckout = async () => {
     try {
-      await createOrder(orderToSend, token);
-      clearCart();
-      setShowModal(false);
+      setLoadingOrder(true);
+      const res = await createOrder(orderToSend, token);
+      if (!res.success) {
+        console.error(res.error);
+        return;
+      }
+      setLoadingOrder(false);
+      setOrderComplete(true);
+
+      setTimeout(() => {
+        clearCart();
+        setOrderComplete(false);
+        setShowModal(false);
+        setUserAddress("");
+      }, 2000);
     } catch (err) {
       console.error("Register order error:", err);
     }
@@ -40,7 +54,6 @@ const CartPage = () => {
           }),
         );
         setProducts(results);
-        console.log(results);
       } catch (err) {
         console.error("Page cart error", err);
       } finally {
@@ -168,7 +181,7 @@ const CartPage = () => {
                               key={index}
                               className="flexContainerBetween list-group-item"
                             >
-                              <p className="me-2">{p.name} </p>
+                              <p className="me-2">{p.name}</p>
                               <p>
                                 {p.price}€
                                 <span className="ms-1">x{p.quantity}</span>
@@ -194,10 +207,24 @@ const CartPage = () => {
                               onChange={(e) => setUserAddress(e.target.value)}
                             ></textarea>
                             <button
-                              className="beatyButton2 w-100 mt-3"
+                              className={`w-100 mt-3 ${loadingOrder || orderComplete ? "beatyButton2Disabled" : "beatyButton2"}`}
                               onClick={handleCheckout}
+                              disabled={loadingOrder || orderComplete}
                             >
-                              Conferma l'ordine
+                              {orderComplete ? (
+                                <p className="text-secondary">
+                                  <i className="bi bi-check-circle-fill text-success me-2"></i>
+                                  Grazie per l'aqcuisto!
+                                </p>
+                              ) : loadingOrder ? (
+                                <div className="spinner-border" role="status">
+                                  <span className="visually-hidden">
+                                    Loading...
+                                  </span>
+                                </div>
+                              ) : (
+                                <p>Conferma l'ordine</p>
+                              )}
                             </button>
                           </>
                         ) : (

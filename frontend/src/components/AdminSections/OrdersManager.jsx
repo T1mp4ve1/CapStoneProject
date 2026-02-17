@@ -69,87 +69,86 @@ function OrdersManager() {
 
   return (
     <>
-      <div className="container80 manageContaner">
-        <h2>Ordini</h2>
-
+      <div className="flexContainerLeft">
+        <h2 className="me-2">Ordini</h2>
         {loading && (
-          <div className="spinner-border flexContainerCenter" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+          <small>
+            <div className="spinner-border"></div>
+          </small>
         )}
-
-        <div className="d-flex gap-1 mb-2">
-          {["All", ...orderStates].map((s) => (
-            <button
-              key={s}
-              className={`${
-                filter === s ? "beatyButton3Active" : "beatyButton3"
-              }`}
-              onClick={() => handleFilter(s)}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Data</th>
-              <th>Indirizzo</th>
-              <th>Totale</th>
-              <th>Stato</th>
-              <th>Prodotti</th>
-              <th>Azioni</th>
-            </tr>
-          </thead>
-          
-          <tbody>
-            {orders &&
-              orders.map((o) => (
-                <tr key={o.id}>
-                  <td>{o.id}</td>
-                  <td>{new Date(o.createdAt).toLocaleString()}</td>
-                  <td>{o.address}</td>
-                  <td>{o.total} €</td>
-                  <td className="position-relative">
-                    <div className="dropdown">
-                      <button
-                        className="btn btn-light dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                      >
-                        {stateIcons[o.state]}
-                      </button>
-
-                      <ul className="dropdown-menu">
-                        {orderStates.map((s) => (
-                          <li key={s}>
-                            <button
-                              className="dropdown-item d-flex align-items-center gap-2"
-                              onClick={() => handleChangeState(o.id, s)}
-                            >
-                              {stateIcons[s]} {s}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </td>
-
-                  <td>{o.products.length}</td>
-                  <td>
-                    <button
-                      className="beatyButtonSm"
-                      onClick={() => handleDelete(o.id)}
-                    >
-                      <i className="bi bi-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
       </div>
+
+      <div className="d-flex gap-1 mb-2">
+        {["All", ...orderStates].map((s) => (
+          <button
+            key={s}
+            className={`${
+              filter === s ? "beatyButton3Active" : "beatyButton3"
+            }`}
+            onClick={() => handleFilter(s)}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Indirizzo</th>
+            <th>Totale</th>
+            <th>Stato</th>
+            <th>Prodotti</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {orders &&
+            orders.map((o) => (
+              <tr key={o.id}>
+                <td>{o.id}</td>
+                <td>{new Date(o.createdAt).toLocaleString()}</td>
+                <td>{o.address}</td>
+                <td>{o.total} €</td>
+                <td className="position-relative">
+                  <div className="dropdown">
+                    <button
+                      className="btn btn-light dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                    >
+                      {stateIcons[o.state]}
+                    </button>
+
+                    <ul className="dropdown-menu">
+                      {orderStates.map((s) => (
+                        <li key={s}>
+                          <button
+                            className="dropdown-item d-flex align-items-center gap-2"
+                            onClick={() => handleChangeState(o.id, s)}
+                          >
+                            {stateIcons[s]} {s}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </td>
+
+                <td>{o.products.length}</td>
+                <td>
+                  <button
+                    className="beatyButtonSm"
+                    onClick={() => handleDelete(o.id)}
+                  >
+                    <i className="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </>
   );
 }

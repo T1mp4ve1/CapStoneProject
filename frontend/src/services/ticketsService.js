@@ -78,18 +78,17 @@ export const updateTicketState = async (id, newState, token) => {
 // D
 export const deleteTicket = async (id, token) => {
   try {
-    const request = await fetch(`${api}/Ticket/${id}/delete`, {
+    const res = await fetch(`${api}/Ticket/${id}/delete`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (!request.ok) {
-      throw new Error(`Error delete! Status: ${request.status}`);
+    if (!res.ok) {
+      console.error(res.error);
     }
-    const result = request.json();
-    return result;
+    return res.json();
   } catch (err) {
     console.error("Delete ticket error:", err);
   }

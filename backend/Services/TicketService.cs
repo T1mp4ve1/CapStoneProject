@@ -47,7 +47,7 @@ namespace backend.Services
                 _db.Notifications.Add(n);
 
                 await _hub.Clients.User(avId)
-                .SendAsync("New ticket", ticket.Id, "New Ticket");
+                .SendAsync("OrderUpdate", ticket.Id, "New Ticket");
             }
             await _db.SaveChangesAsync();
 
@@ -152,10 +152,11 @@ namespace backend.Services
         public async Task<RequestResult_DTO> DeleteAsync(Guid id)
         {
             var exist = await _db.Tickets.FindAsync(id);
-            _db.Tickets.Remove(exist);
-            await _db.SaveChangesAsync();
-
-            var edited = new Ticket_Read
+            if (exist == null)
+            {
+                return new RequestResult_DTO { Success = false, Error = "NotFound" };
+            }
+            var deleted = new Ticket_Read
             {
                 Id = exist.Id,
                 CreatedAt = exist.CreatedAt,
@@ -164,7 +165,15 @@ namespace backend.Services
                 Problem = exist.Problem
             };
 
-            return new RequestResult_DTO { Success = true, Data = edited };
+            var opinions = await _db.Opinions
+                .Where(o => o.EntityId == id)
+                .ToListAsync();
+            _db.Opinions.RemoveRange(opinions);
+
+            _db.Tickets.Remove(exist);
+            await _db.SaveChangesAsync();
+
+            return new RequestResult_DTO { Success = true, Data = deleted };
         }
     }
 }

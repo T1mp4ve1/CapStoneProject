@@ -251,7 +251,7 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artists");
+                    b.ToTable("Artists", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.Guitar", b =>
@@ -281,7 +281,7 @@ namespace backend.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Guitars");
+                    b.ToTable("Guitars", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.GuitarCategory", b =>
@@ -298,7 +298,7 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GuitarCategories");
+                    b.ToTable("GuitarCategories", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.Image", b =>
@@ -322,7 +322,7 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.Notification", b =>
@@ -352,7 +352,7 @@ namespace backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.Opinion", b =>
@@ -385,7 +385,7 @@ namespace backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Opinions");
+                    b.ToTable("Opinions", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.Order", b =>
@@ -415,7 +415,7 @@ namespace backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.OrderItem", b =>
@@ -446,7 +446,7 @@ namespace backend.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrdersItems");
+                    b.ToTable("OrdersItems", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.Ticket", b =>
@@ -474,7 +474,7 @@ namespace backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
