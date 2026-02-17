@@ -1,47 +1,64 @@
-# Custom Guitar Shop – Full Stack Project
+# 🎸 Chitart – Custom Guitar Shop (Full Stack Project)
 
+<p align="center">
   <img src="./readmeImg/homepage.png" width="800">
+</p>
 
-# 🎸 Chitart - il sito e-commerce di chitarre artiganali
-🛜[Link del sito](https://proud-coast-0fc73eb03.1.azurestaticapps.net/)🛜
+<p align="center">
+  🛜 <a href="https://proud-coast-0fc73eb03.1.azurestaticapps.net/">Visita il sito online</a> 🛜  
+</p>
 
-*(Al'inizio puo dare l'errore 500 perche' azure ha bisogno di ~30sec per "svegliare" sito)*
+> ⚠️ *Al primo avvio potrebbe comparire un errore 500: Azure impiega ~30 secondi per “risvegliare” l’app.*
+
 
 ## 🚀 Panoramica
 
-Il sito si divide in **4** parti principali:
-- **Catalogo** di tutta la gamma di chitarre disponobili
-- **Custom Shop**, che da la possibilita' di configurare la chitarra
-- **Area Amministrativa**, per gestire tutte le entita'
-- **Altre fuzionalita'**, che rendono l'esperienza del'utente piu fluida
+**Chitart** è un sito e-commerce dedicato alla vendita e configurazione di chitarre artigianali.  
+Il progetto è diviso in **4 sezioni principali**:
 
-## 💪 Technologie usate
+- 🎸 **Catalogo**: visualizzazione completa di tutti i modelli disponibili  
+- 🛠️ **Custom Shop**: configuratore per creare la propria chitarra personalizzata  
+- 🧑‍💼 **Area Amministrativa**: gestione di prodotti, ordini, utenti e contenuti  
+- ⚙️ **Funzionalità aggiuntive**: filtri, sorting, notifiche real-time, UX migliorata  
 
-Backend:
+
+## 💪 Tecnologie utilizzate
+
+### **Backend**
 - C#
-- ASP.NET CORE
+- ASP.NET Core
 - SQL Server
-- EF Core
+- Entity Framework Core
 - API REST
 - Identity
-- JWT
+- JWT Authentication
 - Swagger
 - SignalR
 
-Frontend:
-- JS
+### **Frontend**
+- JavaScript
 - Bootstrap
 - React
 - React Context
 
+---
+
 # 🚴 Sezioni principali
-## Catalogo:
 
-<img src="./readmeImg/1_catalogpage.png" width="800">
+## 1) Catalogo prodotti
 
-<img src="./readmeImg/1_sortation.png" width="200">
+<p align="center">
+  <img src="./readmeImg/1_catalogpage.png" width="800">
+</p>
 
-*Con possibilita' di filtrare le chitarre in base al tipo di corpo*
+<p align="center">
+  <img src="./readmeImg/1_sortation.png" width="300">
+</p>
 
-*Pagina dettagli:*
-<img src="./readmeImg/1_details.png" width="800">
+*Possibilità di filtrare le chitarre in base al tipo di corpo.*
+
+### 🔍 Pagina dettagli
+
+<p align="center">
+  <img src="./readmeImg/1_details.png" width="800">
+</p>
