@@ -10,8 +10,10 @@ Link: https://proud-coast-0fc73eb03.1.azurestaticapps.net/
 
 ## 🚀 Panoramica
 
-<p>Il sito si divide in 4 parti generali:</p>
+<p>Il sito si divide in <b>4</b> parti principali:</p>
 <ol>
-<li>Catalogo di tutta la gamma di chitarre disponobili</li>
-<li>Custom Shop che da la possibilita' di configurare la chitarra</li>
+<li><b>Catalogo</b> di tutta la gamma di chitarre disponobili</li>
+<li>Custom Shop, che da la possibilita' di configurare la chitarra</li>
+<li>Area Amministrativa, per gestire tutte le entita'</li>
+<li>Altre fuzionalita', che rendono l'esperienza del'utente piu fluida</li>
 </ol>
