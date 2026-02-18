@@ -207,7 +207,7 @@ Se l’utente non è loggato, la notifica viene salvata nel database.*
 </p>
 
 <p align="center">
-![alt text](image.png)
+  <img src="./readmeImg/mua.gif" width="200">
 </p>
 
 ---
