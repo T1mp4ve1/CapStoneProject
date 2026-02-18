@@ -48,11 +48,7 @@ Il progetto è diviso in **4 sezioni principali**:
 ## 1) Catalogo prodotti
 
 <p align="center">
-  <img src="./readmeImg/1_catalogpage.png" width="800">
-</p>
-
-<p align="center">
-  <img src="./readmeImg/1_sortation.png" width="300">
+  <img src="./readmeImg/1_catalogpage.gif" width="800">
 </p>
 
 *<p align="center">
@@ -72,3 +68,26 @@ Possibilità di filtrare le chitarre in base al tipo di corpo.</p>*
 
 *<p align="center">
 L'utente puo scegliere il tipo di corpo.</p>*
+
+<p align="center">
+-
+</p>
+
+<p align="center">
+
+  <img src="./readmeImg/2_material.gif" width="800">
+</p>
+
+*<p align="center">
+Il materiale.</p>*
+
+<p align="center">
+-
+</p>
+
+<p align="center">
+  <img src="./readmeImg/2_colors.gif" width="800">
+</p>
+
+*<p align="center">
+E colore.</p>*
