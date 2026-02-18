@@ -154,7 +154,61 @@ Il progetto è diviso in **4 sezioni principali**:
 ### Gestione Utenti
 
 > *In questa pagina è possibile effettuare ricerche, visualizzare la lista degli utenti e gestirli modificando i loro dati (incluso il ruolo).*
-
 <p align="center">
   <img src="./readmeImg/5_users.png" width="800">
 </p>
+
+---
+
+### Gestione Artisti e Chitarre
+
+> *Il CRUD completo e visualizzazione dei dati trammite tabelle.*
+<p align="center">
+  <img src="./readmeImg/5_entity.gif" width="800">
+</p>
+
+---
+
+### Gestione Ordini
+
+> *Visualizzazione, ordinamento e gestione degli stati degli ordini.*
+
+> ⚠️ *Quando l’amministratore modifica lo stato di un ordine, l’utente riceve una notifica in tempo reale tramite SignalR.  
+Se l’utente non è loggato, la notifica viene salvata nel database.*
+<p align="center">
+  <img src="./readmeImg/5_orders.gif" width="800">
+</p>
+
+---
+
+### Gestione Support Tickets
+
+> *Quando l'utente crea un ticket gli admin vengono avvisati con le notifiche*
+
+> *Tranne visualizzazzione, sorting, gestione di stati e notifiche legati al cabio di stati, gli admin possono rispondere alle richieste.*
+<p align="center">
+  <img src="./readmeImg/5_tickets.gif" width="800">
+</p>
+
+---
+
+## 🎁 Piccolo bonus - Opinioni
+
+> *Gli utenti registrati possono lasciare una recensione descrivendo la loro esperienza e assegnando un voto da 1 a 5*
+<p align="center">
+  <img src="./readmeImg/6_other.png" width="800">
+</p>
+
+---
+---
+
+<p align="center">
+~ Grazie per attenzione! ~
+</p>
+
+<p align="center">
+![alt text](image.png)
+</p>
+
+---
+---
