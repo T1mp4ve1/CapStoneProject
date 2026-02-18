@@ -84,6 +84,7 @@ namespace backend.Services
         {
             var query = _db.Orders
                 .AsNoTracking()
+                .OrderByDescending(o => o.CreatedAt)
                 .OrderBy(o => o.CreatedAt)
                 .Include(o => o.Products)
                 .Include(o => o.User)
@@ -121,6 +122,7 @@ namespace backend.Services
         {
             var data = await _db.Orders
                 .AsNoTracking()
+                .OrderByDescending(o => o.CreatedAt)
                 .Include(o => o.Products)
                 .Include(o => o.User)
                 .Where(o => o.UserId == userId)

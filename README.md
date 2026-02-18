@@ -55,10 +55,20 @@ Il progetto è diviso in **4 sezioni principali**:
   <img src="./readmeImg/1_sortation.png" width="300">
 </p>
 
-*Possibilità di filtrare le chitarre in base al tipo di corpo.*
+*<p align="center">
+Possibilità di filtrare le chitarre in base al tipo di corpo.</p>*
 
 ### 🔍 Pagina dettagli
 
 <p align="center">
   <img src="./readmeImg/1_details.png" width="800">
 </p>
+
+## 2) Custom Shop
+
+<p align="center">
+  <img src="./readmeImg/2_body.gif" width="800">
+</p>
+
+*<p align="center">
+L'utente puo scegliere il tipo di corpo.</p>*
