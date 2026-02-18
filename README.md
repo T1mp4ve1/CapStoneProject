@@ -203,7 +203,7 @@ Se l’utente non è loggato, la notifica viene salvata nel database.*
 ---
 
 <p align="center">
-~ Grazie per attenzione! ~
+~ Grazie per l'attenzione! ~
 </p>
 
 <p align="center">
