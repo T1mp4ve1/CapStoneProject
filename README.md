@@ -8,7 +8,7 @@
   🛜 <a href="https://proud-coast-0fc73eb03.1.azurestaticapps.net/">Visita il sito online</a> 🛜  
 </p>
 
-> ⚠️ *Al primo avvio potrebbe comparire un errore 500: Azure impiega ~30 secondi per “risvegliare” l’app.*
+> ⚠️ *Al primo avvio potrebbe comparire un errore 500: Azure impiega ●30 secondi per “risvegliare” l’app.*
 
 
 ## 🚀 Panoramica
@@ -47,12 +47,10 @@ Il progetto è diviso in **4 sezioni principali**:
 
 ## 1) Catalogo prodotti
 
+> *Possibilità di filtrare le chitarre in base al tipo di corpo.*
 <p align="center">
   <img src="./readmeImg/1_catalogpage.gif" width="800">
 </p>
-
-*<p align="center">
-Possibilità di filtrare le chitarre in base al tipo di corpo.</p>*
 
 ### 🔍 Pagina dettagli
 
@@ -62,32 +60,73 @@ Possibilità di filtrare le chitarre in base al tipo di corpo.</p>*
 
 ## 2) Custom Shop
 
+> *L'utente puo scegliere il tipo di corpo.*
 <p align="center">
   <img src="./readmeImg/2_body.gif" width="800">
 </p>
 
-*<p align="center">
-L'utente puo scegliere il tipo di corpo.</p>*
-
 <p align="center">
--
+●
 </p>
 
+> *Il materiale.*
 <p align="center">
-
   <img src="./readmeImg/2_material.gif" width="800">
 </p>
 
-*<p align="center">
-Il materiale.</p>*
-
 <p align="center">
--
+●
 </p>
 
+> *E colore.*
 <p align="center">
   <img src="./readmeImg/2_colors.gif" width="800">
 </p>
 
-*<p align="center">
-E colore.</p>*
+<p align="center">
+●
+</p>
+
+## 3) Cart Page
+
+
+> *Sulla pagina del carello l'utente puo gestire il contenuto della cart prima di procedere al checkout*
+<p align="center">
+  <img src="./readmeImg/3_cartpage.gif" width="800">
+</p>
+
+## 4) Gestione Account
+
+### Panello utente
+
+> *Il panello visualizza il contatore della cart, le notifiche e opzioni di profilo*
+<p align="center">
+  <img src="./readmeImg/4_userpanel.gif" width="200">
+</p>
+
+<p align="center">
+●
+</p>
+
+> *Dropdown con le opzioni*
+<p align="center">
+  <img src="./readmeImg/4_dropdown.gif" width="200">
+</p>
+
+<p align="center">
+●
+</p>
+
+### Cronologia ordini
+
+> *La pagina permette al'utente di vedere la storia di ordini effettuati*
+<p align="center">
+  <img src="./readmeImg/4_ordercron.png" width="800">
+</p>
+
+### Support
+
+> *Pagina dedicata al supporto utenti, dove essi possono aprire un ticket con dubbi/domante etc., vedere lo stato, risposte e dati relativi ad ogni ticket*
+<p align="center">
+  <img src="./readmeImg/4_support.gif" width="800">
+</p>
