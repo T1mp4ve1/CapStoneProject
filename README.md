@@ -130,3 +130,10 @@ Il progetto è diviso in **4 sezioni principali**:
 <p align="center">
   <img src="./readmeImg/4_support.gif" width="800">
 </p>
+
+### Profile Settigs
+
+> *Utente puo modificare il suo profilo e cambiare il ruolo (con limitazioni) per acedere al'area amministrativa*
+<p align="center">
+  <img src="./readmeImg/4_role.gif" width="800">
+</p>
