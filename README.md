@@ -183,9 +183,9 @@ Se l’utente non è loggato, la notifica viene salvata nel database.*
 
 ### Gestione Support Tickets
 
-> *Quando l'utente crea un ticket gli admin vengono avvisati con le notifiche*
+> *Quando un utente crea un ticket, gli amministratori vengono avvisati tramite notifica.*
 
-> *Tranne visualizzazzione, sorting, gestione di stati e notifiche legati al cabio di stati, gli admin possono rispondere alle richieste.*
+> *Oltre alla visualizzazione, al sorting e alla gestione degli stati, gli admin possono rispondere direttamente alle richieste degli utenti.*
 <p align="center">
   <img src="./readmeImg/5_tickets.gif" width="800">
 </p>
