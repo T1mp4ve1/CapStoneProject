@@ -171,6 +171,7 @@ app.UseAuthorization();
 
 app.MapMethods("/", new[] { "GET", "HEAD" }, () => "Chitart API is running");
 app.MapMethods("/health", new[] { "GET", "HEAD" }, () => Results.Ok("OK"));
+app.MapGet("/ping", () => Results.Ok("StayAlive"));
 
 app.MapControllers();
 app.MapHub<NotificationsHub>("/hubs/notifications");
