@@ -10,7 +10,9 @@
 
 > ⚠️ *Al primo avvio potrebbe comparire un errore 500: Azure impiega ~30 secondi per “risvegliare” l’app.*
 
-Stato del sito: [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/2gi5k.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+<p align="center">
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/2gi5k.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+</p>
 
 ---
 
