@@ -12,11 +12,9 @@
 
 <p align="right">
   <a href="https://uptime.betterstack.com/?utm_source=status_badge">
-    <img src="https://uptime.betterstack.com/status-badges/v1/monitor/2gi5k.svg" />
+    <img src="https://uptime.betterstack.com/status-badges/v2/monitor/2gi5k.svg" />
   </a>
 </p>
-
-[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v2/monitor/2gi5k.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
 
 ---
 
