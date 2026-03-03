@@ -7,15 +7,25 @@ function GuitarsPage() {
 
   const [guitars, setGuitars] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [sortGuit, setSortGuit] = useState("none");
   const [activeCategory, setActiveCategory] = useState("Tutti");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleFilter = (value) => {
     setActiveCategory(value);
-    setFiltered(
-      value === "Tutti" ? guitars : guitars.filter((g) => g.category === value),
-    );
+    const catFilter =
+      value === "Tutti" ? guitars : guitars.filter((g) => g.category === value);
+
+    if (sortGuit === "asc") {
+      setFiltered([...catFilter].sort((a, b) => a.price - b.price));
+      return;
+    }
+    if (sortGuit === "desc") {
+      setFiltered([...catFilter].sort((a, b) => b.price - a.price));
+      return;
+    }
+    setFiltered(catFilter);
   };
 
   useEffect(() => {
@@ -48,6 +58,10 @@ function GuitarsPage() {
     loadGuitars();
   }, []);
 
+  useEffect(() => {
+    handleFilter(activeCategory);
+  }, [sortGuit]);
+
   if (loading) {
     return (
       <div className="containerAfterNavbar flexContainerCenter slowOpacity">
@@ -62,47 +76,69 @@ function GuitarsPage() {
     <>
       <div className="containerAfterNavbar slowOpacity">
         <div className="container80">
-          <div className="my-2">
-            <button
-              className={`me-1
+          <div className="flexContainerBetween my-2">
+            <div>
+              <button
+                className={`me-1
                 ${activeCategory === "Tutti" ? "beatyButton3Active" : "beatyButton3"}
               `}
-              onClick={() => handleFilter("Tutti")}
-            >
-              Tutti
-            </button>
-            <button
-              className={`me-1
+                onClick={() => handleFilter("Tutti")}
+              >
+                Tutti
+              </button>
+              <button
+                className={`me-1
                 ${activeCategory === "Acoustic" ? "beatyButton3Active" : "beatyButton3"}
               `}
-              onClick={() => handleFilter("Acoustic")}
-            >
-              Acoustic
-            </button>
-            <button
-              className={`me-1
+                onClick={() => handleFilter("Acoustic")}
+              >
+                Acoustic
+              </button>
+              <button
+                className={`me-1
                 ${activeCategory === "Classic" ? "beatyButton3Active" : "beatyButton3"}
               `}
-              onClick={() => handleFilter("Classic")}
-            >
-              Classic
-            </button>
-            <button
-              className={`me-1
+                onClick={() => handleFilter("Classic")}
+              >
+                Classic
+              </button>
+              <button
+                className={`me-1
                 ${activeCategory === "Electric" ? "beatyButton3Active" : "beatyButton3"}
               `}
-              onClick={() => handleFilter("Electric")}
-            >
-              Electric
-            </button>
-            <button
-              className={`me-1
+                onClick={() => handleFilter("Electric")}
+              >
+                Electric
+              </button>
+              <button
+                className={`me-1
                 ${activeCategory === "Hollow" ? "beatyButton3Active" : "beatyButton3"}
               `}
-              onClick={() => handleFilter("Hollow")}
-            >
-              Hollow
-            </button>
+                onClick={() => handleFilter("Hollow")}
+              >
+                Hollow
+              </button>
+            </div>
+
+            <div className="flexContainerCenter">
+              <p>Prezzo:</p>
+              <button
+                className={`mx-1
+                ${sortGuit === "asc" ? "beatyButton3Active" : "beatyButton3"}
+              `}
+                onClick={() => setSortGuit("asc")}
+              >
+                <i className="bi bi-arrow-up-short"></i>
+              </button>
+              <button
+                className={`me-1
+                ${sortGuit === "desc" ? "beatyButton3Active" : "beatyButton3"}
+              `}
+                onClick={() => setSortGuit("desc")}
+              >
+                <i className="bi bi-arrow-down-short"></i>
+              </button>
+            </div>
           </div>
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2">
             {filtered.map((g) => (
