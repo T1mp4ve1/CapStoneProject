@@ -136,27 +136,27 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-try
-{
-    using var scope = app.Services.CreateScope();
-    var services = scope.ServiceProvider;
+//try
+//{
+//    using var scope = app.Services.CreateScope();
+//    var services = scope.ServiceProvider;
 
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-    string[] roles = { "Admin", "Vice", "Operator", "User" };
+//    string[] roles = { "Admin", "Vice", "Operator", "User" };
 
-    foreach (var r in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(r))
-        {
-            await roleManager.CreateAsync(new IdentityRole(r));
-        }
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"ROLE SEED ERROR: {ex}");
-}
+//    foreach (var r in roles)
+//    {
+//        if (!await roleManager.RoleExistsAsync(r))
+//        {
+//            await roleManager.CreateAsync(new IdentityRole(r));
+//        }
+//    }
+//}
+//catch (Exception ex)
+//{
+//    Console.WriteLine($"ROLE SEED ERROR: {ex}");
+//}
 
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
