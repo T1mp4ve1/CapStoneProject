@@ -427,7 +427,6 @@ C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\hostfxr.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\hostpolicy.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\mscordaccore.dll
-C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\mscordaccore_x86_x86_8.0.2325.60607.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\mscordbi.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\mscorrc.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\msquic.dll
@@ -456,3 +455,4 @@ C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\backend.pdb
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\backend.genruntimeconfig.cache
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\ref\backend.dll
+C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Release\net8.0\win-x86\mscordaccore_x86_x86_8.0.2426.7010.dll

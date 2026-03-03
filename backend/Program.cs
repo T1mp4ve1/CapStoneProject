@@ -136,12 +136,15 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+try
 {
+    using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
-    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
     string[] roles = { "Admin", "Vice", "Operator", "User" };
+
     foreach (var r in roles)
     {
         if (!await roleManager.RoleExistsAsync(r))
@@ -149,6 +152,10 @@ using (var scope = app.Services.CreateScope())
             await roleManager.CreateAsync(new IdentityRole(r));
         }
     }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"ROLE SEED ERROR: {ex}");
 }
 
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
@@ -162,7 +169,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/", () => "Chitart API is running");
+app.MapMethods("/", new[] { "GET", "HEAD" }, () => "Chitart API is running");
+app.MapMethods("/health", new[] { "GET", "HEAD" }, () => Results.Ok("OK"));
 
 app.MapControllers();
 app.MapHub<NotificationsHub>("/hubs/notifications");

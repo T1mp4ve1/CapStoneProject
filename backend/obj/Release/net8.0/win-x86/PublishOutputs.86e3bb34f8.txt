@@ -322,7 +322,7 @@ C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\PubTmp\Out\hostfxr.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\PubTmp\Out\hostpolicy.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\PubTmp\Out\mscordaccore.dll
-C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\PubTmp\Out\mscordaccore_x86_x86_8.0.2325.60607.dll
+C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\PubTmp\Out\mscordaccore_x86_x86_8.0.2426.7010.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\PubTmp\Out\mscordbi.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\PubTmp\Out\mscorrc.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Release\net8.0\win-x86\PubTmp\Out\msquic.dll

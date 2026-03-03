@@ -153,4 +153,3 @@ C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Debug\net8.0\ref\backen
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Debug\net8.0\Azure.Storage.Blobs.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Debug\net8.0\Azure.Storage.Common.dll
 C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\bin\Debug\net8.0\System.IO.Hashing.dll
-C:\Users\Pavel\Desktop\Corsi\CapStoneProject\backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
